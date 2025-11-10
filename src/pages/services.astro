@@ -1,0 +1,196 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Layout title="Services - ElkaRec" description="Découvrez nos services audiovisuels et techniques pour vos événements">
+  <Header />
+
+  <main class="pt-24 pb-20">
+    <!-- Hero Section -->
+    <section class="container mx-auto px-6 py-16">
+      <div class="max-w-4xl mx-auto text-center">
+        <h1 class="text-5xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-white to-red-400 bg-clip-text text-transparent">
+          Nos services
+        </h1>
+        <p class="text-xl text-zinc-400">
+          Expertise audiovisuelle et technique pour tous vos événements
+        </p>
+      </div>
+    </section>
+
+    <!-- Services Grid -->
+    <section class="container mx-auto px-6 py-12">
+      <div class="max-w-6xl mx-auto space-y-8">
+        <!-- Service 1: Régie Mobile -->
+        <div class="bg-gradient-to-br from-zinc-900 to-zinc-900/50 rounded-2xl border border-zinc-800 overflow-hidden hover:border-red-500/50 transition-all">
+          <div class="p-10">
+            <div class="flex items-start gap-6 mb-6">
+              <div class="w-16 h-16 bg-red-500/20 rounded-xl flex items-center justify-center flex-shrink-0">
+                <svg class="w-8 h-8 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
+                </svg>
+              </div>
+              <div class="flex-1">
+                <h2 class="text-3xl font-bold text-white mb-4">Régie mobile</h2>
+                <p class="text-lg text-zinc-300 leading-relaxed mb-4">
+                  Solutions de production mobile complètes pour vos événements en direct et vos captations vidéo.
+                </p>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div class="bg-zinc-950/50 p-4 rounded-lg">
+                <h3 class="font-semibold text-white mb-2">Multicaméras</h3>
+                <p class="text-sm text-zinc-400">Configuration et gestion de productions multicaméras professionnelles</p>
+              </div>
+              <div class="bg-zinc-950/50 p-4 rounded-lg">
+                <h3 class="font-semibold text-white mb-2">Streaming live</h3>
+                <p class="text-sm text-zinc-400">Diffusion en direct sur toutes les plateformes</p>
+              </div>
+              <div class="bg-zinc-950/50 p-4 rounded-lg">
+                <h3 class="font-semibold text-white mb-3">Enregistrement</h3>
+                <p class="text-sm text-zinc-400">Captation haute qualité pour archivage et post-production</p>
+              </div>
+              <div class="bg-zinc-950/50 p-4 rounded-lg">
+                <h3 class="font-semibold text-white mb-2">Régie audio</h3>
+                <p class="text-sm text-zinc-400">Mixage audio professionnel en direct</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Service 2: Technique événementielle -->
+        <div class="bg-gradient-to-br from-zinc-900 to-zinc-900/50 rounded-2xl border border-zinc-800 overflow-hidden hover:border-red-500/50 transition-all">
+          <div class="p-10">
+            <div class="flex items-start gap-6 mb-6">
+              <div class="w-16 h-16 bg-red-500/20 rounded-xl flex items-center justify-center flex-shrink-0">
+                <svg class="w-8 h-8 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                </svg>
+              </div>
+              <div class="flex-1">
+                <h2 class="text-3xl font-bold text-white mb-4">Technique événementielle</h2>
+                <p class="text-lg text-zinc-300 leading-relaxed mb-4">
+                  Support technique complet pour tous types d'événements, de la conception à la réalisation.
+                </p>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div class="bg-zinc-950/50 p-4 rounded-lg">
+                <h3 class="font-semibold text-white mb-2">Sonorisation</h3>
+                <p class="text-sm text-zinc-400">Installation et exploitation de systèmes audio professionnels</p>
+              </div>
+              <div class="bg-zinc-950/50 p-4 rounded-lg">
+                <h3 class="font-semibold text-white mb-2">Éclairage</h3>
+                <p class="text-sm text-zinc-400">Conception et mise en place de l'éclairage scénique</p>
+              </div>
+              <div class="bg-zinc-950/50 p-4 rounded-lg">
+                <h3 class="font-semibold text-white mb-2">Vidéo projection</h3>
+                <p class="text-sm text-zinc-400">Solutions d'affichage grand format et mapping vidéo</p>
+              </div>
+              <div class="bg-zinc-950/50 p-4 rounded-lg">
+                <h3 class="font-semibold text-white mb-2">Réseaux & infrastructures</h3>
+                <p class="text-sm text-zinc-400">Déploiement de réseaux IP pour événements</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Service 3: Production exécutive -->
+        <div class="bg-gradient-to-br from-zinc-900 to-zinc-900/50 rounded-2xl border border-zinc-800 overflow-hidden hover:border-red-500/50 transition-all">
+          <div class="p-10">
+            <div class="flex items-start gap-6 mb-6">
+              <div class="w-16 h-16 bg-red-500/20 rounded-xl flex items-center justify-center flex-shrink-0">
+                <svg class="w-8 h-8 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path>
+                </svg>
+              </div>
+              <div class="flex-1">
+                <h2 class="text-3xl font-bold text-white mb-4">Production exécutive</h2>
+                <p class="text-lg text-zinc-300 leading-relaxed mb-4">
+                  Gestion et coordination complète de vos projets audiovisuels, du concept à la livraison.
+                </p>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div class="bg-zinc-950/50 p-4 rounded-lg">
+                <h3 class="font-semibold text-white mb-2">Gestion de projet</h3>
+                <p class="text-sm text-zinc-400">Planification, coordination et suivi de production</p>
+              </div>
+              <div class="bg-zinc-950/50 p-4 rounded-lg">
+                <h3 class="font-semibold text-white mb-2">Coordination technique</h3>
+                <p class="text-sm text-zinc-400">Organisation des équipes et des moyens techniques</p>
+              </div>
+              <div class="bg-zinc-950/50 p-4 rounded-lg">
+                <h3 class="font-semibold text-white mb-2">Post-production</h3>
+                <p class="text-sm text-zinc-400">Montage, étalonnage et finalisation</p>
+              </div>
+              <div class="bg-zinc-950/50 p-4 rounded-lg">
+                <h3 class="font-semibold text-white mb-2">Livraison multi-formats</h3>
+                <p class="text-sm text-zinc-400">Exports optimisés pour tous les supports de diffusion</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Service 4: Conseil & Formation -->
+        <div class="bg-gradient-to-br from-zinc-900 to-zinc-900/50 rounded-2xl border border-zinc-800 overflow-hidden hover:border-red-500/50 transition-all">
+          <div class="p-10">
+            <div class="flex items-start gap-6 mb-6">
+              <div class="w-16 h-16 bg-red-500/20 rounded-xl flex items-center justify-center flex-shrink-0">
+                <svg class="w-8 h-8 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                </svg>
+              </div>
+              <div class="flex-1">
+                <h2 class="text-3xl font-bold text-white mb-4">Conseil & Formation</h2>
+                <p class="text-lg text-zinc-300 leading-relaxed mb-4">
+                  Accompagnement et transmission de compétences pour développer votre autonomie.
+                </p>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div class="bg-zinc-950/50 p-4 rounded-lg">
+                <h3 class="font-semibold text-white mb-2">Conseil technique</h3>
+                <p class="text-sm text-zinc-400">Aide au choix de solutions et d'équipements</p>
+              </div>
+              <div class="bg-zinc-950/50 p-4 rounded-lg">
+                <h3 class="font-semibold text-white mb-2">Formation sur mesure</h3>
+                <p class="text-sm text-zinc-400">Ateliers et sessions de formation adaptées à vos besoins</p>
+              </div>
+              <div class="bg-zinc-950/50 p-4 rounded-lg">
+                <h3 class="font-semibold text-white mb-2">Workflows IP</h3>
+                <p class="text-sm text-zinc-400">Expertise en production vidéo sur IP et solutions NDI</p>
+              </div>
+              <div class="bg-zinc-950/50 p-4 rounded-lg">
+                <h3 class="font-semibold text-white mb-2">Éco-conception</h3>
+                <p class="text-sm text-zinc-400">Approches durables et responsables en production audiovisuelle</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="container mx-auto px-6 py-16">
+      <div class="max-w-4xl mx-auto text-center bg-gradient-to-br from-red-900/20 to-zinc-900/50 p-12 rounded-2xl border border-red-500/20">
+        <h2 class="text-3xl font-bold text-white mb-4">Un projet en tête ?</h2>
+        <p class="text-zinc-300 mb-8">
+          Discutons ensemble de vos besoins et trouvons la meilleure solution
+        </p>
+        <a href="/contact"
+           class="inline-block px-8 py-4 bg-red-500 hover:bg-red-600 text-white font-semibold rounded-lg transition-all transform hover:scale-105">
+          Nous contacter
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</Layout>

@@ -1,0 +1,113 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+
+const blogPosts = (await getCollection('blog')).sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+);
+
+function formatDate(date: Date) {
+  return new Intl.DateTimeFormat('fr-FR', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  }).format(date);
+}
+---
+
+<Layout title="Blog - ElkaRec" description="Actualités, articles techniques et retours d'expérience de l'équipe ElkaRec">
+  <Header />
+
+  <main class="pt-24 pb-20">
+    <!-- Hero Section -->
+    <section class="container mx-auto px-6 py-16">
+      <div class="max-w-4xl mx-auto text-center">
+        <h1 class="text-5xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-white to-red-400 bg-clip-text text-transparent">
+          Blog
+        </h1>
+        <p class="text-xl text-zinc-400">
+          Actualités, articles techniques et retours d'expérience
+        </p>
+      </div>
+    </section>
+
+    <!-- Blog Posts Grid -->
+    <section class="container mx-auto px-6 py-12">
+      <div class="max-w-6xl mx-auto">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {blogPosts.map((post) => (
+            <article class="bg-zinc-900 rounded-xl border border-zinc-800 overflow-hidden hover:border-red-500/50 transition-all group">
+              <a href={`/blog/${post.slug}`} class="block">
+                <!-- Featured Image Placeholder -->
+                <div class="aspect-video bg-gradient-to-br from-red-900/30 to-zinc-900 flex items-center justify-center relative overflow-hidden">
+                  <div class="absolute inset-0 bg-gradient-to-br from-red-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                  <svg class="w-16 h-16 text-zinc-700 group-hover:text-red-500/50 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                  </svg>
+                </div>
+
+                <!-- Post Content -->
+                <div class="p-6">
+                  <div class="flex items-center gap-2 text-sm text-zinc-500 mb-3">
+                    <time datetime={post.data.pubDate.toISOString()}>
+                      {formatDate(post.data.pubDate)}
+                    </time>
+                    <span>·</span>
+                    <span>{post.data.author}</span>
+                  </div>
+
+                  <h2 class="text-xl font-bold text-white mb-3 group-hover:text-red-400 transition-colors line-clamp-2">
+                    {post.data.title}
+                  </h2>
+
+                  <p class="text-zinc-400 text-sm leading-relaxed mb-4 line-clamp-3">
+                    {post.data.description}
+                  </p>
+
+                  <!-- Tags -->
+                  <div class="flex flex-wrap gap-2">
+                    {post.data.tags.slice(0, 3).map((tag) => (
+                      <span class="px-3 py-1 bg-zinc-800 text-zinc-400 text-xs rounded-full">
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </a>
+            </article>
+          ))}
+        </div>
+
+        {blogPosts.length === 0 && (
+          <div class="text-center py-16">
+            <p class="text-zinc-500 text-lg">Aucun article pour le moment. Revenez bientôt !</p>
+          </div>
+        )}
+      </div>
+    </section>
+
+    <!-- Newsletter CTA (Optional) -->
+    <section class="container mx-auto px-6 py-16">
+      <div class="max-w-4xl mx-auto text-center bg-gradient-to-br from-red-900/20 to-zinc-900/50 p-12 rounded-2xl border border-red-500/20">
+        <h2 class="text-3xl font-bold text-white mb-4">Restez informés</h2>
+        <p class="text-zinc-300 mb-8">
+          Suivez-nous sur les réseaux sociaux pour ne rien manquer de nos actualités et articles
+        </p>
+        <div class="flex gap-4 justify-center">
+          <a href="https://youtube.com/@elkarec" target="_blank" rel="noopener noreferrer"
+             class="px-6 py-3 bg-zinc-800 hover:bg-zinc-700 text-white font-semibold rounded-lg transition-all">
+            YouTube
+          </a>
+          <a href="https://linkedin.com/company/elkarec" target="_blank" rel="noopener noreferrer"
+             class="px-6 py-3 bg-zinc-800 hover:bg-zinc-700 text-white font-semibold rounded-lg transition-all">
+            LinkedIn
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</Layout>

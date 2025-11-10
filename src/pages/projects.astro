@@ -1,0 +1,245 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+
+const projects = [
+  {
+    title: 'ELKAST',
+    category: 'Production podcast',
+    description: 'Production et captation de podcasts en direct avec une régie mobile complète. Solution multicaméras et streaming en direct.',
+    tags: ['Podcast', 'Streaming', 'Multicam'],
+  },
+  {
+    title: 'Festivals & Concerts',
+    category: 'Technique événementielle',
+    description: 'Couverture technique complète de festivals et concerts : sonorisation, éclairage, vidéo et streaming live.',
+    tags: ['Live', 'Festival', 'Technique'],
+  },
+  {
+    title: 'Régie Mobile',
+    category: 'Infrastructure',
+    description: 'Développement et déploiement d\'une régie mobile complète pour productions multicaméras en direct.',
+    tags: ['Régie', 'Mobile', 'Innovation'],
+  },
+  {
+    title: 'Conférences & Talks',
+    category: 'Captation événementielle',
+    description: 'Captation et diffusion de conférences professionnelles avec solutions de streaming multi-plateformes.',
+    tags: ['Conférence', 'Captation', 'Streaming'],
+  },
+  {
+    title: 'Formations IP Video',
+    category: 'Formation',
+    description: 'Sessions de formation sur les workflows de production vidéo sur IP et les technologies NDI.',
+    tags: ['Formation', 'IP', 'NDI'],
+  },
+  {
+    title: 'Éco-conception AV',
+    category: 'Recherche & Développement',
+    description: 'Projet de recherche sur les pratiques durables et l\'éco-conception dans la production audiovisuelle.',
+    tags: ['Éco-conception', 'R&D', 'Durable'],
+  },
+];
+---
+
+<Layout title="Projets - ElkaRec" description="Découvrez nos projets audiovisuels et événementiels">
+  <Header />
+
+  <main class="pt-24 pb-20">
+    <!-- Hero Section -->
+    <section class="container mx-auto px-6 py-16">
+      <div class="max-w-4xl mx-auto text-center">
+        <h1 class="text-5xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-white to-red-400 bg-clip-text text-transparent">
+          Nos projets
+        </h1>
+        <p class="text-xl text-zinc-400">
+          Découvrez quelques-uns des projets que nous avons accompagnés ou réalisés
+        </p>
+      </div>
+    </section>
+
+    <!-- Projects Grid -->
+    <section class="container mx-auto px-6 py-12">
+      <div class="max-w-6xl mx-auto">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {projects.map((project) => (
+            <article class="bg-zinc-900 rounded-xl border border-zinc-800 overflow-hidden hover:border-red-500/50 transition-all group">
+              <!-- Project Image Placeholder -->
+              <div class="aspect-video bg-gradient-to-br from-red-900/30 to-zinc-900 flex items-center justify-center relative overflow-hidden">
+                <div class="absolute inset-0 bg-gradient-to-br from-red-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                <svg class="w-16 h-16 text-zinc-700 group-hover:text-red-500/50 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
+                </svg>
+              </div>
+
+              <!-- Project Content -->
+              <div class="p-6">
+                <div class="text-sm text-red-400 font-medium mb-2">{project.category}</div>
+                <h3 class="text-xl font-bold text-white mb-3 group-hover:text-red-400 transition-colors">
+                  {project.title}
+                </h3>
+                <p class="text-zinc-400 text-sm leading-relaxed mb-4">
+                  {project.description}
+                </p>
+
+                <!-- Tags -->
+                <div class="flex flex-wrap gap-2">
+                  {project.tags.map((tag) => (
+                    <span class="px-3 py-1 bg-zinc-800 text-zinc-400 text-xs rounded-full">
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="container mx-auto px-6 py-16">
+      <div class="max-w-6xl mx-auto">
+        <div class="bg-gradient-to-br from-red-900/20 to-zinc-900/50 rounded-2xl border border-zinc-800 p-10">
+          <h2 class="text-3xl font-bold text-white mb-8 text-center">En quelques chiffres</h2>
+
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+            <div class="text-center">
+              <div class="text-4xl font-bold text-red-400 mb-2">50+</div>
+              <div class="text-sm text-zinc-400">Événements couverts</div>
+            </div>
+
+            <div class="text-center">
+              <div class="text-4xl font-bold text-red-400 mb-2">200+</div>
+              <div class="text-sm text-zinc-400">Heures de direct</div>
+            </div>
+
+            <div class="text-center">
+              <div class="text-4xl font-bold text-red-400 mb-2">30+</div>
+              <div class="text-sm text-zinc-400">Projets accompagnés</div>
+            </div>
+
+            <div class="text-center">
+              <div class="text-4xl font-bold text-red-400 mb-2">15+</div>
+              <div class="text-sm text-zinc-400">Partenaires actifs</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Technology Section -->
+    <section class="container mx-auto px-6 py-12">
+      <div class="max-w-4xl mx-auto">
+        <h2 class="text-3xl font-bold text-white mb-8 text-center">Technologies & expertises</h2>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div class="bg-zinc-900 p-6 rounded-xl border border-zinc-800">
+            <h3 class="text-lg font-bold text-white mb-4">Production vidéo</h3>
+            <ul class="space-y-2 text-sm text-zinc-400">
+              <li class="flex items-center gap-2">
+                <div class="w-1.5 h-1.5 bg-red-400 rounded-full"></div>
+                Réalisation multicaméras
+              </li>
+              <li class="flex items-center gap-2">
+                <div class="w-1.5 h-1.5 bg-red-400 rounded-full"></div>
+                Workflows IP (NDI, SMPTE 2110)
+              </li>
+              <li class="flex items-center gap-2">
+                <div class="w-1.5 h-1.5 bg-red-400 rounded-full"></div>
+                Streaming multi-plateformes
+              </li>
+              <li class="flex items-center gap-2">
+                <div class="w-1.5 h-1.5 bg-red-400 rounded-full"></div>
+                Post-production & montage
+              </li>
+            </ul>
+          </div>
+
+          <div class="bg-zinc-900 p-6 rounded-xl border border-zinc-800">
+            <h3 class="text-lg font-bold text-white mb-4">Audio & Sonorisation</h3>
+            <ul class="space-y-2 text-sm text-zinc-400">
+              <li class="flex items-center gap-2">
+                <div class="w-1.5 h-1.5 bg-red-400 rounded-full"></div>
+                Mixage audio en direct
+              </li>
+              <li class="flex items-center gap-2">
+                <div class="w-1.5 h-1.5 bg-red-400 rounded-full"></div>
+                Réseaux audio numériques
+              </li>
+              <li class="flex items-center gap-2">
+                <div class="w-1.5 h-1.5 bg-red-400 rounded-full"></div>
+                Diffusion multi-zones
+              </li>
+              <li class="flex items-center gap-2">
+                <div class="w-1.5 h-1.5 bg-red-400 rounded-full"></div>
+                Enregistrement multipistes
+              </li>
+            </ul>
+          </div>
+
+          <div class="bg-zinc-900 p-6 rounded-xl border border-zinc-800">
+            <h3 class="text-lg font-bold text-white mb-4">Éclairage & Scénographie</h3>
+            <ul class="space-y-2 text-sm text-zinc-400">
+              <li class="flex items-center gap-2">
+                <div class="w-1.5 h-1.5 bg-red-400 rounded-full"></div>
+                Conception lumière
+              </li>
+              <li class="flex items-center gap-2">
+                <div class="w-1.5 h-1.5 bg-red-400 rounded-full"></div>
+                Éclairage automatisé
+              </li>
+              <li class="flex items-center gap-2">
+                <div class="w-1.5 h-1.5 bg-red-400 rounded-full"></div>
+                Mapping vidéo
+              </li>
+              <li class="flex items-center gap-2">
+                <div class="w-1.5 h-1.5 bg-red-400 rounded-full"></div>
+                Projection grand format
+              </li>
+            </ul>
+          </div>
+
+          <div class="bg-zinc-900 p-6 rounded-xl border border-zinc-800">
+            <h3 class="text-lg font-bold text-white mb-4">IT & Infrastructure</h3>
+            <ul class="space-y-2 text-sm text-zinc-400">
+              <li class="flex items-center gap-2">
+                <div class="w-1.5 h-1.5 bg-red-400 rounded-full"></div>
+                Réseaux événementiels
+              </li>
+              <li class="flex items-center gap-2">
+                <div class="w-1.5 h-1.5 bg-red-400 rounded-full"></div>
+                Interconnexions IP
+              </li>
+              <li class="flex items-center gap-2">
+                <div class="w-1.5 h-1.5 bg-red-400 rounded-full"></div>
+                Solutions cloud & edge
+              </li>
+              <li class="flex items-center gap-2">
+                <div class="w-1.5 h-1.5 bg-red-400 rounded-full"></div>
+                Monitoring & supervision
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="container mx-auto px-6 py-16">
+      <div class="max-w-4xl mx-auto text-center bg-gradient-to-br from-red-900/20 to-zinc-900/50 p-12 rounded-2xl border border-red-500/20">
+        <h2 class="text-3xl font-bold text-white mb-4">Un projet similaire ?</h2>
+        <p class="text-zinc-300 mb-8">
+          Discutons de vos besoins et voyons comment nous pouvons vous accompagner
+        </p>
+        <a href="/contact"
+           class="inline-block px-8 py-4 bg-red-500 hover:bg-red-600 text-white font-semibold rounded-lg transition-all transform hover:scale-105">
+          Nous contacter
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</Layout>
