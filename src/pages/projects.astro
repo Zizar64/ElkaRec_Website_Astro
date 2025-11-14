@@ -9,18 +9,21 @@ const projects = [
     category: 'Production podcast',
     description: 'Production et captation de podcasts en direct avec une régie mobile complète. Solution multicaméras et streaming en direct.',
     tags: ['Podcast', 'Streaming', 'Multicam'],
+    image: '/elkast.jpg',
   },
   {
     title: 'Festivals & Concerts',
     category: 'Technique événementielle',
     description: 'Couverture technique complète de festivals et concerts : sonorisation, éclairage, vidéo et streaming live.',
     tags: ['Live', 'Festival', 'Technique'],
+    image: '/concert.jpg',
   },
   {
     title: 'Régie Mobile',
     category: 'Infrastructure',
     description: 'Développement et déploiement d\'une régie mobile complète pour productions multicaméras en direct.',
     tags: ['Régie', 'Mobile', 'Innovation'],
+    image: '/regie.jpg',
   },
   {
     title: 'Conférences & Talks',
@@ -33,12 +36,14 @@ const projects = [
     category: 'Formation',
     description: 'Sessions de formation sur les workflows de production vidéo sur IP et les technologies NDI.',
     tags: ['Formation', 'IP', 'NDI'],
+    image: '/video-ip.jpg',
   },
   {
     title: 'Éco-conception AV',
     category: 'Recherche & Développement',
     description: 'Projet de recherche sur les pratiques durables et l\'éco-conception dans la production audiovisuelle.',
     tags: ['Éco-conception', 'R&D', 'Durable'],
+    image: '/eco.jpg',
   },
 ];
 ---
@@ -50,7 +55,7 @@ const projects = [
     <!-- Hero Section -->
     <section class="container mx-auto px-6 py-16">
       <div class="max-w-4xl mx-auto text-center">
-        <h1 class="text-5xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-white to-red-400 bg-clip-text text-transparent">
+        <h1 class="text-5xl md:text-6xl font-bold mb-6 text-red-500">
           Nos projets
         </h1>
         <p class="text-xl text-zinc-400">
@@ -65,12 +70,27 @@ const projects = [
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {projects.map((project) => (
             <article class="bg-zinc-900 rounded-xl border border-zinc-800 overflow-hidden hover:border-red-500/50 transition-all group">
-              <!-- Project Image Placeholder -->
+              <!-- Project Image -->
               <div class="aspect-video bg-gradient-to-br from-red-900/30 to-zinc-900 flex items-center justify-center relative overflow-hidden">
-                <div class="absolute inset-0 bg-gradient-to-br from-red-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                <svg class="w-16 h-16 text-zinc-700 group-hover:text-red-500/50 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
-                </svg>
+                {project.image ? (
+                  <img
+                    src={project.image}
+                    alt={project.title}
+                    width="1920"
+                    height="1080"
+                    loading="lazy"
+                    decoding="async"
+                    class={`w-full h-full ${project.title === 'Festivals & Concerts' || project.title === 'Formations IP Video' || project.title === 'Régie Mobile' || project.title === 'Éco-conception AV' ? 'object-cover' : 'object-contain'}`}
+                    style={project.title === 'Formations IP Video' ? 'object-position: 70% center;' : project.title === 'Régie Mobile' ? 'object-position: center 45%;' : ''}
+                  />
+                ) : (
+                  <>
+                    <div class="absolute inset-0 bg-gradient-to-br from-red-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                    <svg class="w-16 h-16 text-zinc-700 group-hover:text-red-500/50 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
+                    </svg>
+                  </>
+                )}
               </div>
 
               <!-- Project Content -->

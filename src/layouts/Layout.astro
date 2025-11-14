@@ -18,8 +18,67 @@ const { title, description = 'ElkaRec - Association audiovisuelle et événement
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href={Astro.url.href} />
+
+    <!-- Meta Robots -->
+    <meta name="robots" content="index, follow" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={Astro.url.href} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={new URL('/logo.png', Astro.url).href} />
+    <meta property="og:locale" content="fr_FR" />
+    <meta property="og:site_name" content="ElkaRec" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content={Astro.url.href} />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={new URL('/logo.png', Astro.url).href} />
+
+    <!-- Theme Color -->
+    <meta name="theme-color" content="#ef4444" />
+
+    <!-- Preload Critical Resources -->
+    <link rel="preload" href="/logo.png" as="image" fetchpriority="high" />
+
+    <!-- Schema.org Organization -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "ElkaRec",
+        "description": "Association audiovisuelle et événementielle collégiale basée à Paris",
+        "url": "https://elkarec.fr",
+        "logo": "https://elkarec.fr/logo.png",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Paris",
+          "addressCountry": "FR"
+        },
+        "sameAs": [
+          "https://youtube.com/@elkarec",
+          "https://linkedin.com/company/elkarec",
+          "https://facebook.com/elkarec",
+          "https://twitter.com/elkarec"
+        ]
+      }
+    </script>
   </head>
   <body class="bg-zinc-950 text-zinc-100 antialiased">
+    <!-- Skip Navigation for Accessibility -->
+    <a
+      href="#main-content"
+      class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-red-500 focus:text-white focus:rounded-lg focus:outline-none focus:ring-2 focus:ring-red-400"
+    >
+      Aller au contenu principal
+    </a>
+
     <slot />
   </body>
 </html>
