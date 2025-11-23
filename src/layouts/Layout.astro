@@ -4,9 +4,10 @@ import '../styles/global.css';
 interface Props {
   title: string;
   description?: string;
+  image?: string;
 }
 
-const { title, description = 'ElkaRec - Association audiovisuelle et événementielle à Paris' } = Astro.props;
+const { title, description = 'ElkaRec - Association audiovisuelle et événementielle à Paris', image = '/logo.png' } = Astro.props;
 ---
 
 <!DOCTYPE html>
@@ -15,7 +16,7 @@ const { title, description = 'ElkaRec - Association audiovisuelle et événement
     <meta charset="UTF-8" />
     <meta name="description" content={description} />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/png" href="/favicon.png" />
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
 
@@ -30,7 +31,7 @@ const { title, description = 'ElkaRec - Association audiovisuelle et événement
     <meta property="og:url" content={Astro.url.href} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:image" content={new URL('/logo.png', Astro.url).href} />
+    <meta property="og:image" content={new URL(image, Astro.url).href} />
     <meta property="og:locale" content="fr_FR" />
     <meta property="og:site_name" content="ElkaRec" />
 
@@ -39,7 +40,7 @@ const { title, description = 'ElkaRec - Association audiovisuelle et événement
     <meta name="twitter:url" content={Astro.url.href} />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
-    <meta name="twitter:image" content={new URL('/logo.png', Astro.url).href} />
+    <meta name="twitter:image" content={new URL(image, Astro.url).href} />
 
     <!-- Theme Color -->
     <meta name="theme-color" content="#ef4444" />
@@ -62,10 +63,12 @@ const { title, description = 'ElkaRec - Association audiovisuelle et événement
           "addressCountry": "FR"
         },
         "sameAs": [
-          "https://youtube.com/@elkarec",
-          "https://linkedin.com/company/elkarec",
-          "https://facebook.com/elkarec",
-          "https://twitter.com/elkarec"
+          "https://www.youtube.com/@elkarec64",
+          "https://fr.linkedin.com/company/elkarec-audiovisual-events",
+          "https://www.facebook.com/elkarec/",
+          "https://x.com/elka_rec",
+          "https://www.instagram.com/elkarec/",
+          "https://www.twitch.tv/elka_rec"
         ]
       }
     </script>

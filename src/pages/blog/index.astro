@@ -40,12 +40,25 @@ function formatDate(date: Date) {
           {blogPosts.map((post) => (
             <article class="bg-zinc-900 rounded-xl border border-zinc-800 overflow-hidden hover:border-red-500/50 transition-all group">
               <a href={`/blog/${post.slug}`} class="block">
-                <!-- Featured Image Placeholder -->
+                <!-- Featured Image -->
                 <div class="aspect-video bg-gradient-to-br from-red-900/30 to-zinc-900 flex items-center justify-center relative overflow-hidden">
-                  <div class="absolute inset-0 bg-gradient-to-br from-red-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                  <svg class="w-16 h-16 text-zinc-700 group-hover:text-red-500/50 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
-                  </svg>
+                  {post.data.image ? (
+                    <img
+                      src={post.data.image}
+                      alt={post.data.title}
+                      width="800"
+                      height="450"
+                      loading="lazy"
+                      class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                    />
+                  ) : (
+                    <>
+                      <div class="absolute inset-0 bg-gradient-to-br from-red-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                      <svg class="w-16 h-16 text-zinc-700 group-hover:text-red-500/50 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                      </svg>
+                    </>
+                  )}
                 </div>
 
                 <!-- Post Content -->
@@ -96,13 +109,21 @@ function formatDate(date: Date) {
           Suivez-nous sur les réseaux sociaux pour ne rien manquer de nos actualités et articles
         </p>
         <div class="flex gap-4 justify-center">
-          <a href="https://youtube.com/@elkarec" target="_blank" rel="noopener noreferrer"
+          <a href="https://www.youtube.com/@elkarec64" target="_blank" rel="noopener noreferrer"
              class="px-6 py-3 bg-zinc-800 hover:bg-zinc-700 text-white font-semibold rounded-lg transition-all">
             YouTube
           </a>
-          <a href="https://linkedin.com/company/elkarec" target="_blank" rel="noopener noreferrer"
+          <a href="https://fr.linkedin.com/company/elkarec-audiovisual-events" target="_blank" rel="noopener noreferrer"
              class="px-6 py-3 bg-zinc-800 hover:bg-zinc-700 text-white font-semibold rounded-lg transition-all">
             LinkedIn
+          </a>
+          <a href="https://www.instagram.com/elkarec/" target="_blank" rel="noopener noreferrer"
+             class="px-6 py-3 bg-zinc-800 hover:bg-zinc-700 text-white font-semibold rounded-lg transition-all">
+            Instagram
+          </a>
+          <a href="https://www.twitch.tv/elka_rec" target="_blank" rel="noopener noreferrer"
+             class="px-6 py-3 bg-zinc-800 hover:bg-zinc-700 text-white font-semibold rounded-lg transition-all">
+            Twitch
           </a>
         </div>
       </div>
