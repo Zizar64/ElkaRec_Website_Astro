@@ -22,3 +22,11 @@ pnpm-debug.log*
 
 # jetbrains setting folder
 .idea/
+
+# security documentation (not for public repo)
+AUDIT_SUMMARY.txt
+FORM_SECURITY_EXAMPLE.md
+QUICK_START_SECURITY.md
+SECURITY.md
+SECURITY_AUDIT_REPORT.md
+SECURITY_README.md
