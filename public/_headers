@@ -20,7 +20,7 @@
   # Content Security Policy
   # Note: 'unsafe-inline' is needed for Astro's inline scripts and Tailwind
   # For production, consider using nonces or hashes
-  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' https://challenges.cloudflare.com https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self' https://formspree.io; upgrade-insecure-requests;
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' https://challenges.cloudflare.com https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' https://api.web3forms.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self' https://api.web3forms.com; upgrade-insecure-requests;
 
   # HTTP Strict Transport Security (HSTS)
   # Force HTTPS for 1 year, including subdomains
