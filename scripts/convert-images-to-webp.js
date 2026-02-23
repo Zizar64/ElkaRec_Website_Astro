@@ -25,8 +25,8 @@ const CONFIG = {
   extensions: ['.jpg', '.jpeg', '.png'],
   // Qualité WebP (0-100)
   webpQuality: 85,
-  // Conserver les originaux
-  keepOriginals: true
+  // Supp les originaux
+  keepOriginals: false
 };
 
 /**

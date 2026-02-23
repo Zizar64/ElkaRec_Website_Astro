@@ -1,161 +1,139 @@
-# ElkaRec Website
+# 🎬 ElkaRec — Site Vitrine
 
-Modern website for ElkaRec, a collegial audiovisual and events association based in Paris.
+Site web de l'association collégiale d'audiovisuel et d'événementiel **ElkaRec**, basée à Paris.
 
-Built with [Astro](https://astro.build), styled with [Tailwind CSS](https://tailwindcss.com), and deployed on [Cloudflare Pages](https://pages.cloudflare.com).
+🔗 [elkarec.com](https://elkarec.com)
 
-## Features
+---
 
-- Modern, responsive design with dark theme
-- Static site generation for optimal performance
-- Blog with markdown support
-- SEO optimized
-- Fast page loads
-- Fully accessible
+## Stack technique
 
-## Project Structure
-
-```
-/
-├── public/              # Static assets (images, favicon, etc.)
-├── src/
-│   ├── components/      # Reusable components
-│   │   ├── Header.astro
-│   │   └── Footer.astro
-│   ├── content/         # Content collections
-│   │   ├── blog/        # Blog posts (markdown)
-│   │   └── config.ts    # Content schema
-│   ├── layouts/         # Page layouts
-│   │   └── Layout.astro
-│   ├── pages/           # Pages and routes
-│   │   ├── index.astro  # Homepage
-│   │   ├── about.astro
-│   │   ├── services.astro
-│   │   ├── projects.astro
-│   │   ├── join.astro
-│   │   ├── contact.astro
-│   │   └── blog/
-│   │       ├── index.astro
-│   │       └── [...slug].astro
-│   └── styles/
-│       └── global.css   # Global styles
-├── astro.config.mjs     # Astro configuration
-├── wrangler.toml        # Cloudflare configuration
-└── package.json
-```
-
-## Development
-
-### Prerequisites
-
-- Node.js 20 or higher
-- npm or pnpm
-
-### Commands
-
-| Command | Action |
+| Techno | Rôle |
 |:---|:---|
-| `npm install` | Install dependencies |
-| `npm run dev` | Start dev server at `localhost:4321` |
-| `npm run build` | Build production site to `./dist/` |
-| `npm run preview` | Preview production build locally |
+| [Astro 5](https://astro.build) | Framework SSG |
+| [Tailwind CSS 4](https://tailwindcss.com) | Styling |
+| [Cloudflare Pages](https://pages.cloudflare.com) | Hébergement & CDN |
 
-### Development Workflow
+---
 
-1. Clone the repository
-2. Install dependencies: `npm install`
-3. Start dev server: `npm run dev`
-4. Open `http://localhost:4321` in your browser
+## Lancer le projet en local
 
-## Adding Content
+```bash
+# Cloner le repo
+git clone https://github.com/ton-org/elkarec-website.git
+cd elkarec-website
 
-### Blog Posts
+# Installer les dépendances
+npm install
 
-Create new blog posts in `src/content/blog/` as markdown files:
+# Lancer le serveur de dev
+npm run dev
+```
+
+Le site tourne sur `http://localhost:4321`
+
+---
+
+## Commandes utiles
+
+```bash
+npm run dev       # Serveur de dev (hot reload)
+npm run build     # Build de prod → ./dist/
+npm run preview   # Prévisualiser le build en local
+```
+
+---
+
+## Arborescence du projet
+
+```
+src/
+├── assets/images/     # Images optimisées par Astro
+├── components/        # Header, Footer, composants réutilisables
+├── content/
+│   ├── blog/          # Articles de blog (.md)
+│   └── projects/      # Fiches projets (.md)
+├── layouts/           # Layout principal
+├── pages/             # Toutes les pages du site
+│   ├── index.astro    # Accueil
+│   ├── about.astro    # À propos
+│   ├── services.astro # Services
+│   ├── projects.astro # Projets
+│   ├── join.astro     # Nous rejoindre
+│   ├── contact.astro  # Contact
+│   └── blog/          # Blog (index + articles dynamiques)
+└── styles/
+    └── global.css
+
+public/                # Fichiers statiques (favicon, og-image, etc.)
+```
+
+---
+
+## Ajouter un article de blog
+
+Crée un fichier `.md` dans `src/content/blog/` :
 
 ```markdown
 ---
-title: "Your Post Title"
-description: "Post description"
-pubDate: 2025-01-15
-author: "Author Name"
-tags: ["tag1", "tag2"]
+title: "Titre de l'article"
+description: "Description courte"
+pubDate: 2025-06-15
+author: "Prénom Nom"
+tags: ["Live", "Événement"]
+image: "../../assets/images/mon-image.webp"
 ---
 
-# Your content here
-
-Write your blog post content in markdown...
+Contenu de l'article en markdown...
 ```
 
-### Modifying Pages
+L'article apparaît automatiquement sur `/blog`.
 
-Pages are in `src/pages/`. Edit the `.astro` files to modify content.
+---
 
-## Deployment to Cloudflare Pages
+## Ajouter un projet
 
-### Option 1: Via Cloudflare Dashboard (Recommended)
+Même principe dans `src/content/projects/` :
 
-1. Push your code to a Git repository (GitHub, GitLab, etc.)
-2. Log in to [Cloudflare Dashboard](https://dash.cloudflare.com)
-3. Go to **Pages** → **Create a project**
-4. Connect your Git repository
-5. Configure build settings:
-   - **Build command**: `npm run build`
-   - **Build output directory**: `dist`
-   - **Node version**: `20`
-6. Click **Deploy**
+```markdown
+---
+title: "Nom du projet"
+description: "Description courte"
+category: "Live"
+tags: ["Concert", "Streaming"]
+date: 2025-01-10
+image: "/image-dans-public.webp"
+---
+```
 
-### Option 2: Via Wrangler CLI
+---
 
-1. Install Wrangler: `npm install -g wrangler`
-2. Login: `wrangler login`
-3. Build: `npm run build`
-4. Deploy: `wrangler pages deploy dist`
+## Déploiement
 
-### Environment Variables
+Le site se déploie automatiquement sur **Cloudflare Pages** à chaque push sur `main`.
 
-No environment variables are required for the static site. If you add dynamic features later (API routes, etc.), configure them in the Cloudflare Pages dashboard.
+Pour un déploiement manuel :
 
-## Custom Domain
+```bash
+npm run build
+npx wrangler pages deploy dist
+```
 
-To use the custom domain `elkarec.com`:
+---
 
-1. In Cloudflare Pages dashboard, go to your project
-2. Navigate to **Custom domains**
-3. Click **Set up a custom domain**
-4. Enter `elkarec.com` and `www.elkarec.com`
-5. Follow the DNS configuration instructions
+## Contribuer
 
-## Performance
+1. Crée une branche depuis `main`
+2. Fais tes modifs
+3. Teste en local avec `npm run dev`
+4. Push et ouvre une PR
 
-The site is optimized for performance:
+---
 
-- Static site generation
-- Minimal JavaScript
-- Optimized assets
-- CDN delivery via Cloudflare
-- Fast first contentful paint
+## Licence
 
-## Technologies
+© 2025 ElkaRec — Tous droits réservés.
 
-- **Framework**: [Astro 5](https://astro.build)
-- **Styling**: [Tailwind CSS 4](https://tailwindcss.com)
-- **Deployment**: [Cloudflare Pages](https://pages.cloudflare.com)
-- **Language**: TypeScript
+---
 
-## Contributing
-
-This is a private project for ElkaRec. If you're a member and want to contribute:
-
-1. Create a feature branch
-2. Make your changes
-3. Test locally
-4. Submit a pull request
-
-## License
-
-© 2025 ElkaRec. All rights reserved.
-
-## Support
-
-For questions or issues, contact the ElkaRec team via the [contact page](https://elkarec.com/contact).
+*Fait avec ☕ et beaucoup de gaffer par l'équipe ElkaRec.*

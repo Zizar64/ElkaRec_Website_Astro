@@ -1,7 +1,7 @@
 ---
 title: "Introduction à la vidéo sur IP"
 description: "Découvrez les fondamentaux de la production vidéo sur IP et comment cette technologie révolutionne l'audiovisuel"
-pubDate: 2025-01-15
+pubDate: 2025-03-15
 author: "Équipe ElkaRec"
 tags: ["IP", "Technique", "NDI", "Innovation"]
 image: "../../assets/images/audio-video.webp"

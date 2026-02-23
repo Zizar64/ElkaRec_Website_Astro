@@ -1,7 +1,7 @@
 ---
 title: "Notre régie mobile multicaméras : retour d'expérience"
 description: "Découvrez comment nous avons développé notre solution de régie mobile pour la production multicaméras"
-pubDate: 2024-12-20
+pubDate: 2024-10-20
 author: "Équipe ElkaRec"
 tags: ["Régie mobile", "Multicam", "Production", "Technique"]
 image: "../../assets/images/regie-mobile-blog.webp"
