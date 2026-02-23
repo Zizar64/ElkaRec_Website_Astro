@@ -6,14 +6,15 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "convert:images": "node scripts/convert-images-to-webp.js"
   },
   "dependencies": {
-    "@astrojs/cloudflare": "^12.6.11",
-    "@astrojs/sitemap": "^3.6.0",
+    "@astrojs/cloudflare": "^12.6.12",
+    "@astrojs/sitemap": "^3.7.0",
     "@tailwindcss/typography": "^0.5.19",
     "@tailwindcss/vite": "^4.1.17",
-    "astro": "^5.16.0",
+    "astro": "^5.17.3",
     "sharp": "^0.34.5",
     "tailwindcss": "^4.1.17"
   }

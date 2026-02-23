@@ -4,7 +4,7 @@ description: "Projet de recherche sur les pratiques durables et l'éco-conceptio
 category: "Recherche & Développement"
 tags: ["Éco-conception", "R&D", "Durable"]
 date: 2024-06-18
-image: "/recycling.png"
+image: "../../assets/images/recycling.webp"
 ---
 
 Projet de recherche sur les pratiques durables et l'éco-conception dans la production audiovisuelle.

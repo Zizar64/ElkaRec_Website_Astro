@@ -1,0 +1,15 @@
+{
+    "keep": {
+        "days": true,
+        "amount": 14
+    },
+    "auditLog": "c:\\Users\\lucas\\Documents\\04_IT\\Devs\\Site_ElkaRec\\ElkaRec_Website_Astro\\logs\\.fe86c74c238c53c558e65503bc318f3f6174157a-audit.json",
+    "files": [
+        {
+            "date": 1771761633949,
+            "name": "c:\\Users\\lucas\\Documents\\04_IT\\Devs\\Site_ElkaRec\\ElkaRec_Website_Astro\\logs\\mcp-puppeteer-2026-02-22.log",
+            "hash": "a5596285c1f6dce804c3229eb2dd0414d0c278d2b705781c58a9a4916325321e"
+        }
+    ],
+    "hashType": "sha256"
+}

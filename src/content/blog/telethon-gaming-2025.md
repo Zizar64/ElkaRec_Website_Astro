@@ -1,10 +1,10 @@
 ---
 title: "ElkaRec au Téléthon Gaming 2025 : 22h de direct caritatif depuis Antony"
 description: "ElkaRec participe au Téléthon Gaming 2025 les 5-6 décembre avec 22h de streaming live depuis La Ruche Bleue à Antony. Production multicaméras professionnelle avec les étudiants WAMN pour soutenir l'AFM-Téléthon et la recherche contre les maladies rares."
-pubDate: 2025-11-27
+pubDate: 2025-12-02
 author: "Équipe ElkaRec"
 tags: ["Téléthon Gaming", "Streaming Caritatif", "Production Live", "WAMN", "Antony", "AFM-Téléthon", "Gaming Solidaire"]
-image: "/telethon.png"
+image: "../../assets/images/telethon.webp"
 ---
 
 ElkaRec est **fière de participer** au [Téléthon Gaming 2025](https://telethongaming.fr/), un marathon caritatif en faveur de l'[AFM-Téléthon](https://www.afm-telethon.fr/). **Du jeudi 5 décembre à 21h au vendredi 6 décembre à 19h**, nous produisons **22 heures de direct non-stop** depuis nos locaux de [La Ruche Bleue à Antony](https://laruchebleue.net/), avec un live en continu sur **[Twitch](https://www.twitch.tv/elka_rec)** et **[YouTube](https://www.youtube.com/@elkarec64)**.

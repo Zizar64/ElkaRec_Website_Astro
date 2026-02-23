@@ -1,10 +1,10 @@
 ---
 import { getCollection } from 'astro:content';
+import { Image } from 'astro:assets';
 import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 
-// Récupérer tous les projets et les trier par date (plus récent en premier)
 const projects = (await getCollection('projects')).sort(
   (a, b) => (b.data.date?.valueOf() || 0) - (a.data.date?.valueOf() || 0)
 );
@@ -13,7 +13,6 @@ const projects = (await getCollection('projects')).sort(
 <Layout
   title="Projets - ElkaRec"
   description="Découvrez nos projets audiovisuels et événementiels : ELKAST, régies mobiles, formations IP, et plus encore."
-  image="/elkast.jpg"
 >
   <Header />
 
@@ -36,47 +35,47 @@ const projects = (await getCollection('projects')).sort(
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {projects.map((project) => (
             <article class="bg-zinc-900 rounded-xl border border-zinc-800 overflow-hidden hover:border-red-500/50 transition-all group">
-              <!-- Project Image -->
-              <div class="aspect-video bg-gradient-to-br from-red-900/30 to-zinc-900 flex items-center justify-center relative overflow-hidden">
+              {/* Project Image */}
+              <div class="aspect-video overflow-hidden bg-gradient-to-br from-red-900/30 to-zinc-900">
                 {project.data.image ? (
-                  <img
+                  <Image
                     src={project.data.image}
                     alt={project.data.title}
-                    width="1920"
-                    height="1080"
+                    width={800}
+                    height={450}
+                    class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                     loading="lazy"
-                    decoding="async"
-                    class={`w-full h-full ${project.data.title === 'Festivals & Concerts' || project.data.title === 'Formations IP Video' || project.data.title === 'Éco-conception AV' ? 'object-cover' : 'object-contain'}`}
-                    style={project.data.title === 'Formations IP Video' ? 'object-position: 70% center;' : ''}
                   />
                 ) : (
-                  <>
-                    <div class="absolute inset-0 bg-gradient-to-br from-red-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                    <svg class="w-16 h-16 text-zinc-700 group-hover:text-red-500/50 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
+                  <div class="w-full h-full flex items-center justify-center">
+                    <svg class="w-16 h-16 text-zinc-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
                     </svg>
-                  </>
+                  </div>
                 )}
               </div>
 
-              <!-- Project Content -->
+              {/* Content */}
               <div class="p-6">
-                <div class="text-sm text-red-400 font-medium mb-2">{project.data.category}</div>
-                <h3 class="text-xl font-bold text-white mb-3 group-hover:text-red-400 transition-colors">
+                <h2 class="text-xl font-bold text-white mb-3 group-hover:text-red-400 transition-colors">
                   {project.data.title}
-                </h3>
-                <p class="text-zinc-400 text-sm leading-relaxed mb-4">
-                  {project.data.description}
-                </p>
+                </h2>
 
-                <!-- Tags -->
-                <div class="flex flex-wrap gap-2">
-                  {project.data.tags.map((tag) => (
-                    <span class="px-3 py-1 bg-zinc-800 text-zinc-400 text-xs rounded-full">
-                      {tag}
-                    </span>
-                  ))}
-                </div>
+                {project.data.description && (
+                  <p class="text-zinc-400 text-sm leading-relaxed line-clamp-3 mb-4">
+                    {project.data.description}
+                  </p>
+                )}
+
+                {project.data.tags && project.data.tags.length > 0 && (
+                  <div class="flex flex-wrap gap-2">
+                    {project.data.tags.map((tag: string) => (
+                      <span class="text-xs px-2 py-1 bg-red-500/10 text-red-400 rounded-full border border-red-500/20">
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                )}
               </div>
             </article>
           ))}
@@ -84,89 +83,57 @@ const projects = (await getCollection('projects')).sort(
       </div>
     </section>
 
-    <!-- Stats Section -->
+    <!-- Compétences -->
     <section class="container mx-auto px-6 py-16">
-      <div class="max-w-6xl mx-auto">
-        <div class="bg-gradient-to-br from-red-900/20 to-zinc-900/50 rounded-2xl border border-zinc-800 p-10">
-          <h2 class="text-3xl font-bold text-white mb-8 text-center">En quelques chiffres</h2>
-
-          <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
-            <div class="text-center">
-              <div class="text-4xl font-bold text-red-400 mb-2">50+</div>
-              <div class="text-sm text-zinc-400">Événements couverts</div>
-            </div>
-
-            <div class="text-center">
-              <div class="text-4xl font-bold text-red-400 mb-2">200+</div>
-              <div class="text-sm text-zinc-400">Heures de direct</div>
-            </div>
-
-            <div class="text-center">
-              <div class="text-4xl font-bold text-red-400 mb-2">30+</div>
-              <div class="text-sm text-zinc-400">Projets accompagnés</div>
-            </div>
-
-            <div class="text-center">
-              <div class="text-4xl font-bold text-red-400 mb-2">15+</div>
-              <div class="text-sm text-zinc-400">Partenaires actifs</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Technology Section -->
-    <section class="container mx-auto px-6 py-12">
       <div class="max-w-4xl mx-auto">
-        <h2 class="text-3xl font-bold text-white mb-8 text-center">Technologies & expertises</h2>
-
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <h2 class="text-3xl font-bold text-white mb-8 text-center">Nos compétences</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           <div class="bg-zinc-900 p-6 rounded-xl border border-zinc-800">
-            <h3 class="text-lg font-bold text-white mb-4">Production vidéo</h3>
+            <h3 class="text-lg font-bold text-white mb-4">Vidéo & Streaming</h3>
             <ul class="space-y-2 text-sm text-zinc-400">
               <li class="flex items-center gap-2">
                 <div class="w-1.5 h-1.5 bg-red-400 rounded-full"></div>
-                Réalisation multicaméras
+                Captation multicam
               </li>
               <li class="flex items-center gap-2">
                 <div class="w-1.5 h-1.5 bg-red-400 rounded-full"></div>
-                Workflows IP (NDI, SMPTE 2110)
+                Streaming live
               </li>
               <li class="flex items-center gap-2">
                 <div class="w-1.5 h-1.5 bg-red-400 rounded-full"></div>
-                Streaming multi-plateformes
+                Post-production
               </li>
               <li class="flex items-center gap-2">
                 <div class="w-1.5 h-1.5 bg-red-400 rounded-full"></div>
-                Post-production & montage
+                Motion design
               </li>
             </ul>
           </div>
 
           <div class="bg-zinc-900 p-6 rounded-xl border border-zinc-800">
-            <h3 class="text-lg font-bold text-white mb-4">Audio & Sonorisation</h3>
+            <h3 class="text-lg font-bold text-white mb-4">Son & Audio</h3>
             <ul class="space-y-2 text-sm text-zinc-400">
               <li class="flex items-center gap-2">
                 <div class="w-1.5 h-1.5 bg-red-400 rounded-full"></div>
-                Mixage audio en direct
+                Sonorisation live
               </li>
               <li class="flex items-center gap-2">
                 <div class="w-1.5 h-1.5 bg-red-400 rounded-full"></div>
-                Réseaux audio numériques
+                Mixage studio
               </li>
               <li class="flex items-center gap-2">
                 <div class="w-1.5 h-1.5 bg-red-400 rounded-full"></div>
-                Diffusion multi-zones
+                Prise de son
               </li>
               <li class="flex items-center gap-2">
                 <div class="w-1.5 h-1.5 bg-red-400 rounded-full"></div>
-                Enregistrement multipistes
+                Design sonore
               </li>
             </ul>
           </div>
 
           <div class="bg-zinc-900 p-6 rounded-xl border border-zinc-800">
-            <h3 class="text-lg font-bold text-white mb-4">Éclairage & Scénographie</h3>
+            <h3 class="text-lg font-bold text-white mb-4">Lumière & Vidéo</h3>
             <ul class="space-y-2 text-sm text-zinc-400">
               <li class="flex items-center gap-2">
                 <div class="w-1.5 h-1.5 bg-red-400 rounded-full"></div>

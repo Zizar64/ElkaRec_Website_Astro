@@ -4,7 +4,7 @@ description: "Captation et diffusion de conférences professionnelles avec solut
 category: "Captation événementielle"
 tags: ["Conférence", "Captation", "Streaming"]
 date: 2024-04-05
-image: "/diffusion-direct.png"
+image: "../../assets/images/diffusiondirect.webp"
 ---
 
 Captation et diffusion de conférences professionnelles avec solutions de streaming multi-plateformes.

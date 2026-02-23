@@ -2,12 +2,21 @@
 import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import { Image } from 'astro:assets';
+import collectif from '../assets/images/collectif.webp';
+
+import logoamp from '../assets/images/logoamp.webp';
+import logocanal from '../assets/images/logocanal.webp';
+import logoeurosport from '../assets/images/logoeurosport.webp';
+import logovidelio from '../assets/images/logovidelio.webp';
+import logoequipe from '../assets/images/logoequipe.webp';
+import logoixi from '../assets/images/logoixi.webp';
 ---
 
 <Layout
   title="À propos - ElkaRec"
   description="Découvrez ElkaRec, association audiovisuelle et événementielle collégiale basée à Paris. Une structure collaborative sans hiérarchie traditionnelle."
-  image="/concert.jpg"
+  image="/concert.webp"
 >
   <Header />
 
@@ -77,19 +86,27 @@ import Footer from '../components/Footer.astro';
           </div>
 
           <div class="flex items-start gap-4">
-            <div class="w-12 h-12 bg-red-500/20 rounded-lg flex items-center justify-center flex-shrink-0">
+            <div class="w-12 h-12 bg-red-500/20 rounded-lg flex items-center justify-center flex-shrink-0 ">
               <svg class="w-6 h-6 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
               </svg>
             </div>
             <div>
               <h3 class="text-xl font-bold text-white mb-3">Engagement bénévole</h3>
-              <p class="text-zinc-400 leading-relaxed">
+              <p class="text-zinc-400 leading-relaxed gap-6 mb-6">
                 Nos membres sont des passionnés qui donnent de leur temps et expertise pour faire vivre
                 l'association et accompagner les projets.
               </p>
             </div>
           </div>
+            <div class= "bg-zinc-900 rounded-xl border border-zinc-800 overflow-hidden hover:border-red-500/50 transition-all group ">
+              <Image
+                src={collectif}
+                alt="Notre équipe de bénévoles"
+                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300 "
+                loading="lazy"
+              />
+            </div>
         </div>
       </div>
     </section>
@@ -158,6 +175,114 @@ import Footer from '../components/Footer.astro';
         </div>
       </div>
     </section>
+
+    <!-- Section Ils nous ont aidé -->
+<section class="py-20 bg-zinc-900/50 border-t border-zinc-800">
+  <div class="container mx-auto px-6">
+
+    <!-- Titre -->
+    <div class="text-center mb-16">
+      <span class="text-red-500 font-semibold text-sm uppercase tracking-wider">
+        Partenaires Upcycling
+      </span>
+      <h2 class="text-3xl md:text-4xl font-bold text-white mt-3 mb-4">
+        Ils nous ont aidé
+      </h2>
+      <p class="text-zinc-400 max-w-2xl mx-auto leading-relaxed">
+        Ces entreprises nous ont confié leur matériel décommissionné,
+        contribuant à notre mission d'upcycling et de réemploi technologique.
+      </p>
+    </div>
+
+    <!-- Grille de logos -->
+    <div class="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-8 items-center max-w-4xl mx-auto">
+
+      <div class="group flex items-center justify-center p-6 rounded-xl bg-zinc-800/30 border border-zinc-800 hover:border-red-500/30 transition-all duration-300 overflow-hidden">
+        <Image
+          src={logocanal}
+          alt="Canal+"
+          width={200}
+          height={150}
+          class = "rounded-lg object-contain max-w-full group-hover:scale-110 transition-all duration-300"
+        />
+      </div>
+
+      <div class="group flex items-center justify-center p-6 rounded-xl bg-zinc-800/30 border border-zinc-800 hover:border-red-500/30 transition-all duration-300">
+        <Image
+          src={logoeurosport}
+          alt="Eurosport"
+          width={200}
+          height={150}
+          class = "rounded-lg object-contain max-w-full group-hover:scale-110 transition-all duration-300"
+        />
+      </div>
+
+      <div class="group flex items-center justify-center p-6 rounded-xl bg-zinc-800/30 border border-zinc-800 hover:border-red-500/30 transition-all duration-300">
+        <Image
+          src={logovidelio}
+          alt="Videlio"
+          width={200}
+          height={150}
+          class = "rounded-lg object-contain max-w-full group-hover:scale-110 transition-all duration-300"
+        />
+      </div>
+
+      <div class="group flex items-center justify-center p-6 rounded-xl bg-zinc-800/30 border border-zinc-800 hover:border-red-500/30 transition-all duration-300">
+        <Image
+          src={logoequipe}
+          alt="L'Equipe TV"
+          width={200}
+          height={150}
+          class = "rounded-lg object-contain max-w-full group-hover:scale-110 transition-all duration-300"
+        />
+      </div>
+
+      <div class="group flex items-center justify-center p-6 rounded-xl bg-zinc-800/30 border border-zinc-800 hover:border-red-500/30 transition-all duration-300">
+        <Image
+          src={logoamp}
+          alt="AMP Visual TV"
+          width={200}
+          height={150}
+          class = "rounded-lg object-contain max-w-full group-hover:scale-110 transition-all duration-300"
+        />
+      </div>
+
+            <div class="group flex items-center justify-center p-6 rounded-xl bg-zinc-800/30 border border-zinc-800 hover:border-red-500/30 transition-all duration-300">
+        <Image
+          src={logoixi}
+          alt="IXI Live"
+          width={100}
+          height={80}
+          class = "rounded-lg object-contain max-w-full group-hover:scale-110 transition-all duration-300"
+        />
+      </div>
+
+
+      <!-- Template pour ajouter d'autres logos -->
+      <!--
+      <div class="group flex items-center justify-center p-6 rounded-xl bg-zinc-800/30 border border-zinc-800 hover:border-red-500/30 transition-all duration-300">
+        <Image
+          src={logoAutre}
+          alt="Nom entreprise"
+          width={160}
+          height={60}
+          class="opacity-50 group-hover:opacity-100 transition-opacity duration-300 grayscale group-hover:grayscale-0"
+        />
+      </div>
+      -->
+
+    </div>
+
+    <!-- Note en bas -->
+    <p class="text-center text-zinc-500 text-sm mt-12">
+      Votre entreprise souhaite contribuer ?
+      <a href="/contact" class="text-red-500 hover:text-red-400 underline underline-offset-4 transition-colors">
+        Contactez-nous
+      </a>
+    </p>
+
+  </div>
+</section>
   </main>
 
   <Footer />

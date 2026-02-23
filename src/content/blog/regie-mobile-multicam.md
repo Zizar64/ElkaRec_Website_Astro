@@ -4,7 +4,7 @@ description: "Découvrez comment nous avons développé notre solution de régie
 pubDate: 2024-12-20
 author: "Équipe ElkaRec"
 tags: ["Régie mobile", "Multicam", "Production", "Technique"]
-image: "/regie-mobile-blog.jpg"
+image: "../../assets/images/regie-mobile-blog.webp"
 ---
 
 La mise en place d'une régie mobile multicaméras a été l'un de nos **projets les plus ambitieux et gratifiants**. Retour sur cette aventure technique et humaine qui a transformé notre façon de produire.

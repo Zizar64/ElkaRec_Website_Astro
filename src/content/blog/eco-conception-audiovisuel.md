@@ -4,7 +4,7 @@ description: "Comment adopter des pratiques plus responsables et durables dans l
 pubDate: 2025-01-08
 author: "Équipe ElkaRec"
 tags: ["Éco-conception", "Durable", "Innovation", "Environnement"]
-image: "/recycling.png"
+image: "../../assets/images/recycling.webp"
 ---
 
 L'industrie audiovisuelle a un **impact environnemental significatif**. Chez **ElkaRec**, nous croyons qu'il est possible de produire du contenu de qualité professionnelle tout en minimisant notre empreinte écologique.

@@ -4,7 +4,7 @@ description: "Production et captation de podcasts en direct avec une régie mobi
 category: "Production podcast"
 tags: ["Podcast", "Streaming", "Multicam"]
 date: 2024-01-15
-image: "/elkast.jpg"
+image: "../../assets/images/elkast.webp"
 ---
 
 Production et captation de podcasts en direct avec une régie mobile complète. Solution multicaméras et streaming en direct.

@@ -4,7 +4,7 @@ description: "Découvrez les fondamentaux de la production vidéo sur IP et comm
 pubDate: 2025-01-15
 author: "Équipe ElkaRec"
 tags: ["IP", "Technique", "NDI", "Innovation"]
-image: "/audio-video.png"
+image: "../../assets/images/audio-video.webp"
 ---
 
 La production vidéo sur IP représente une **révolution majeure** dans le monde de l'audiovisuel professionnel. Cette technologie permet de transporter des flux vidéo et audio de haute qualité sur des réseaux informatiques standards.
