@@ -1,8 +1,12 @@
 # 🎬 ElkaRec — Site Vitrine
 
-Site web de l'association collégiale d'audiovisuel et d'événementiel **ElkaRec**, basée à Paris.
+Site web de l'association collégiale d'audiovisuel et d'événementiel **ElkaRec**, installée à Antony (92).
 
-🔗 [elkarec.com](https://elkarec.com)
+🔗 [elkarec.fr](https://elkarec.fr) — domaine canonique depuis le 2026-08-13.
+`elkarec.com` est conservé et redirige en 301 vers le `.fr`.
+
+> ⚠️ Le JSON-LD des pages déclare encore `"addressLocality": "Paris"` :
+> à corriger avec la refonte de contenu, c'est le dernier support qui diverge.
 
 ---
 
