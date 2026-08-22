@@ -1,28 +1,106 @@
-# ATTENTION : ce fichier n'est PAS ce que les robots reçoivent.
+# ─────────────────────────────────────────────────────────────────────────
+# ATTENTION : ce fichier n'est pas seul à décider de ce que reçoivent les
+# robots.
 #
-# Cloudflare injecte au passage un bloc « managed robots.txt » (fonction
-# AI Crawl Control du dashboard) qui vient AVANT le contenu ci-dessous.
-# Constaté le 22/08/2026 : ce fichier fait 74 octets, la version servie sur
-# https://elkarec.fr/robots.txt en fait environ 1900.
+# Cloudflare injecte un bloc « managed robots.txt » (dashboard → AI Crawl
+# Control) AVANT le contenu ci-dessous. Constaté le 22/08/2026 : ce bloc
+# posait un « Disallow: / » sur une dizaine de robots d'IA (Amazonbot,
+# Applebot-Extended, Bytespider, CCBot, ClaudeBot, Google-Extended, GPTBot,
+# meta-externalagent…) et un Content-Signal « ai-train=no ».
 #
-# Ce que Cloudflare ajoute :
-#   - un préambule déclarant une réserve de droits au titre de l'article 4
-#     de la directive UE 2019/790, et un en-tête Content-Signal
-#     (search=yes, ai-train=no, use=reference) ;
-#   - un Disallow global pour une dizaine de robots d'IA : Amazonbot,
-#     Applebot-Extended, Bytespider, CCBot, ClaudeBot, Google-Extended,
-#     GPTBot, meta-externalagent et consorts.
+# DÉCISION DE LUCAS, 2026-08-22 : ouvrir le site aux robots d'IA.
+# Motif : l'association cherche des clients. Être absente des réponses de
+# ChatGPT, Claude, Perplexity ou des AI Overviews de Google à une question
+# du type « qui fait de la captation vidéo à Antony » est un canal de
+# visibilité perdu, et ce canal prend de l'importance.
 #
-# Le référencement n'en souffre pas : Google-Extended est l'agent
-# d'entraînement IA, distinct de Googlebot qui reste autorisé, et la
-# directive Sitemap ci-dessous est bien conservée dans la version servie.
+# Vérifié le 22/08/2026 : ces robots n'étaient bloqués QUE par cette
+# déclaration, jamais par le WAF (GPTBot, ClaudeBot et PerplexityBot
+# recevaient tous un 200). L'ouverture se joue donc entièrement ici.
 #
-# Conséquence pratique : modifier ce fichier ne suffit pas à changer ce que
-# voient les robots. Pour toucher aux blocages IA, passer par le dashboard
-# Cloudflare, pas par ce dépôt. Vérifier le résultat réel avec
-# `curl https://elkarec.fr/robots.txt`, jamais en lisant ce fichier seul.
+# COMMENT LES GROUPES CI-DESSOUS L'EMPORTENT sur ceux de Cloudflare :
+# la RFC 9309 (§2.2.2) impose de fusionner les groupes qui visent le même
+# user-agent, puis, pour une URL donnée, de retenir la règle la plus
+# spécifique ; à spécificité égale, c'est la MOINS restrictive qui gagne.
+# « Allow: / » et « Disallow: / » ont la même longueur, donc « Allow »
+# l'emporte pour tout robot conforme.
+#
+# ⚠️ C'est un rattrapage, pas la solution propre. Tant que le bloc managé
+# est actif, le fichier servi contient des directives contradictoires et
+# reste illisible pour un humain. Le désactiver dans le dashboard
+# Cloudflare (AI Crawl Control) est la vraie correction ; ce fichier est
+# alors servi tel quel et devient la seule source de vérité.
+#
+# TOUJOURS vérifier le résultat réel avec `curl https://elkarec.fr/robots.txt`,
+# jamais en lisant ce fichier seul.
+# ─────────────────────────────────────────────────────────────────────────
 
+# Content-Signal : la citation par les assistants est autorisée (c'est le
+# canal de visibilité recherché), l'entraînement de modèles ne l'est pas.
+# Pour ouvrir aussi l'entraînement, passer « ai-train » à « yes ».
 User-agent: *
+Content-Signal: search=yes,ai-input=yes,ai-train=no,use=reference
+Allow: /
+
+# ── Robots d'IA explicitement réautorisés ────────────────────────────────
+# Un groupe par agent : c'est ce qui neutralise les « Disallow: / » injectés
+# par Cloudflare. Ne pas fusionner en une liste, chaque agent a besoin de
+# son propre groupe.
+
+# OpenAI — ChatGPT et sa recherche
+User-agent: GPTBot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+# Anthropic — Claude
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-SearchBot
+Allow: /
+
+User-agent: Claude-User
+Allow: /
+
+# Perplexity
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Perplexity-User
+Allow: /
+
+# Google — agent dédié aux fonctions d'IA (Gemini, AI Overviews).
+# Distinct de Googlebot, qui gère l'indexation classique et n'a jamais été
+# bloqué.
+User-agent: Google-Extended
+Allow: /
+
+# Apple, Meta, Amazon, ByteDance
+User-agent: Applebot-Extended
+Allow: /
+
+User-agent: meta-externalagent
+Allow: /
+
+User-agent: Amazonbot
+Allow: /
+
+User-agent: Bytespider
+Allow: /
+
+# Common Crawl : sert surtout de corpus d'entraînement. Réautorisé pour
+# rester cohérent avec l'ouverture décidée ci-dessus ; c'est le premier
+# groupe à retirer si Lucas veut ouvrir la citation sans ouvrir le corpus.
+User-agent: CCBot
+Allow: /
+
+# Rendu de page par Cloudflare
+User-agent: CloudflareBrowserRenderingCrawler
 Allow: /
 
 Sitemap: https://elkarec.fr/sitemap-index.xml
