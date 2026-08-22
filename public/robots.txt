@@ -18,21 +18,23 @@
 # déclaration, jamais par le WAF (GPTBot, ClaudeBot et PerplexityBot
 # recevaient tous un 200). L'ouverture se joue donc entièrement ici.
 #
-# COMMENT LES GROUPES CI-DESSOUS L'EMPORTENT sur ceux de Cloudflare :
-# la RFC 9309 (§2.2.2) impose de fusionner les groupes qui visent le même
-# user-agent, puis, pour une URL donnée, de retenir la règle la plus
-# spécifique ; à spécificité égale, c'est la MOINS restrictive qui gagne.
-# « Allow: / » et « Disallow: / » ont la même longueur, donc « Allow »
-# l'emporte pour tout robot conforme.
+# RÉSULTAT CONSTATÉ après déploiement de ce fichier (22/08/2026) :
+# Cloudflare n'injecte plus rien du tout. La version servie est exactement
+# celle-ci, sans bloc managé et sans le moindre « Disallow ».
 #
-# ⚠️ C'est un rattrapage, pas la solution propre. Tant que le bloc managé
-# est actif, le fichier servi contient des directives contradictoires et
-# reste illisible pour un humain. Le désactiver dans le dashboard
-# Cloudflare (AI Crawl Control) est la vraie correction ; ce fichier est
-# alors servi tel quel et devient la seule source de vérité.
+# Explication la plus probable, à confirmer si le sujet revient : le bloc
+# managé n'est ajouté que lorsque le robots.txt d'origine ne déclare pas
+# lui-même de « Content-Signal ». En en déclarant un ci-dessous, le site
+# reprend la main et Cloudflare s'efface. Les groupes « Allow » par agent
+# n'ont donc plus de conflit à arbitrer — ils restent utiles comme
+# déclaration explicite, et comme filet si le bloc managé réapparaissait :
+# la RFC 9309 (§2.2.2) fusionne les groupes visant le même user-agent et,
+# à spécificité égale, retient la règle la moins restrictive, donc
+# « Allow: / » l'emporterait sur « Disallow: / ».
 #
-# TOUJOURS vérifier le résultat réel avec `curl https://elkarec.fr/robots.txt`,
-# jamais en lisant ce fichier seul.
+# ⚠️ TOUJOURS vérifier le résultat réel avec
+# `curl https://elkarec.fr/robots.txt`, jamais en lisant ce fichier seul,
+# et penser à purger le cache Cloudflare après modification.
 # ─────────────────────────────────────────────────────────────────────────
 
 # Content-Signal : la citation par les assistants est autorisée (c'est le
