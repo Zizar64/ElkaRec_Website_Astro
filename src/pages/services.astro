@@ -1,15 +1,45 @@
 ---
+import { getCollection } from 'astro:content';
 import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import { Image } from 'astro:assets';
 import regieImage from '../assets/images/regie_service.webp';
 import sonoImage from '../assets/images/sono.webp';
+
+// La page /projects a fusionné ici : la collection reste la source des
+// réalisations, seule la page qui les affichait a disparu.
+const projects = (await getCollection('projects')).sort(
+  (a, b) => (b.data.date?.valueOf() || 0) - (a.data.date?.valueOf() || 0)
+);
+
+// Grille validée avec Lucas (chantier 4 de la relance). Les montants sont
+// des planchers publics, pas une grille interne : ils peuvent être cités.
+const offres = [
+  {
+    titre: 'Captation simple',
+    detail: 'Deux caméras, un technicien, montage livré.',
+    prix: 'À partir de 600 €',
+    note: null,
+  },
+  {
+    titre: 'Captation multicaméra et diffusion',
+    detail: "Jusqu'à six caméras, ralenti, streaming en direct, régie complète.",
+    prix: 'À partir de 1 200 €',
+    note: "C'est le format Farn'High.",
+  },
+  {
+    titre: 'Sonorisation et lumière',
+    detail: 'Système son, éclairage scénique, exploitation sur site.',
+    prix: 'Sur devis',
+    note: null,
+  },
+];
 ---
 
 <Layout
-  title="Services - ElkaRec"
-  description="Découvrez nos services audiovisuels et techniques pour vos événements : régie mobile, technique événementielle, production exécutive et formation."
+  title="Nos offres et nos tarifs - ElkaRec, Antony (92)"
+  description="Captation vidéo, streaming multicaméra et sonorisation d'événements depuis Antony (92). Trois offres, trois budgets, à partir de 600 €. Devis sous 48 heures."
   image="/logo.webp"
 >
   <Header />
@@ -19,18 +49,65 @@ import sonoImage from '../assets/images/sono.webp';
     <section class="container mx-auto px-6 py-16">
       <div class="max-w-4xl mx-auto text-center">
         <h1 class="text-5xl md:text-6xl font-bold mb-6 text-red-500">
-          Nos services
+          Trois offres, trois budgets
         </h1>
         <p class="text-xl text-zinc-400">
-          Expertise audiovisuelle et technique pour tous vos événements
+          Captation, diffusion et sonorisation d'événements, depuis Antony (92)
         </p>
       </div>
     </section>
 
-    <!-- Services Grid -->
+    <!-- Grille tarifaire -->
+    <section class="container mx-auto px-6 py-6">
+      <div class="max-w-6xl mx-auto">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {offres.map((offre) => (
+            <div class="flex flex-col bg-gradient-to-br from-zinc-900 to-zinc-900/50 p-8 rounded-2xl border border-zinc-800 hover:border-red-500/50 transition-all">
+              <h2 class="text-2xl font-bold text-white mb-3">{offre.titre}</h2>
+              <p class="text-zinc-300 leading-relaxed mb-4 flex-1">{offre.detail}</p>
+              {offre.note && (
+                <p class="text-sm text-zinc-500 italic mb-4">{offre.note}</p>
+              )}
+              <p class="text-xl font-bold text-red-500">{offre.prix}</p>
+            </div>
+          ))}
+        </div>
+
+        <div class="max-w-3xl mx-auto mt-10 text-center">
+          <p class="text-lg text-zinc-300 leading-relaxed">
+            Association loi 1901 : pas de TVA sur nos factures, et nos tarifs
+            couvrent nos coûts sans marge actionnaire. Devis sous 48 heures.
+          </p>
+          <a href="/contact"
+             class="inline-block mt-8 px-8 py-4 bg-red-500 hover:bg-red-600 text-white font-semibold rounded-lg transition-all transform hover:scale-105">
+            Demander un devis
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Pour qui nous travaillons -->
     <section class="container mx-auto px-6 py-12">
-      <div class="max-w-6xl mx-auto space-y-8">
-        <!-- Service 1: Régie Mobile -->
+      <div class="max-w-4xl mx-auto bg-zinc-900 p-10 rounded-2xl border border-zinc-800">
+        <h2 class="text-3xl font-bold text-white mb-4">Pour qui nous travaillons</h2>
+        <p class="text-lg text-zinc-300 leading-relaxed mb-4">
+          Nous travaillons avec des communes, des comités des fêtes, des salles
+          et des associations.
+        </p>
+        <p class="text-lg text-zinc-300 leading-relaxed">
+          Notre local est à Antony, dans les Hauts-de-Seine. Nous intervenons
+          couramment dans le 92, à Paris et en Île-de-France, et nous nous
+          déplaçons partout en France quand le projet le justifie.
+        </p>
+      </div>
+    </section>
+
+    <!-- Ce que nous savons faire -->
+    <section class="container mx-auto px-6 py-12">
+      <div class="max-w-6xl mx-auto">
+        <h2 class="text-4xl font-bold text-white mb-12 text-center">Ce que nous savons faire</h2>
+        <div class="space-y-8">
+        <!-- Régie mobile -->
         <div class="bg-gradient-to-br from-zinc-900 to-zinc-900/50 rounded-2xl border border-zinc-800 overflow-hidden hover:border-red-500/50 transition-all">
           <div class="p-10">
             <div class="flex items-start gap-6 mb-6">
@@ -40,7 +117,7 @@ import sonoImage from '../assets/images/sono.webp';
                 </svg>
               </div>
               <div class="flex-1">
-                <h2 class="text-3xl font-bold text-white mb-4">Régie mobile</h2>
+                <h3 class="text-3xl font-bold text-white mb-4">Régie mobile</h3>
                 <p class="text-lg text-zinc-300 leading-relaxed mb-4">
                   Solutions de production mobile complètes pour vos événements en direct et vos captations vidéo.
                 </p>
@@ -59,26 +136,26 @@ import sonoImage from '../assets/images/sono.webp';
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div class="bg-zinc-950/50 p-4 rounded-lg">
-                <h3 class="font-semibold text-white mb-2">Multicaméras</h3>
+                <h4 class="font-semibold text-white mb-2">Multicaméras</h4>
                 <p class="text-sm text-zinc-400">Configuration et gestion de productions multicaméras professionnelles</p>
               </div>
               <div class="bg-zinc-950/50 p-4 rounded-lg">
-                <h3 class="font-semibold text-white mb-2">Streaming live</h3>
+                <h4 class="font-semibold text-white mb-2">Streaming live</h4>
                 <p class="text-sm text-zinc-400">Diffusion en direct sur toutes les plateformes</p>
               </div>
               <div class="bg-zinc-950/50 p-4 rounded-lg">
-                <h3 class="font-semibold text-white mb-3">Enregistrement</h3>
+                <h4 class="font-semibold text-white mb-3">Enregistrement</h4>
                 <p class="text-sm text-zinc-400">Captation haute qualité pour archivage et post-production</p>
               </div>
               <div class="bg-zinc-950/50 p-4 rounded-lg">
-                <h3 class="font-semibold text-white mb-2">Régie audio</h3>
+                <h4 class="font-semibold text-white mb-2">Régie audio</h4>
                 <p class="text-sm text-zinc-400">Mixage audio professionnel en direct</p>
               </div>
             </div>
           </div>
         </div>
 
-        <!-- Service 2: Technique événementielle -->
+        <!-- Technique événementielle -->
         <div class="bg-gradient-to-br from-zinc-900 to-zinc-900/50 rounded-2xl border border-zinc-800 overflow-hidden hover:border-red-500/50 transition-all">
           <div class="p-10">
             <div class="flex items-start gap-6 mb-6">
@@ -88,7 +165,7 @@ import sonoImage from '../assets/images/sono.webp';
                 </svg>
               </div>
               <div class="flex-1">
-                <h2 class="text-3xl font-bold text-white mb-4">Technique événementielle</h2>
+                <h3 class="text-3xl font-bold text-white mb-4">Technique événementielle</h3>
                 <p class="text-lg text-zinc-300 leading-relaxed mb-4">
                   Support technique complet pour tous types d'événements, de la conception à la réalisation.
                 </p>
@@ -107,26 +184,26 @@ import sonoImage from '../assets/images/sono.webp';
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div class="bg-zinc-950/50 p-4 rounded-lg">
-                <h3 class="font-semibold text-white mb-2">Sonorisation</h3>
+                <h4 class="font-semibold text-white mb-2">Sonorisation</h4>
                 <p class="text-sm text-zinc-400">Installation et exploitation de systèmes audio professionnels</p>
               </div>
               <div class="bg-zinc-950/50 p-4 rounded-lg">
-                <h3 class="font-semibold text-white mb-2">Éclairage</h3>
+                <h4 class="font-semibold text-white mb-2">Éclairage</h4>
                 <p class="text-sm text-zinc-400">Conception et mise en place de l'éclairage scénique</p>
               </div>
               <div class="bg-zinc-950/50 p-4 rounded-lg">
-                <h3 class="font-semibold text-white mb-2">Vidéo projection</h3>
+                <h4 class="font-semibold text-white mb-2">Vidéo projection</h4>
                 <p class="text-sm text-zinc-400">Solutions d'affichage grand format et mapping vidéo</p>
               </div>
               <div class="bg-zinc-950/50 p-4 rounded-lg">
-                <h3 class="font-semibold text-white mb-2">Réseaux & infrastructures</h3>
+                <h4 class="font-semibold text-white mb-2">Réseaux & infrastructures</h4>
                 <p class="text-sm text-zinc-400">Déploiement de réseaux IP pour événements</p>
               </div>
             </div>
           </div>
         </div>
 
-        <!-- Service 3: Production exécutive -->
+        <!-- Production exécutive -->
         <div class="bg-gradient-to-br from-zinc-900 to-zinc-900/50 rounded-2xl border border-zinc-800 overflow-hidden hover:border-red-500/50 transition-all">
           <div class="p-10">
             <div class="flex items-start gap-6 mb-6">
@@ -136,7 +213,7 @@ import sonoImage from '../assets/images/sono.webp';
                 </svg>
               </div>
               <div class="flex-1">
-                <h2 class="text-3xl font-bold text-white mb-4">Production exécutive</h2>
+                <h3 class="text-3xl font-bold text-white mb-4">Production exécutive</h3>
                 <p class="text-lg text-zinc-300 leading-relaxed mb-4">
                   Gestion et coordination complète de vos projets audiovisuels, du concept à la livraison.
                 </p>
@@ -145,26 +222,26 @@ import sonoImage from '../assets/images/sono.webp';
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div class="bg-zinc-950/50 p-4 rounded-lg">
-                <h3 class="font-semibold text-white mb-2">Gestion de projet</h3>
+                <h4 class="font-semibold text-white mb-2">Gestion de projet</h4>
                 <p class="text-sm text-zinc-400">Planification, coordination et suivi de production</p>
               </div>
               <div class="bg-zinc-950/50 p-4 rounded-lg">
-                <h3 class="font-semibold text-white mb-2">Coordination technique</h3>
+                <h4 class="font-semibold text-white mb-2">Coordination technique</h4>
                 <p class="text-sm text-zinc-400">Organisation des équipes et des moyens techniques</p>
               </div>
               <div class="bg-zinc-950/50 p-4 rounded-lg">
-                <h3 class="font-semibold text-white mb-2">Post-production</h3>
+                <h4 class="font-semibold text-white mb-2">Post-production</h4>
                 <p class="text-sm text-zinc-400">Montage, étalonnage et finalisation</p>
               </div>
               <div class="bg-zinc-950/50 p-4 rounded-lg">
-                <h3 class="font-semibold text-white mb-2">Livraison multi-formats</h3>
+                <h4 class="font-semibold text-white mb-2">Livraison multi-formats</h4>
                 <p class="text-sm text-zinc-400">Exports optimisés pour tous les supports de diffusion</p>
               </div>
             </div>
           </div>
         </div>
 
-        <!-- Service 4: Conseil & Formation -->
+        <!-- Conseil & Formation -->
         <div class="bg-gradient-to-br from-zinc-900 to-zinc-900/50 rounded-2xl border border-zinc-800 overflow-hidden hover:border-red-500/50 transition-all">
           <div class="p-10">
             <div class="flex items-start gap-6 mb-6">
@@ -174,7 +251,7 @@ import sonoImage from '../assets/images/sono.webp';
                 </svg>
               </div>
               <div class="flex-1">
-                <h2 class="text-3xl font-bold text-white mb-4">Conseil & Formation</h2>
+                <h3 class="text-3xl font-bold text-white mb-4">Conseil & Formation</h3>
                 <p class="text-lg text-zinc-300 leading-relaxed mb-4">
                   Accompagnement et transmission de compétences pour développer votre autonomie.
                 </p>
@@ -183,23 +260,71 @@ import sonoImage from '../assets/images/sono.webp';
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div class="bg-zinc-950/50 p-4 rounded-lg">
-                <h3 class="font-semibold text-white mb-2">Conseil technique</h3>
+                <h4 class="font-semibold text-white mb-2">Conseil technique</h4>
                 <p class="text-sm text-zinc-400">Aide au choix de solutions et d'équipements</p>
               </div>
               <div class="bg-zinc-950/50 p-4 rounded-lg">
-                <h3 class="font-semibold text-white mb-2">Formation sur mesure</h3>
+                <h4 class="font-semibold text-white mb-2">Formation sur mesure</h4>
                 <p class="text-sm text-zinc-400">Ateliers et sessions de formation adaptées à vos besoins</p>
               </div>
               <div class="bg-zinc-950/50 p-4 rounded-lg">
-                <h3 class="font-semibold text-white mb-2">Workflows IP</h3>
+                <h4 class="font-semibold text-white mb-2">Workflows IP</h4>
                 <p class="text-sm text-zinc-400">Expertise en production vidéo sur IP et solutions NDI</p>
               </div>
               <div class="bg-zinc-950/50 p-4 rounded-lg">
-                <h3 class="font-semibold text-white mb-2">Éco-conception</h3>
+                <h4 class="font-semibold text-white mb-2">Éco-conception</h4>
                 <p class="text-sm text-zinc-400">Approches durables et responsables en production audiovisuelle</p>
               </div>
             </div>
           </div>
+        </div>
+        </div>
+      </div>
+    </section>
+
+    {/* Réalisations : contenu de l'ancienne page /projects, qui a fusionné
+        ici. La collection src/content/projects/ reste la source. */}
+    <section class="container mx-auto px-6 py-12">
+      <div class="max-w-6xl mx-auto">
+        <h2 class="text-4xl font-bold text-white mb-4 text-center">Nos réalisations</h2>
+        <p class="text-lg text-zinc-400 mb-12 text-center">
+          Quelques-uns des projets que nous avons accompagnés ou réalisés
+        </p>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {projects.map((project) => (
+            <article class="bg-zinc-900 rounded-xl border border-zinc-800 overflow-hidden hover:border-red-500/50 transition-all group">
+              <div class="aspect-video overflow-hidden bg-gradient-to-br from-red-900/30 to-zinc-900">
+                {project.data.image ? (
+                  <Image
+                    src={project.data.image}
+                    alt={project.data.title}
+                    width={800}
+                    height={450}
+                    class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                    loading="lazy"
+                  />
+                ) : (
+                  <div class="w-full h-full flex items-center justify-center">
+                    <svg class="w-16 h-16 text-zinc-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                    </svg>
+                  </div>
+                )}
+              </div>
+
+              <div class="p-6">
+                <span class="text-red-500 text-xs font-semibold uppercase tracking-wider">
+                  {project.data.category}
+                </span>
+                <h3 class="text-xl font-bold text-white mt-2 mb-3">
+                  {project.data.title}
+                </h3>
+                <p class="text-zinc-400 text-sm leading-relaxed">
+                  {project.data.description}
+                </p>
+              </div>
+            </article>
+          ))}
         </div>
       </div>
     </section>
@@ -209,11 +334,11 @@ import sonoImage from '../assets/images/sono.webp';
       <div class="max-w-4xl mx-auto text-center bg-gradient-to-br from-red-900/20 to-zinc-900/50 p-12 rounded-2xl border border-red-500/20">
         <h2 class="text-3xl font-bold text-white mb-4">Un projet en tête ?</h2>
         <p class="text-zinc-300 mb-8">
-          Discutons ensemble de vos besoins et trouvons la meilleure solution
+          Dites-nous ce que vous préparez, nous vous répondons avec un devis sous 48 heures.
         </p>
         <a href="/contact"
            class="inline-block px-8 py-4 bg-red-500 hover:bg-red-600 text-white font-semibold rounded-lg transition-all transform hover:scale-105">
-          Nous contacter
+          Demander un devis
         </a>
       </div>
     </section>
