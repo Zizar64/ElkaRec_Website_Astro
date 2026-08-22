@@ -1,5 +1,11 @@
 # 🔄 Guide de migration des images vers WebP
 
+> 📌 **Document historique.** Il décrit une migration déjà faite et
+> renvoie à des fichiers qui n'existent plus (`about.astro`,
+> `projects.astro`, `src/pages/blog/`, `src/content/blog/`), supprimés
+> lors de la refonte de contenu du 2026-08-22. Conservé pour la
+> méthode, pas comme état courant du dépôt.
+
 ## ✅ Conversion terminée !
 
 **27 images** ont été converties avec succès en WebP et placées dans `src/assets/images/`

@@ -54,10 +54,10 @@ npm run convert:images
 │   └── MIGRATION-IMAGES.md # Guide de migration
 │
 ├── public/                  # 🌐 Fichiers statiques
-│   ├── _headers            # Headers de sécurité
 │   ├── robots.txt          # SEO
-│   ├── favicon.svg         # Favicon
-│   └── *.webp              # Images statiques
+│   └── favicon.png         # Favicon
+│   # _headers a ete supprime : il etait propre a Cloudflare Pages.
+│   # Les en-tetes de securite vivent dans le Caddyfile du LXC 105.
 │
 ├── scripts/                 # 🛠️ Scripts utilitaires
 │   ├── convert-images-to-webp.js  # Conversion WebP
@@ -71,30 +71,25 @@ npm run convert:images
 │   │   ├── Header.astro
 │   │   └── Footer.astro
 │   │
-│   ├── content/            # 📝 Contenu (blog, projets)
+│   ├── content/            # 📝 Contenu
 │   │   ├── config.ts       # Configuration des collections
-│   │   ├── blog/           # Articles de blog
-│   │   └── projects/       # Projets
+│   │   └── projects/       # Projets, affiches sur /services
 │   │
 │   ├── layouts/            # 🎨 Layouts
 │   │   └── Layout.astro    # Layout principal
 │   │
 │   ├── pages/              # 📄 Pages du site
-│   │   ├── index.astro     # Page d'accueil
-│   │   ├── about.astro     # À propos
-│   │   ├── services.astro  # Services
-│   │   ├── projects.astro  # Projets
-│   │   ├── join.astro      # Nous rejoindre
-│   │   ├── contact.astro   # Contact
-│   │   └── blog/           # Blog
+│   │   ├── index.astro     # Accueil : accroche, references, parc, upcycling
+│   │   ├── services.astro  # Offres, tarifs et realisations
+│   │   ├── contact.astro   # Demande de devis
+│   │   └── join.astro      # Adherer - PREPAREE, PAS PUBLIEE
 │   │
 │   └── styles/             # 🎨 Styles
 │       └── global.css      # Styles globaux
 │
-├── astro.config.mjs        # ⚙️ Configuration Astro
+├── astro.config.mjs        # ⚙️ Configuration Astro (dont le filtre sitemap)
 ├── package.json            # 📦 Dépendances
-├── tsconfig.json           # 🔧 Configuration TypeScript
-└── wrangler.toml           # ☁️ Configuration Cloudflare
+└── tsconfig.json           # 🔧 Configuration TypeScript
 ```
 
 ## 🎯 Commandes disponibles
@@ -112,7 +107,8 @@ npm run convert:images
 - **Framework** : [Astro 5](https://astro.build) - Framework web moderne
 - **Styling** : [Tailwind CSS 4](https://tailwindcss.com) - Framework CSS utility-first
 - **Images** : [Sharp](https://sharp.pixelplumbing.com/) - Optimisation d'images
-- **Déploiement** : [Cloudflare Pages](https://pages.cloudflare.com) - Hébergement et CDN
+- **Serveur web** : [Caddy](https://caddyserver.com) - sur le LXC 105 du lab
+- **Exposition** : [Cloudflare Tunnel](https://developers.cloudflare.com/cloudflare-one/connections/connect-networks/) - TLS et cache, sans port ouvert
 - **Language** : TypeScript - Type safety
 
 ## 📊 Optimisations appliquées
@@ -156,28 +152,16 @@ Le projet utilise les polices système pour de meilleures performances.
 
 ## 📝 Ajouter du contenu
 
-### Nouvel article de blog
-```bash
-# Créer un fichier dans src/content/blog/
-touch src/content/blog/mon-article.md
-```
-
-```markdown
----
-title: "Titre de l'article"
-description: "Description courte"
-pubDate: 2026-02-22
-author: "Nom de l'auteur"
-tags: ["tag1", "tag2"]
-image: "/image.webp"
----
-
-# Contenu de l'article
-
-Votre contenu en Markdown...
-```
+> **Le blog a été supprimé le 2026-08-22.** Pages, index, articles et
+> collection `src/content/blog/` ont été retirés du dépôt. Les 5 Markdown sont
+> archivés hors dépôt, dans
+> `02_ELKAREC\05_COMMUNICATION\Archives_blog_site\`.
+> `/blog` et `/blog/*` renvoient une 301 vers `/services`.
 
 ### Nouveau projet
+
+Il apparaît automatiquement dans la section « Nos réalisations » de
+`/services`, l'ancienne page `/projects` ayant fusionné là.
 ```bash
 # Créer un fichier dans src/content/projects/
 touch src/content/projects/mon-projet.md
@@ -200,24 +184,29 @@ Votre contenu en Markdown...
 
 ## 🚀 Déploiement
 
-### Cloudflare Pages (recommandé)
-
-1. Connecter le repository GitHub
-2. Configuration :
-   - **Build command** : `npm run build`
-   - **Build output** : `dist`
-   - **Node version** : `20`
-3. Déployer
-
-### Via Wrangler CLI
+Le site **n'est plus sur Cloudflare Pages** depuis le 2026-08-16 : il est
+auto-hébergé sur le lab (LXC 105, Caddy, derrière un tunnel Cloudflare).
+Éditer le dépôt ne publie rien tant que ces trois étapes ne sont pas faites :
 
 ```bash
-# Build
-npm run build
+# 1. Publier la source
+git push origin main
 
-# Déployer
-wrangler pages deploy dist
+# 2. Sur le LXC 105 : fetch origin/main, build, bascule atomique
+elkarec-deploy
+
+# 3. Purger le cache Cloudflare  ← SINON RIEN NE CHANGE POUR LES VISITEURS
 ```
+
+L'étape 3 n'est pas optionnelle : le cache est en « Cache Everything » avec un
+Edge TTL d'un mois, pour que le site reste servi même serveur éteint. Sans
+purge, un déploiement reste invisible pendant des heures.
+
+⚠️ `elkarec-deploy` fait un `git reset --hard origin/main` : tout commit resté
+local est perdu au déploiement suivant.
+
+Détail complet de l'hébergement : projet `Homelab`,
+`KB/apps/elkarec-web/elkarec-web.md`.
 
 ## 🐛 Résolution de problèmes
 

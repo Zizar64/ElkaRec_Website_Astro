@@ -5,9 +5,6 @@ Site web de l'association collégiale d'audiovisuel et d'événementiel **ElkaRe
 🔗 [elkarec.fr](https://elkarec.fr) — domaine canonique depuis le 2026-08-13.
 `elkarec.com` est conservé et redirige en 301 vers le `.fr`.
 
-> ⚠️ Le JSON-LD des pages déclare encore `"addressLocality": "Paris"` :
-> à corriger avec la refonte de contenu, c'est le dernier support qui diverge.
-
 ---
 
 ## Stack technique
@@ -16,7 +13,8 @@ Site web de l'association collégiale d'audiovisuel et d'événementiel **ElkaRe
 |:---|:---|
 | [Astro 5](https://astro.build) | Framework SSG |
 | [Tailwind CSS 4](https://tailwindcss.com) | Styling |
-| [Cloudflare Pages](https://pages.cloudflare.com) | Hébergement & CDN |
+| [Caddy](https://caddyserver.com) | Serveur web, sur le LXC 105 du lab |
+| [Cloudflare Tunnel](https://developers.cloudflare.com/cloudflare-one/connections/connect-networks/) | Exposition, TLS et cache, sans port ouvert |
 
 ---
 
@@ -24,8 +22,8 @@ Site web de l'association collégiale d'audiovisuel et d'événementiel **ElkaRe
 
 ```bash
 # Cloner le repo
-git clone https://github.com/ton-org/elkarec-website.git
-cd elkarec-website
+git clone https://github.com/Zizar64/ElkaRec_Website_Astro.git
+cd ElkaRec_Website_Astro
 
 # Installer les dépendances
 npm install
@@ -55,49 +53,40 @@ src/
 ├── assets/images/     # Images optimisées par Astro
 ├── components/        # Header, Footer, composants réutilisables
 ├── content/
-│   ├── blog/          # Articles de blog (.md)
-│   └── projects/      # Fiches projets (.md)
+│   └── projects/      # Fiches projets (.md), affichées sur /services
 ├── layouts/           # Layout principal
-├── pages/             # Toutes les pages du site
-│   ├── index.astro    # Accueil
-│   ├── about.astro    # À propos
-│   ├── services.astro # Services
-│   ├── projects.astro # Projets
-│   ├── join.astro     # Nous rejoindre
-│   ├── contact.astro  # Contact
-│   └── blog/          # Blog (index + articles dynamiques)
+├── pages/
+│   ├── index.astro    # Accueil : accroche, références, parc, upcycling
+│   ├── services.astro # Offres, tarifs et réalisations
+│   ├── contact.astro  # Demande de devis
+│   └── join.astro     # Adhérer — PRÉPARÉE, PAS PUBLIÉE (voir plus bas)
 └── styles/
     └── global.css
 
-public/                # Fichiers statiques (favicon, og-image, etc.)
+public/                # Fichiers statiques (favicon, robots.txt)
 ```
 
 ---
 
-## Ajouter un article de blog
+## La page Adhérer n'est pas publiée
 
-Crée un fichier `.md` dans `src/content/blog/` :
+`src/pages/join.astro` existe et est complète, mais elle est
+**volontairement hors ligne** : absente de la navigation, en `noindex`, et
+exclue du sitemap par un filtre dans `astro.config.mjs`.
 
-```markdown
----
-title: "Titre de l'article"
-description: "Description courte"
-pubDate: 2025-06-15
-author: "Prénom Nom"
-tags: ["Live", "Événement"]
-image: "../../assets/images/mon-image.webp"
----
+En l'état des statuts, l'article 14 fait de **chaque** adhérent un membre de
+la direction collégiale : ouvrir les adhésions reviendrait à faire de chaque
+nouveau venu un co-dirigeant engageant sa responsabilité personnelle. La page
+ne sera mise en ligne qu'après l'assemblée générale extraordinaire.
 
-Contenu de l'article en markdown...
-```
-
-L'article apparaît automatiquement sur `/blog`.
+Ne pas la remettre dans la navigation sans feu vert explicite.
 
 ---
 
 ## Ajouter un projet
 
-Même principe dans `src/content/projects/` :
+Crée un fichier `.md` dans `src/content/projects/`. Il apparaît
+automatiquement dans la section « Nos réalisations » de `/services` :
 
 ```markdown
 ---
@@ -114,14 +103,41 @@ image: "/image-dans-public.webp"
 
 ## Déploiement
 
-Le site se déploie automatiquement sur **Cloudflare Pages** à chaque push sur `main`.
-
-Pour un déploiement manuel :
+Le site n'est **plus sur Cloudflare Pages** : il est auto-hébergé sur le lab,
+sur le conteneur LXC 105, servi par Caddy derrière un tunnel Cloudflare.
+Éditer ce dépôt ne publie donc rien tant que les trois étapes suivantes ne
+sont pas faites :
 
 ```bash
-npm run build
-npx wrangler pages deploy dist
+# 1. Publier la source
+git push origin main
+
+# 2. Sur le LXC 105 : récupère origin/main, build, bascule atomique
+elkarec-deploy
+
+# 3. Purger le cache Cloudflare  ← SINON RIEN NE CHANGE POUR LES VISITEURS
 ```
+
+L'étape 3 n'est pas optionnelle : le cache est en « Cache Everything » avec
+un Edge TTL d'un mois, pour que le site survive à l'extinction du serveur.
+Un déploiement sans purge reste invisible pendant des heures.
+
+Autres commandes disponibles sur le conteneur :
+
+```bash
+elkarec-deploy list       # liste les versions, marque celle qui est servie
+elkarec-deploy rollback   # revient à la version précédente
+```
+
+⚠️ `elkarec-deploy` fait un `git reset --hard origin/main` : tout commit
+resté local est perdu au déploiement suivant.
+
+Les en-têtes de sécurité (CSP, HSTS, cache) ne sont **pas** dans ce dépôt :
+ils vivent dans le `Caddyfile` du conteneur. L'ancien `public/_headers`
+était propre à Cloudflare Pages et a été supprimé.
+
+Documentation complète de l'hébergement : projet `Homelab`,
+`KB/apps/elkarec-web/elkarec-web.md`.
 
 ---
 

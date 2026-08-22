@@ -1,13 +1,20 @@
 # ElkaRec Website - Documentation Projet
 
+> ⚠️ **Ce fichier a été écrit avant la refonte de contenu du 2026-08-22.**
+> Les passages touchés par cette refonte (structure des pages, blog,
+> hébergement, localisation) ont été corrigés. Le reste n'a pas été
+> re-vérifié ligne à ligne et peut être en retard sur le code : en cas de
+> doute, le dépôt fait foi, pas ce fichier.
+
 ## Vue d'ensemble
 
-Site web moderne pour ElkaRec, une association audiovisuelle et événementielle collégiale basée à Paris.
+Site web de ElkaRec, association audiovisuelle et événementielle collégiale
+installée à Antony (92).
 
 **Technologies principales:**
-- Framework: Astro 5.15.4
-- Styling: Tailwind CSS 4.1.17
-- Déploiement: Cloudflare Pages
+- Framework: Astro 5
+- Styling: Tailwind CSS 4
+- Hébergement: auto-hébergé sur le lab (LXC 105, Caddy, tunnel Cloudflare)
 - Langage: TypeScript
 
 ## Architecture du projet
@@ -31,7 +38,7 @@ ElkaRec_Website_Astro/
 │   │   ├── Header.astro  # Navigation principale (desktop + mobile)
 │   │   └── Footer.astro  # Pied de page
 │   ├── content/          # Collections de contenu
-│   │   ├── blog/         # Articles de blog (markdown)
+│   │   └── projects/     # Fiches projets (markdown)
 │   │   │   ├── eco-conception-audiovisuel.md
 │   │   │   ├── introduction-video-ip.md
 │   │   │   └── regie-mobile-multicam.md
@@ -39,19 +46,13 @@ ElkaRec_Website_Astro/
 │   ├── layouts/          # Layouts de pages
 │   │   └── Layout.astro  # Layout principal avec SEO
 │   ├── pages/            # Routes et pages
-│   │   ├── index.astro   # Page d'accueil
-│   │   ├── about.astro   # À propos
-│   │   ├── services.astro # Services
-│   │   ├── projects.astro # Projets
-│   │   ├── join.astro    # Rejoindre l'association
-│   │   ├── contact.astro # Contact
-│   │   └── blog/
-│   │       ├── index.astro      # Liste des articles
-│   │       └── [...slug].astro  # Page article dynamique
+│   │   ├── index.astro   # Accueil : accroche, références, parc, upcycling
+│   │   ├── services.astro # Offres, tarifs et réalisations
+│   │   ├── contact.astro # Demande de devis
+│   │   └── join.astro    # Adhérer - PRÉPARÉE, PAS PUBLIÉE
 │   └── styles/
 │       └── global.css    # Styles globaux (import Tailwind)
-├── astro.config.mjs      # Configuration Astro
-├── wrangler.toml         # Configuration Cloudflare
+├── astro.config.mjs      # Configuration Astro (dont le filtre sitemap)
 ├── package.json          # Dépendances et scripts
 └── tsconfig.json         # Configuration TypeScript
 ```
@@ -60,7 +61,8 @@ ElkaRec_Website_Astro/
 
 ### Configuration Astro
 - **Mode de sortie:** Static (SSG - Static Site Generation)
-- **Adapter:** Cloudflare (même en mode static pour l'optimisation)
+- **Adapter:** aucun. `@astrojs/cloudflare` a été retiré, il n'était pas
+  utilisé en mode static
 - **Plugin Vite:** Tailwind CSS intégré via @tailwindcss/vite
 - **Site URL:** https://elkarec.fr (configuré pour génération sitemap)
 - **Intégrations:**
@@ -69,15 +71,11 @@ ElkaRec_Website_Astro/
 
 ### Schémas de contenu (src/content/config.ts)
 
-**Collection Blog:**
-- title: string
-- description: string
-- pubDate: date
-- author: string
-- tags: array de strings
-- image: string (optionnel)
+La collection `blog` a été supprimée le 2026-08-22 en même temps que le
+blog. Les 5 Markdown sont archivés hors dépôt, dans
+`02_ELKAREC\05_COMMUNICATION\Archives_blog_site\`.
 
-**Collection Projects:**
+**Collection Projects:** (consommée par `services.astro`)
 - title: string
 - description: string
 - category: string
@@ -134,12 +132,17 @@ ElkaRec_Website_Astro/
 
 **Navigation:**
 - Accueil (/)
-- À propos (/about)
-- Services (/services)
-- Projets (/projects)
-- Blog (/blog)
-- Nous rejoindre (/join)
+- Services et tarifs (/services)
 - Contact (/contact)
+
+`/join` (Adhérer) existe mais est **volontairement hors navigation**, en
+`noindex` et exclue du sitemap : l'article 14 des statuts fait de chaque
+adhérent un membre de la direction collégiale, les adhésions ne peuvent pas
+être ouvertes avant l'AG extraordinaire. Ne pas la remettre dans la
+navigation sans feu vert explicite.
+
+`/about` et `/projects` ont été supprimées : la première a fusionné dans
+l'accueil, la seconde dans `/services`.
 
 **Comportement mobile:**
 - Bouton hamburger avec ARIA attributes (`aria-expanded`, `aria-controls`, `aria-label`)
@@ -156,7 +159,11 @@ ElkaRec_Website_Astro/
 - Twitter Cards (summary_large_image)
 - Theme color (#ef4444 - rouge ElkaRec)
 - Preload des ressources critiques (logo)
-- Schema.org Organization (JSON-LD) avec coordonnées et liens sociaux
+- Schema.org **LocalBusiness** (JSON-LD) : adresse d'Antony, zone desservie
+  et liens sociaux. C'est LocalBusiness et non Organization qui alimente le
+  référencement local. L'adresse doit rester identique caractère pour
+  caractère à celle de la fiche Google et du générateur de devis
+- Prop `noindex` pour les pages préparées mais non publiées
 - Viewport responsive
 - Favicon SVG
 - Generator meta tag (Astro)
@@ -171,7 +178,11 @@ ElkaRec_Website_Astro/
 - Texte clair (zinc-100)
 - Antialiasing activé
 
-### 4. Page Projets (projects.astro)
+### 4. Réalisations (section de services.astro)
+
+L'ancienne page `projects.astro` a fusionné dans `/services`. La collection
+`src/content/projects/` reste la source, c'est `services.astro` qui la
+consomme désormais.
 
 **Projets affichés (avec images):**
 1. **ELKAST** (elkast.jpg) - Production podcast
@@ -255,22 +266,38 @@ npm run build    # Build de production (dist/)
 npm run preview  # Preview du build
 ```
 
-## Déploiement Cloudflare Pages
+## Déploiement
 
-**Configuration:**
-- Build command: `npm run build`
-- Build output directory: `dist`
-- Node version: 20+
+Le site **n'est plus sur Cloudflare Pages** depuis le 2026-08-16. Il est
+auto-hébergé sur le lab : LXC 105, servi par Caddy, exposé par un tunnel
+Cloudflare. `wrangler.toml` et `public/_headers` ont été supprimés du dépôt.
 
-**Fichier wrangler.toml:**
-- Configuration pour déploiement via Wrangler CLI
-- Alternative: déploiement via dashboard Cloudflare
+Éditer ce dépôt ne publie rien. Trois étapes :
+
+```bash
+git push origin main   # 1. publier la source
+elkarec-deploy         # 2. sur le LXC 105 : fetch, build, bascule atomique
+                       # 3. purger le cache Cloudflare (dashboard)
+```
+
+⚠️ L'étape 3 n'est pas optionnelle : cache en « Cache Everything », Edge TTL
+d'un mois. Sans purge, un déploiement reste invisible pendant des heures et
+on conclut à tort qu'il a échoué.
+
+⚠️ `elkarec-deploy` fait un `git reset --hard origin/main` : tout commit
+resté local est perdu au déploiement suivant.
+
+Les en-têtes de sécurité (CSP, HSTS, cache, redirections) vivent dans le
+`Caddyfile` du conteneur, **pas** dans ce dépôt.
+
+Documentation complète : projet `Homelab`,
+`KB/apps/elkarec-web/elkarec-web.md`.
 
 ## Philosophie de l'association
 
 **ElkaRec est:**
 - Une association collégiale (sans hiérarchie traditionnelle)
-- Basée à Paris
+- Installée à Antony (92), siège transféré et déclaré le 2026-08-16
 - Axée sur l'audiovisuel et l'événementiel
 - Composée de bénévoles passionnés
 
@@ -279,11 +306,13 @@ npm run preview  # Preview du build
 2. **Créer:** Développer des projets audiovisuels innovants
 3. **Innover:** Favoriser le développement technologique
 
-## Articles de blog existants
+## Le blog n'existe plus
 
-1. **Régie mobile multicam** (regie-mobile-multicam.md)
-2. **Éco-conception audiovisuel** (eco-conception-audiovisuel.md)
-3. **Introduction vidéo IP** (introduction-video-ip.md)
+Supprimé le 2026-08-22 : pages, index, articles et collection. Il s'adressait
+à des bénévoles à recruter alors que le site doit convaincre des clients.
+Les 5 Markdown sont archivés hors dépôt dans
+`02_ELKAREC\05_COMMUNICATION\Archives_blog_site\`, `/blog` et `/blog/*`
+renvoient une 301 vers `/services`.
 
 ## Conventions de code
 
@@ -359,13 +388,11 @@ Fichier `.node-version` présent (Node 20 recommandé)
 - Créer des composants réutilisables (Card, Button, Section) pour réduire la duplication de code
 
 ### Fonctionnalités futures
-- Ajouter plus de contenu blog
 - Créer une page de détail pour chaque projet
 - Ajouter analytics (Plausible ou Google Analytics)
 - Configurer domaine custom (elkarec.fr déjà configuré)
 - Ajouter un système de newsletter
 - Implémenter un mode PWA (Service Worker, manifest)
-- Ajouter un système de recherche pour le blog
 
 ### Optimisations techniques
 - Implémenter Critical CSS inline
