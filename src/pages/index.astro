@@ -2,11 +2,53 @@
 import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import { Image } from 'astro:assets';
+import collectif from '../assets/images/collectif.webp';
+
+import logoamp from '../assets/images/logoamp.webp';
+import logocanal from '../assets/images/logocanal.webp';
+import logoeurosport from '../assets/images/logoeurosport.webp';
+import logovidelio from '../assets/images/logovidelio.webp';
+import logoequipe from '../assets/images/logoequipe.webp';
+import logoixi from '../assets/images/logoixi.webp';
+
+// Références validées avec Lucas le 2026-08-13. L'ordre est imposé :
+// Farn'High en tête, c'est la seule prestation facturée, payée et reconduite.
+const references = [
+  {
+    nom: "Farn'High 2026",
+    detail: "Captation et sonorisation, trois techniciens sur une journée. Prestation facturée, et le client reconduit en 2027.",
+  },
+  {
+    nom: 'La Ride Divine',
+    detail: 'Événement produit avec la ville de Tournefeuille.',
+  },
+  {
+    nom: 'Comité des fêtes de Soumoulou',
+    detail: "Captation et sonorisation d'événement municipal.",
+  },
+  {
+    nom: 'La Dame de Canton',
+    detail: 'Captation de concert.',
+  },
+  {
+    nom: 'Les Nouveaux Sauvages',
+    detail: 'Captation de concert.',
+  },
+  {
+    nom: 'Antonime',
+    detail: "Régie complète : topologie audio, plan de diffusion, schémas d'implantation.",
+  },
+  {
+    nom: 'Téléthon Gaming',
+    detail: 'Streaming multicaméra sur une opération caritative.',
+  },
+];
 ---
 
 <Layout
-  title="ElkaRec - Association audiovisuelle et événementielle"
-  description="Association audiovisuelle et événementielle collégiale basée à Paris. Nous favorisons le développement technologique et la création audiovisuelle."
+  title="Captation vidéo et sonorisation à Antony (92) - ElkaRec"
+  description="Association audiovisuelle et événementielle installée à Antony (92). Captation multicaméra, streaming et sonorisation d'événements. Devis sous 48 heures."
   image="/concert.webp"
 >
   <Header />
@@ -25,24 +67,20 @@ import Footer from '../components/Footer.astro';
 
     <div class="container mx-auto px-6 relative z-10">
       <div class="max-w-4xl mx-auto text-center">
-        <h1 class="text-5xl md:text-7xl font-bold mb-6 text-red-500">
-          Accompagner, Créer, Innover
+        <h1 class="text-4xl md:text-6xl font-bold mb-6 text-red-500 leading-tight">
+          Du matériel de chaîne, une équipe qui sait s'en servir, à côté de chez vous
         </h1>
-        <p class="text-xl md:text-2xl text-zinc-300 mb-8 leading-relaxed">
-          Association audiovisuelle et événementielle collégiale basée à Paris
-        </p>
-        <p class="text-lg text-zinc-400 mb-12 max-w-2xl mx-auto">
-          Nous favorisons le développement technologique et la création audiovisuelle
-          en accompagnant créateurs et événements avec l'expertise de bénévoles passionnés
+        <p class="text-xl md:text-2xl text-zinc-300 mb-12 leading-relaxed">
+          Association audiovisuelle et événementielle, installée à Antony (92)
         </p>
         <div class="flex flex-col sm:flex-row gap-4 justify-center">
-          <a href="/services"
+          <a href="/contact"
              class="px-8 py-4 bg-red-500 hover:bg-red-600 text-white font-semibold rounded-lg transition-all transform hover:scale-105">
-            Nos services
+            Demander un devis
           </a>
-          <a href="/join"
+          <a href="/services"
              class="px-8 py-4 bg-zinc-800 hover:bg-zinc-700 text-white font-semibold rounded-lg transition-all border border-zinc-700">
-            Nous rejoindre
+            Nos offres et nos tarifs
           </a>
         </div>
       </div>
@@ -56,93 +94,182 @@ import Footer from '../components/Footer.astro';
     </div>
   </section>
 
-  <!-- Values Section -->
+  <!-- Bloc de preuve -->
   <section class="py-20 bg-zinc-900/50">
     <div class="container mx-auto px-6">
       <div class="max-w-6xl mx-auto">
-        <h2 class="text-4xl font-bold text-center mb-16 text-white">Notre approche</h2>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-          <!-- Accompagner -->
-          <div class="bg-zinc-900 p-8 rounded-xl border border-zinc-800 hover:border-red-500/50 transition-all text-center">
-            <div class="w-12 h-12 bg-red-500/20 rounded-lg flex items-center justify-center mb-6 mx-auto">
-              <svg class="w-6 h-6 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
-              </svg>
+        <h2 class="text-4xl font-bold text-center mb-16 text-white">Ce que nous avons fait</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {references.map((ref) => (
+            <div class="bg-zinc-900 p-6 rounded-xl border border-zinc-800 hover:border-red-500/50 transition-all">
+              <h3 class="text-lg font-bold text-white mb-2">{ref.nom}</h3>
+              <p class="text-zinc-400 leading-relaxed">{ref.detail}</p>
             </div>
-            <h3 class="text-2xl font-bold text-white mb-4">Accompagner</h3>
-            <p class="text-zinc-400 leading-relaxed">
-              Nous soutenons les créateurs et événements avec l'expertise de bénévoles passionnés
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Le parc, et d'où il vient -->
+  <section class="py-20">
+    <div class="container mx-auto px-6">
+      <div class="max-w-4xl mx-auto">
+        <h2 class="text-4xl font-bold text-white mb-8 text-center">Notre parc</h2>
+        <p class="text-lg text-zinc-300 leading-relaxed">
+          Notre parc vient de matériel de diffusion professionnelle confié par
+          Eurosport, Canal+, L'Équipe, Videlio et Midi Libre, et d'enchères
+          industrielles : matrices de brassage 20×20 et 32×32, six caméras, système de
+          ralenti, streaming SRT et NDI, régie vMix et TriCaster. Du matériel de
+          diffusion nationale, remis en service par des bénévoles.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Qui nous sommes -->
+  <section class="py-20 bg-zinc-900/50">
+    <div class="container mx-auto px-6">
+      <div class="max-w-6xl mx-auto">
+        <h2 class="text-4xl font-bold text-white mb-12 text-center">Qui nous sommes</h2>
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
+          <div>
+            <p class="text-lg text-zinc-300 leading-relaxed mb-6">
+              ElkaRec est une association loi 1901 collégiale : pas de président,
+              pas de conseil d'administration, pas de bureau traditionnel. Les
+              membres partagent les responsabilités et les décisions importantes
+              se prennent ensemble.
+            </p>
+            <p class="text-lg text-zinc-300 leading-relaxed mb-6">
+              Ce sont des techniciens de l'audiovisuel qui donnent de leur temps
+              pour remettre en service du matériel de diffusion professionnelle et
+              le mettre au service d'événements qui n'y auraient pas accès
+              autrement.
+            </p>
+            <p class="text-lg text-zinc-300 leading-relaxed">
+              Nous intervenons depuis Antony, dans les Hauts-de-Seine, et plus
+              largement en Île-de-France et partout où un projet le justifie.
             </p>
           </div>
-
-          <!-- Créer -->
-          <div class="bg-zinc-900 p-8 rounded-xl border border-zinc-800 hover:border-red-500/50 transition-all text-center">
-            <div class="w-12 h-12 bg-red-500/20 rounded-lg flex items-center justify-center mb-6 mx-auto">
-              <svg class="w-6 h-6 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
-              </svg>
-            </div>
-            <h3 class="text-2xl font-bold text-white mb-4">Créer</h3>
-            <p class="text-zinc-400 leading-relaxed">
-              Nous développons des projets audiovisuels innovants et créatifs
-            </p>
-          </div>
-
-          <!-- Innover -->
-          <div class="bg-zinc-900 p-8 rounded-xl border border-zinc-800 hover:border-red-500/50 transition-all text-center">
-            <div class="w-12 h-12 bg-red-500/20 rounded-lg flex items-center justify-center mb-6 mx-auto">
-              <svg class="w-6 h-6 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
-              </svg>
-            </div>
-            <h3 class="text-2xl font-bold text-white mb-4">Innover</h3>
-            <p class="text-zinc-400 leading-relaxed">
-              Nous favorisons le développement technologique et les nouvelles pratiques
-            </p>
+          <div class="bg-zinc-900 rounded-xl border border-zinc-800 overflow-hidden hover:border-red-500/50 transition-all group">
+            <Image
+              src={collectif}
+              alt="Notre équipe de bénévoles"
+              class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+              loading="lazy"
+            />
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Services Preview -->
-  <section class="py-20">
+  {/* Section « Ils nous ont aidé », transférée depuis /about lors de la
+      fusion des pages.
+
+      Formulation juridiquement calibrée : ces entreprises ont CONFIÉ du
+      matériel décommissionné. Ne jamais écrire « ils nous font confiance »,
+      « nos partenaires » ou « en partenariat avec » : citer la provenance
+      d'un matériel est licite, suggérer un cautionnement commercial qui
+      n'existe pas ne l'est pas. */}
+  <section class="py-20 border-t border-zinc-800">
     <div class="container mx-auto px-6">
-      <div class="max-w-6xl mx-auto">
-        <div class="text-center mb-16">
-          <h2 class="text-4xl font-bold text-white mb-4">Nos services</h2>
-          <p class="text-zinc-400 text-lg">Expertise audiovisuelle et technique pour tous vos événements</p>
-        </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div class="bg-gradient-to-br from-zinc-900 to-zinc-900/50 p-8 rounded-xl border border-zinc-800 ">
-            <h3 class="text-xl font-bold text-white mb-3">Régie mobile</h3>
-            <p class="text-zinc-400">Solutions de production mobile complètes pour vos événements en direct</p>
-          </div>
-
-          <div class="bg-gradient-to-br from-zinc-900 to-zinc-900/50 p-8 rounded-xl border border-zinc-800">
-            <h3 class="text-xl font-bold text-white mb-3">Technique événementielle</h3>
-            <p class="text-zinc-400">Support technique complet pour tous types d'événements</p>
-          </div>
-
-          <div class="bg-gradient-to-br from-zinc-900 to-zinc-900/50 p-8 rounded-xl border border-zinc-800">
-            <h3 class="text-xl font-bold text-white mb-3">Production exécutive</h3>
-            <p class="text-zinc-400">Gestion et coordination de vos projets audiovisuels</p>
-          </div>
-
-          <div class="bg-gradient-to-br from-zinc-900 to-zinc-900/50 p-8 rounded-xl border border-zinc-800">
-            <h3 class="text-xl font-bold text-white mb-3">Conseil & Formation</h3>
-            <p class="text-zinc-400">Accompagnement et transmission de compétences</p>
-          </div>
-        </div>
-
-        <div class="text-center mt-12">
-          <a href="/services"
-             class="inline-block px-8 py-4 bg-zinc-800 hover:bg-zinc-700 text-white font-semibold rounded-lg transition-all border border-zinc-700">
-            Découvrir tous nos services
-          </a>
-        </div>
+      <!-- Titre -->
+      <div class="text-center mb-16">
+        <span class="text-red-500 font-semibold text-sm uppercase tracking-wider">
+          Partenaires Upcycling
+        </span>
+        <h2 class="text-3xl md:text-4xl font-bold text-white mt-3 mb-4">
+          Ils nous ont aidé
+        </h2>
+        <p class="text-zinc-400 max-w-2xl mx-auto leading-relaxed">
+          Ces entreprises nous ont confié leur matériel décommissionné,
+          contribuant à notre mission d'upcycling et de réemploi technologique.
+        </p>
       </div>
+
+      <!-- Grille de logos -->
+      <div class="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-8 items-center max-w-4xl mx-auto">
+
+        <div class="group flex items-center justify-center p-6 rounded-xl bg-zinc-800/30 border border-zinc-800 hover:border-red-500/30 transition-all duration-300 overflow-hidden">
+          <Image
+            src={logocanal}
+            alt="Canal+"
+            width={200}
+            height={150}
+            class="rounded-lg object-contain max-w-full group-hover:scale-110 transition-all duration-300"
+          />
+        </div>
+
+        <div class="group flex items-center justify-center p-6 rounded-xl bg-zinc-800/30 border border-zinc-800 hover:border-red-500/30 transition-all duration-300">
+          <Image
+            src={logoeurosport}
+            alt="Eurosport"
+            width={200}
+            height={150}
+            class="rounded-lg object-contain max-w-full group-hover:scale-110 transition-all duration-300"
+          />
+        </div>
+
+        <div class="group flex items-center justify-center p-6 rounded-xl bg-zinc-800/30 border border-zinc-800 hover:border-red-500/30 transition-all duration-300">
+          <Image
+            src={logovidelio}
+            alt="Videlio"
+            width={200}
+            height={150}
+            class="rounded-lg object-contain max-w-full group-hover:scale-110 transition-all duration-300"
+          />
+        </div>
+
+        <div class="group flex items-center justify-center p-6 rounded-xl bg-zinc-800/30 border border-zinc-800 hover:border-red-500/30 transition-all duration-300">
+          <Image
+            src={logoequipe}
+            alt="L'Equipe TV"
+            width={200}
+            height={150}
+            class="rounded-lg object-contain max-w-full group-hover:scale-110 transition-all duration-300"
+          />
+        </div>
+
+        <div class="group flex items-center justify-center p-6 rounded-xl bg-zinc-800/30 border border-zinc-800 hover:border-red-500/30 transition-all duration-300">
+          <Image
+            src={logoamp}
+            alt="AMP Visual TV"
+            width={200}
+            height={150}
+            class="rounded-lg object-contain max-w-full group-hover:scale-110 transition-all duration-300"
+          />
+        </div>
+
+        <div class="group flex items-center justify-center p-6 rounded-xl bg-zinc-800/30 border border-zinc-800 hover:border-red-500/30 transition-all duration-300">
+          <Image
+            src={logoixi}
+            alt="IXI Live"
+            width={100}
+            height={80}
+            class="rounded-lg object-contain max-w-full group-hover:scale-110 transition-all duration-300"
+          />
+        </div>
+
+        {/* Midi Libre est cité en texte : il n'existe pas de logo Midi Libre
+            dans src/assets/images/. Ne pas en récupérer un sur le web. Si Lucas
+            fournit l'asset, ajouter une carte sur le modèle ci-dessus. */}
+
+      </div>
+
+      <p class="text-center text-zinc-400 text-sm mt-10 max-w-2xl mx-auto">
+        Midi Libre nous a également confié du matériel décommissionné.
+      </p>
+
+      <!-- Note en bas -->
+      <p class="text-center text-zinc-500 text-sm mt-6">
+        Votre entreprise souhaite contribuer ?
+        <a href="/contact" class="text-red-500 hover:text-red-400 underline underline-offset-4 transition-colors">
+          Contactez-nous
+        </a>
+      </p>
+
     </div>
   </section>
 
@@ -150,14 +277,13 @@ import Footer from '../components/Footer.astro';
   <section class="py-20 bg-gradient-to-br from-red-900/20 to-zinc-950">
     <div class="container mx-auto px-6">
       <div class="max-w-4xl mx-auto text-center">
-        <h2 class="text-4xl font-bold text-white mb-6">Rejoignez l'aventure</h2>
+        <h2 class="text-4xl font-bold text-white mb-6">Un événement à capter ou à sonoriser ?</h2>
         <p class="text-xl text-zinc-300 mb-8">
-          ElkaRec est une association collégiale sans hiérarchie traditionnelle.
-          Tous les membres partagent les responsabilités de manière collaborative.
+          Dites-nous ce que vous préparez, nous vous répondons avec un devis sous 48 heures.
         </p>
-        <a href="/join"
+        <a href="/contact"
            class="inline-block px-8 py-4 bg-red-500 hover:bg-red-600 text-white font-semibold rounded-lg transition-all transform hover:scale-105">
-          Nous rejoindre
+          Demander un devis
         </a>
       </div>
     </div>
