@@ -1,0 +1,257 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { Image } from 'astro:assets';
+import local from '../assets/images/local.webp';
+import regie from '../assets/images/regie.webp';
+
+// Page destinée au public « membres usagers et bénévoles ».
+// Trois interdits, tous délibérés :
+//   1. AUCUN horaire de permanence : le créneau samedi 14h-18h est
+//      recommandé mais pas décidé (chantier 3).
+//   2. AUCUN tarif de location du plateau : la fourchette du chantier 5
+//      n'a pas été arbitrée pour publication. « Sur demande ».
+//   3. AUCUN bouton d'adhésion : l'article 14 des statuts fait de chaque
+//      membre adhérent un co-dirigeant tant que l'AGE n'a pas eu lieu.
+//      Participer n'est pas adhérer, et c'est ce qui autorise cette page.
+
+const usages = [
+  {
+    titre: 'Un plateau de tournage',
+    texte:
+      "Un espace équipé pour tourner en multicaméra, avec la régie à côté. Pensé pour des créateurs, des podcasteurs et des petites structures qui n'ont pas les moyens des studios parisiens.",
+  },
+  {
+    titre: 'Le parc technique, sur place et à distance',
+    texte:
+      "Montage, étalonnage, stockage partagé et machine de travail. L'accès n'impose pas de venir : c'est ce qui rend l'association utile même à quelqu'un qui habite loin.",
+  },
+  {
+    titre: 'Des ateliers et des captations',
+    texte:
+      "Apprendre à se servir d'une régie, d'un mélangeur ou d'un système son, puis venir sur une captation réelle. C'est la façon la plus directe de se former, et elle ne coûte rien.",
+  },
+];
+
+const faq = [
+  {
+    q: "Où se trouve le local d'ElkaRec ?",
+    r: "Au 6 avenue François Arago, 92160 Antony, dans un bâtiment géré par l'association La Ruche Bleue, qui héberge d'autres associations et des artisans.",
+  },
+  {
+    q: 'Peut-on visiter le local ?',
+    r: "Oui. Nous n'avons pas encore de créneau de permanence fixe, donc le plus simple est de nous écrire pour convenir d'un moment. Une visite prend une trentaine de minutes.",
+  },
+  {
+    q: 'Faut-il être adhérent pour venir ?',
+    r: "Non. Venir voir le local, donner un coup de main sur une captation ou participer à un atelier ne demande aucune adhésion préalable. L'adhésion est une étape ultérieure, et elle est encadrée par nos statuts.",
+  },
+  {
+    q: 'Peut-on louer le plateau de tournage ?',
+    r: "C'est possible, et cela se discute au cas par cas selon la durée, le matériel nécessaire et l'accompagnement technique souhaité. Écrivez-nous en décrivant votre projet.",
+  },
+  {
+    q: 'Le local est-il accessible en transport en commun ?',
+    r: "Il est desservi, mais l'accès reste peu commode selon d'où l'on vient. C'est une contrainte réelle, et c'est pourquoi nous développons l'accès à distance au parc technique.",
+  },
+];
+
+const schema = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Accueil', item: 'https://elkarec.fr/' },
+      { '@type': 'ListItem', position: 2, name: 'Le local', item: 'https://elkarec.fr/local' },
+    ],
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faq.map((item) => ({
+      '@type': 'Question',
+      name: item.q,
+      acceptedAnswer: { '@type': 'Answer', text: item.r },
+    })),
+  },
+];
+---
+
+<Layout
+  title="Le local d'ElkaRec à Antony (92) - matériel et ateliers"
+  description="37 m² à Antony (92) : baie technique, régie et parc de diffusion professionnelle. Ateliers, plateau de tournage et accès au matériel, ouverts aux bénévoles et aux membres."
+  image="/concert.webp"
+  schema={schema}
+>
+  <Header />
+
+  <main id="main-content" class="pt-24">
+
+    <!-- Accroche -->
+    <section class="py-16 md:py-24">
+      <div class="container mx-auto px-6">
+        <div class="max-w-4xl mx-auto">
+          <span class="text-red-500 font-semibold text-sm uppercase tracking-wider">
+            Le local
+          </span>
+          <h1 class="text-4xl md:text-5xl font-bold text-white mt-3 mb-6 leading-tight">
+            37 m² à Antony, et du matériel de chaîne dedans
+          </h1>
+          <p class="text-xl text-zinc-300 leading-relaxed">
+            Fibre dédiée, baie technique, régie et le parc de diffusion au
+            complet. Très peu d'associations audiovisuelles disposent de cela.
+            C'est précisément ce que nous voulons ouvrir.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Ce que c'est -->
+    <section class="py-16 bg-zinc-900/50">
+      <div class="container mx-auto px-6">
+        <div class="max-w-6xl mx-auto">
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
+            <div>
+              <h2 class="text-3xl md:text-4xl font-bold text-white mb-6">
+                Un lieu de travail, pas un entrepôt
+              </h2>
+              <p class="text-lg text-zinc-300 leading-relaxed mb-5">
+                Le local se trouve au 6 avenue François Arago à Antony, dans
+                un bâtiment géré par La Ruche Bleue, qui héberge d'autres
+                associations et des artisans. On y trouve la baie technique,
+                les matrices de brassage, les caméras, la régie et les flight
+                cases prêts à partir en prestation.
+              </p>
+              <p class="text-lg text-zinc-300 leading-relaxed">
+                C'est là que le matériel est diagnostiqué, réparé et remis en
+                service, et là que se préparent les captations. Un lieu qui
+                sert, pas une réserve fermée à clé.
+              </p>
+            </div>
+            <div class="bg-zinc-900 rounded-xl border border-zinc-800 overflow-hidden hover:border-red-500/50 transition-all group">
+              <Image
+                src={local}
+                alt="Le local d'ElkaRec à Antony, baie technique et matériel de régie"
+                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                loading="lazy"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Les trois usages -->
+    <section class="py-16 md:py-24">
+      <div class="container mx-auto px-6">
+        <div class="max-w-6xl mx-auto">
+          <h2 class="text-3xl md:text-4xl font-bold text-white mb-4 text-center">
+            Ce qu'on peut y faire
+          </h2>
+          <p class="text-zinc-400 text-center max-w-2xl mx-auto mb-14 leading-relaxed">
+            Trois usages que nous ouvrons progressivement. Tous se discutent :
+            l'association est en train de les construire, pas de les vendre.
+          </p>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {usages.map((usage) => (
+              <div class="bg-zinc-900 p-8 rounded-xl border border-zinc-800 hover:border-red-500/50 transition-all">
+                <h3 class="text-xl font-bold text-white mb-3">{usage.titre}</h3>
+                <p class="text-zinc-400 leading-relaxed">{usage.texte}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Accessibilité, dite honnêtement -->
+    <section class="py-16 bg-zinc-900/50">
+      <div class="container mx-auto px-6">
+        <div class="max-w-6xl mx-auto">
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
+            <div class="order-2 lg:order-1 bg-zinc-900 rounded-xl border border-zinc-800 overflow-hidden hover:border-red-500/50 transition-all group">
+              <Image
+                src={regie}
+                alt="Régie multicaméra installée dans le local d'Antony"
+                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                loading="lazy"
+              />
+            </div>
+            <div class="order-1 lg:order-2">
+              <h2 class="text-3xl md:text-4xl font-bold text-white mb-6">
+                Une contrainte qu'on préfère dire
+              </h2>
+              <p class="text-lg text-zinc-300 leading-relaxed mb-5">
+                Le local n'est pas des plus faciles d'accès en transport
+                selon d'où l'on vient. Autant l'annoncer plutôt que de le
+                laisser découvrir : c'est une vraie contrainte, et elle pèse
+                sur qui voudrait venir régulièrement.
+              </p>
+              <p class="text-lg text-zinc-300 leading-relaxed">
+                C'est pour cela que nous développons l'accès à distance au
+                parc technique. Montage, étalonnage et stockage partagé se
+                pratiquent sans mettre les pieds à Antony, ce qui garde
+                l'association utile à quelqu'un qui habite loin.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="py-16 md:py-24">
+      <div class="container mx-auto px-6">
+        <div class="max-w-3xl mx-auto">
+          <h2 class="text-3xl md:text-4xl font-bold text-white mb-10 text-center">
+            Questions fréquentes
+          </h2>
+          <div class="space-y-4">
+            {faq.map((item) => (
+              <details class="group bg-zinc-900 rounded-xl border border-zinc-800 hover:border-red-500/40 transition-all">
+                <summary class="cursor-pointer list-none p-6 flex items-center justify-between gap-4 text-white font-semibold">
+                  <span>{item.q}</span>
+                  <svg class="w-5 h-5 flex-none text-red-500 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                  </svg>
+                </summary>
+                <p class="px-6 pb-6 text-zinc-400 leading-relaxed">{item.r}</p>
+              </details>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Appel à l'action -->
+    <section class="py-20 bg-gradient-to-br from-red-900/20 to-zinc-950">
+      <div class="container mx-auto px-6">
+        <div class="max-w-4xl mx-auto text-center">
+          <h2 class="text-3xl md:text-4xl font-bold text-white mb-6">
+            Venez voir
+          </h2>
+          <p class="text-xl text-zinc-300 mb-8 leading-relaxed">
+            Nous n'avons pas encore de créneau de permanence fixe. Écrivez-nous
+            en disant ce qui vous intéresse, et nous convenons d'un moment
+            pour vous faire visiter.
+          </p>
+          <a href="/contact"
+             class="inline-block px-8 py-4 bg-red-500 hover:bg-red-600 text-white font-semibold rounded-lg transition-all transform hover:scale-105">
+            Nous écrire
+          </a>
+          <p class="text-zinc-500 text-sm mt-6">
+            Vous pouvez aussi
+            <a href="/association" class="text-red-500 hover:text-red-400 underline underline-offset-4 transition-colors">
+              en savoir plus sur l'association
+            </a>
+            avant de passer.
+          </p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <Footer />
+</Layout>

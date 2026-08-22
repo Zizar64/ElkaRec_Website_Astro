@@ -11,6 +11,12 @@ interface Props {
    * l'article 14 des statuts.
    */
   noindex?: boolean;
+  /**
+   * JSON-LD additionnel, propre à la page : Service, FAQPage, BreadcrumbList.
+   * Le LocalBusiness du site est déjà posé plus bas sur toutes les pages ;
+   * ce paramètre sert à enrichir, pas à le remplacer.
+   */
+  schema?: Record<string, unknown> | Record<string, unknown>[];
 }
 
 const {
@@ -18,6 +24,7 @@ const {
   description = "ElkaRec - Association audiovisuelle et événementielle à Antony (92)",
   image = '/concert.webp',
   noindex = false,
+  schema,
 } = Astro.props;
 ---
 
@@ -67,7 +74,21 @@ const {
         L'adresse doit rester STRICTEMENT identique, caractère pour
         caractère, à celle de la fiche Google Business Profile et du
         générateur de devis. Forme retenue : celle des statuts, « François
-        Arago » sans trait d'union. */}
+        Arago » sans trait d'union.
+
+        La liste `areaServed` doit rester identique à la zone desservie
+        déclarée dans la fiche Google Business Profile : c'est la cohérence
+        entre les deux qui fait le signal local, pas leur contenu pris
+        isolément. Référence :
+        02_ELKAREC\05_COMMUNICATION\Fiche_Google_ElkaRec.html
+
+        ⚠️ NE JAMAIS mettre de commentaire à l'intérieur du bloc JSON-LD
+        ci-dessous. Astro n'interprète pas les commentaires JSX dans un
+        script : il les émet tels quels, et le JSON devient invalide en
+        silence. Aucun message d'erreur, le build passe, et le balisage est
+        simplement ignoré par Google. Tout commentaire va ici, au-dessus de
+        la balise. Éviter aussi d'écrire une balise HTML littérale dans ce
+        commentaire, elle serait interprétée comme un vrai élément. */}
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
@@ -93,7 +114,21 @@ const {
           { "@type": "City", "name": "Bourg-la-Reine" },
           { "@type": "City", "name": "Fontenay-aux-Roses" },
           { "@type": "City", "name": "Châtenay-Malabry" },
-          { "@type": "City", "name": "Massy" }
+          { "@type": "City", "name": "Le Plessis-Robinson" },
+          { "@type": "City", "name": "Clamart" },
+          { "@type": "City", "name": "Bagneux" },
+          { "@type": "City", "name": "Montrouge" },
+          { "@type": "City", "name": "Massy" },
+          { "@type": "City", "name": "Verrières-le-Buisson" },
+          { "@type": "City", "name": "Wissous" }
+        ],
+        "knowsAbout": [
+          "Captation vidéo multicaméra",
+          "Streaming en direct SRT et NDI",
+          "Sonorisation d'événements",
+          "Régie vidéo mobile",
+          "Éclairage scénique",
+          "Réemploi de matériel de diffusion professionnelle"
         ],
         "sameAs": [
           "https://www.youtube.com/@elkarec64",
@@ -105,6 +140,10 @@ const {
         ]
       }
     </script>
+
+    {/* JSON-LD propre à la page : Service, FAQPage, BreadcrumbList.
+        Voir la prop `schema` en tête de fichier. */}
+    {schema && <script type="application/ld+json" set:html={JSON.stringify(schema)} />}
   </head>
   <body class="bg-zinc-950 text-zinc-100 antialiased">
     <!-- Skip Navigation for Accessibility -->

@@ -2,9 +2,19 @@
 import { Image } from 'astro:assets';
 import logo from '../assets/images/logo.webp';
 
+// Le site sert DEUX publics, et le menu doit le montrer : « Services et
+// tarifs » s'adresse aux clients, « L'association » et « Le local » aux
+// futurs membres et bénévoles. Ne pas refusionner ces deux dernières dans
+// l'accueil pour « simplifier » : c'est l'erreur corrigée le 22/08/2026,
+// qui avait laissé un menu entièrement commercial.
+//
+// /join reste volontairement HORS de cette liste tant que l'assemblée
+// générale extraordinaire n'a pas modifié l'article 14 des statuts.
 const navItems = [
   { name: 'Accueil', href: '/' },
   { name: 'Services et tarifs', href: '/services' },
+  { name: "L'association", href: '/association' },
+  { name: 'Le local', href: '/local' },
   { name: 'Contact', href: '/contact' },
 ];
 

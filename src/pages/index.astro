@@ -133,23 +133,27 @@ const references = [
       <div class="max-w-6xl mx-auto">
         <h2 class="text-4xl font-bold text-white mb-12 text-center">Qui nous sommes</h2>
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
+          {/* Version courte : le développement vit désormais sur /association,
+              pour que l'accueil respire et que l'identité ait sa propre page.
+              Ne pas y réinjecter les trois paragraphes d'origine. */}
           <div>
             <p class="text-lg text-zinc-300 leading-relaxed mb-6">
               ElkaRec est une association loi 1901 collégiale : pas de président,
-              pas de conseil d'administration, pas de bureau traditionnel. Les
-              membres partagent les responsabilités et les décisions importantes
-              se prennent ensemble.
+              pas de conseil d'administration, pas de bureau. Ce sont des
+              techniciens de l'audiovisuel qui donnent de leur temps pour
+              remettre en service du matériel de diffusion professionnelle.
             </p>
-            <p class="text-lg text-zinc-300 leading-relaxed mb-6">
-              Ce sont des techniciens de l'audiovisuel qui donnent de leur temps
-              pour remettre en service du matériel de diffusion professionnelle et
-              le mettre au service d'événements qui n'y auraient pas accès
-              autrement.
-            </p>
-            <p class="text-lg text-zinc-300 leading-relaxed">
+            <p class="text-lg text-zinc-300 leading-relaxed mb-8">
               Nous intervenons depuis Antony, dans les Hauts-de-Seine, et plus
               largement en Île-de-France et partout où un projet le justifie.
             </p>
+            <a href="/association"
+               class="inline-flex items-center gap-2 text-red-500 hover:text-red-400 font-semibold transition-colors group/link">
+              En savoir plus sur l'association
+              <svg class="w-4 h-4 transition-transform group-hover/link:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+              </svg>
+            </a>
           </div>
           <div class="bg-zinc-900 rounded-xl border border-zinc-800 overflow-hidden hover:border-red-500/50 transition-all group">
             <Image
@@ -270,6 +274,39 @@ const references = [
         </a>
       </p>
 
+    </div>
+  </section>
+
+  {/* Porte du second public, sur la page d'accueil elle-même.
+      Le site sert des clients ET des futurs membres : sans cette section,
+      l'accueil ne propose qu'un devis et devient repoussant pour qui
+      voudrait simplement rejoindre l'association. */}
+  <section class="py-20 bg-zinc-900/50 border-t border-zinc-800">
+    <div class="container mx-auto px-6">
+      <div class="max-w-4xl mx-auto text-center">
+        <h2 class="text-3xl md:text-4xl font-bold text-white mb-6">
+          Vous ne cherchez pas un prestataire ?
+        </h2>
+        <p class="text-lg text-zinc-300 mb-4 leading-relaxed">
+          ElkaRec est d'abord une association. Nous avons un local à Antony,
+          du matériel de diffusion professionnelle, et l'envie de l'ouvrir à
+          ceux qui veulent apprendre à s'en servir ou donner un coup de main
+          sur une captation.
+        </p>
+        <p class="text-zinc-400 mb-8 leading-relaxed">
+          Aucune adhésion n'est nécessaire pour venir voir.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <a href="/local"
+             class="px-8 py-4 bg-zinc-800 hover:bg-zinc-700 text-white font-semibold rounded-lg transition-all border border-zinc-700">
+            Découvrir le local
+          </a>
+          <a href="/association"
+             class="px-8 py-4 bg-transparent hover:bg-zinc-800 text-zinc-300 hover:text-white font-semibold rounded-lg transition-all border border-zinc-700">
+            L'association
+          </a>
+        </div>
+      </div>
     </div>
   </section>
 

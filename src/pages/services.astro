@@ -35,16 +35,104 @@ const offres = [
     note: null,
   },
 ];
+
+// FAQ : questions issues des objections réelles reçues en prospection.
+// Elle est affichée en bas de page ET déclarée en JSON-LD. Google exige que
+// le contenu d'un FAQPage soit visible par le visiteur : un balisage sans
+// section correspondante est une infraction et se fait ignorer.
+const faq = [
+  {
+    q: 'Combien coûte une captation vidéo ?',
+    r: "Une captation à deux caméras avec montage livré démarre à 600 €. Une captation multicaméra avec streaming en direct et régie complète démarre à 1 200 €. Le prix final dépend de la durée, du nombre de techniciens et du matériel mobilisé.",
+  },
+  {
+    q: 'Facturez-vous la TVA ?',
+    r: "Non. ElkaRec est une association loi 1901 non assujettie : nos factures ne portent pas de TVA. À prestation équivalente, cela représente un écart réel face à un prestataire assujetti.",
+  },
+  {
+    q: 'Dans quel secteur intervenez-vous ?',
+    r: "Nous sommes installés à Antony et intervenons couramment dans les Hauts-de-Seine et en Île-de-France. Nous nous déplaçons au-delà quand le projet le justifie : nous avons travaillé pour la ville de Tournefeuille et pour le comité des fêtes de Soumoulou.",
+  },
+  {
+    q: 'Travaillez-vous avec des communes et des collectivités ?',
+    r: "Oui. Nous avons capté et sonorisé des événements municipaux, notamment avec la ville de Tournefeuille et le comité des fêtes de Soumoulou. Nous travaillons aussi avec des salles, des comités des fêtes et des associations.",
+  },
+  {
+    q: 'Sous quel délai recevons-nous un devis ?',
+    r: "Sous 48 heures. Décrivez votre événement, sa date, son lieu et ce que vous en attendez : nous revenons vers vous avec un chiffrage détaillé.",
+  },
+];
+
+const schema = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Accueil', item: 'https://elkarec.fr/' },
+      { '@type': 'ListItem', position: 2, name: 'Services et tarifs', item: 'https://elkarec.fr/services' },
+    ],
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    serviceType: "Captation vidéo et sonorisation d'événements",
+    provider: { '@type': 'LocalBusiness', name: 'ElkaRec', url: 'https://elkarec.fr' },
+    areaServed: { '@type': 'AdministrativeArea', name: "Hauts-de-Seine et Île-de-France" },
+    hasOfferCatalog: {
+      '@type': 'OfferCatalog',
+      name: 'Offres de captation et de sonorisation',
+      itemListElement: [
+        {
+          '@type': 'Offer',
+          name: 'Captation simple',
+          description: 'Deux caméras, un technicien, montage livré.',
+          priceSpecification: {
+            '@type': 'PriceSpecification',
+            minPrice: '600',
+            priceCurrency: 'EUR',
+            valueAddedTaxIncluded: false,
+          },
+        },
+        {
+          '@type': 'Offer',
+          name: 'Captation multicaméra et diffusion',
+          description: "Jusqu'à six caméras, ralenti, streaming en direct, régie complète.",
+          priceSpecification: {
+            '@type': 'PriceSpecification',
+            minPrice: '1200',
+            priceCurrency: 'EUR',
+            valueAddedTaxIncluded: false,
+          },
+        },
+        {
+          '@type': 'Offer',
+          name: 'Sonorisation et lumière',
+          description: 'Système son, éclairage scénique, exploitation sur site.',
+        },
+      ],
+    },
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faq.map((item) => ({
+      '@type': 'Question',
+      name: item.q,
+      acceptedAnswer: { '@type': 'Answer', text: item.r },
+    })),
+  },
+];
 ---
 
 <Layout
   title="Nos offres et nos tarifs - ElkaRec, Antony (92)"
   description="Captation vidéo, streaming multicaméra et sonorisation d'événements depuis Antony (92). Trois offres, trois budgets, à partir de 600 €. Devis sous 48 heures."
   image="/logo.webp"
+  schema={schema}
 >
   <Header />
 
-  <main class="pt-24 pb-20">
+  <main id="main-content" class="pt-24 pb-20">
     <!-- Hero Section -->
     <section class="container mx-auto px-6 py-16">
       <div class="max-w-4xl mx-auto text-center">
@@ -324,6 +412,30 @@ const offres = [
                 </p>
               </div>
             </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    {/* FAQ visible — obligatoire : le JSON-LD FAQPage déclaré en tête de
+        fichier n'est valide que si ces questions apparaissent réellement
+        sur la page. Ne pas supprimer l'un sans l'autre. */}
+    <section class="container mx-auto px-6 py-16 border-t border-zinc-800">
+      <div class="max-w-3xl mx-auto">
+        <h2 class="text-3xl md:text-4xl font-bold text-white mb-10 text-center">
+          Questions fréquentes
+        </h2>
+        <div class="space-y-4">
+          {faq.map((item) => (
+            <details class="group bg-zinc-900 rounded-xl border border-zinc-800 hover:border-red-500/40 transition-all">
+              <summary class="cursor-pointer list-none p-6 flex items-center justify-between gap-4 text-white font-semibold">
+                <span>{item.q}</span>
+                <svg class="w-5 h-5 flex-none text-red-500 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                </svg>
+              </summary>
+              <p class="px-6 pb-6 text-zinc-400 leading-relaxed">{item.r}</p>
+            </details>
           ))}
         </div>
       </div>
