@@ -5,9 +5,20 @@ interface Props {
   title: string;
   description?: string;
   image?: string;
+  /**
+   * Passe la page en noindex, nofollow. Utilisé par /join, préparée mais
+   * volontairement hors ligne tant que l'AG extraordinaire n'a pas modifié
+   * l'article 14 des statuts.
+   */
+  noindex?: boolean;
 }
 
-const { title, description = 'ElkaRec - Association audiovisuelle et événementielle à Paris', image = '/concert.webp' } = Astro.props;
+const {
+  title,
+  description = "ElkaRec - Association audiovisuelle et événementielle à Antony (92)",
+  image = '/concert.webp',
+  noindex = false,
+} = Astro.props;
 ---
 
 <!DOCTYPE html>
@@ -24,7 +35,7 @@ const { title, description = 'ElkaRec - Association audiovisuelle et événement
     <link rel="canonical" href={Astro.url.href} />
 
     <!-- Meta Robots -->
-    <meta name="robots" content="index, follow" />
+    <meta name="robots" content={noindex ? 'noindex, nofollow' : 'index, follow'} />
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
@@ -48,20 +59,42 @@ const { title, description = 'ElkaRec - Association audiovisuelle et événement
     <!-- Preload Critical Resources -->
     <link rel="preload" href="/logo.webp" as="image" fetchpriority="high" />
 
-    <!-- Schema.org Organization -->
+    {/* Schema.org LocalBusiness
+
+        Le type LocalBusiness, et non Organization : c'est lui qui alimente
+        le référencement local, qui est le levier visé (Antony / 92).
+
+        L'adresse doit rester STRICTEMENT identique, caractère pour
+        caractère, à celle de la fiche Google Business Profile et du
+        générateur de devis. Forme retenue : celle des statuts, « François
+        Arago » sans trait d'union. */}
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
-        "@type": "Organization",
+        "@type": "LocalBusiness",
         "name": "ElkaRec",
-        "description": "Association audiovisuelle et événementielle collégiale basée à Paris",
+        "description": "Association audiovisuelle et événementielle collégiale installée à Antony (92) : captation vidéo, streaming multicaméra et sonorisation d'événements",
         "url": "https://elkarec.fr",
         "logo": "https://elkarec.fr/logo.webp",
+        "image": "https://elkarec.fr/logo.webp",
+        "email": "contact@elkarec.fr",
+        "priceRange": "€€",
         "address": {
           "@type": "PostalAddress",
-          "addressLocality": "Paris",
+          "streetAddress": "6 avenue François Arago",
+          "postalCode": "92160",
+          "addressLocality": "Antony",
+          "addressRegion": "Île-de-France",
           "addressCountry": "FR"
         },
+        "areaServed": [
+          { "@type": "City", "name": "Antony" },
+          { "@type": "City", "name": "Sceaux" },
+          { "@type": "City", "name": "Bourg-la-Reine" },
+          { "@type": "City", "name": "Fontenay-aux-Roses" },
+          { "@type": "City", "name": "Châtenay-Malabry" },
+          { "@type": "City", "name": "Massy" }
+        ],
         "sameAs": [
           "https://www.youtube.com/@elkarec64",
           "https://fr.linkedin.com/company/elkarec-audiovisual-events",
