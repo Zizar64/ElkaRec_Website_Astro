@@ -1,3 +1,27 @@
+# ATTENTION : ce fichier n'est PAS ce que les robots reçoivent.
+#
+# Cloudflare injecte au passage un bloc « managed robots.txt » (fonction
+# AI Crawl Control du dashboard) qui vient AVANT le contenu ci-dessous.
+# Constaté le 22/08/2026 : ce fichier fait 74 octets, la version servie sur
+# https://elkarec.fr/robots.txt en fait environ 1900.
+#
+# Ce que Cloudflare ajoute :
+#   - un préambule déclarant une réserve de droits au titre de l'article 4
+#     de la directive UE 2019/790, et un en-tête Content-Signal
+#     (search=yes, ai-train=no, use=reference) ;
+#   - un Disallow global pour une dizaine de robots d'IA : Amazonbot,
+#     Applebot-Extended, Bytespider, CCBot, ClaudeBot, Google-Extended,
+#     GPTBot, meta-externalagent et consorts.
+#
+# Le référencement n'en souffre pas : Google-Extended est l'agent
+# d'entraînement IA, distinct de Googlebot qui reste autorisé, et la
+# directive Sitemap ci-dessous est bien conservée dans la version servie.
+#
+# Conséquence pratique : modifier ce fichier ne suffit pas à changer ce que
+# voient les robots. Pour toucher aux blocages IA, passer par le dashboard
+# Cloudflare, pas par ce dépôt. Vérifier le résultat réel avec
+# `curl https://elkarec.fr/robots.txt`, jamais en lisant ce fichier seul.
+
 User-agent: *
 Allow: /
 
