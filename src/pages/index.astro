@@ -13,31 +13,39 @@ import logoequipe from '../assets/images/logoequipe.webp';
 import logoixi from '../assets/images/logoixi.webp';
 
 // Références validées avec Lucas le 2026-08-13. L'ordre est imposé :
-// Farn'High en tête, c'est la seule prestation facturée, payée et reconduite.
+// FAR'n HIGH en tête, c'est la seule prestation facturée, payée et reconduite.
 const references = [
   {
-    nom: "Farn'High 2026",
-    detail: "Captation et sonorisation, trois techniciens sur une journée. Prestation facturée, et le client reconduit en 2027.",
+    nom: "FAR'n HIGH 2026",
+    detail: "18e édition, du 7 au 10 mai 2026 à Villiers-sur-Orge (91). Régie de diffusion complète pour un direct suivi par plus de 15 000 spectateurs. Prestation facturée, et le client reconduit en 2027.",
   },
   {
     nom: 'La Ride Divine',
-    detail: 'Événement produit avec la ville de Tournefeuille.',
+    detail: "Carnaval roulant à Tournefeuille, avec L'Usine et la ville. Ateliers vidéo avec les enfants, puis captation et retransmission en direct.",
   },
   {
-    nom: 'Comité des fêtes de Soumoulou',
-    detail: "Captation et sonorisation d'événement municipal.",
+    nom: "Fêtes d'Espoey 2020",
+    detail: "Podium DJ, son et lumière sur les deux jours des fêtes du village, dans les Pyrénées-Atlantiques (64).",
+  },
+  {
+    nom: 'Fête du quartier du Cos',
+    detail: "Podium DJ, son et lumière pour la fête de quartier de Saint-Mont, dans le Gers, avec le foyer rural.",
+  },
+  {
+    nom: 'Chibertrail 2020',
+    detail: "Sonorisation et animation DJ de l'arrivée du trail d'Anglet sur deux jours, et tournage de l'aftermovie.",
   },
   {
     nom: 'La Dame de Canton',
-    detail: 'Captation de concert.',
+    detail: "Concert retransmis en direct depuis une jonque sur les quais de Paris, cinq caméras, avec Tapages Events.",
   },
   {
     nom: 'Les Nouveaux Sauvages',
-    detail: 'Captation de concert.',
+    detail: "Deux soirées de concerts retransmises en direct depuis la salle de Montreuil, avec Tapages Events.",
   },
   {
-    nom: 'Antonime',
-    detail: "Régie complète : topologie audio, plan de diffusion, schémas d'implantation.",
+    nom: "Anto'nime",
+    detail: "Convention manga et cosplay à Antony, deux éditions. Huit heures de direct par édition, dix caméras et un plateau de présentation.",
   },
   {
     nom: 'Téléthon Gaming',
@@ -106,6 +114,15 @@ const references = [
               <p class="text-zinc-400 leading-relaxed">{ref.detail}</p>
             </div>
           ))}
+        </div>
+        <div class="text-center mt-12">
+          <a
+            href="/realisations"
+            class="inline-flex items-center gap-2 text-red-500 hover:text-red-400 font-semibold transition-colors"
+          >
+            Voir le détail de nos réalisations
+            <span aria-hidden="true">→</span>
+          </a>
         </div>
       </div>
     </div>

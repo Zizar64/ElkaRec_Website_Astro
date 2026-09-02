@@ -1,0 +1,182 @@
+---
+import { getCollection, render } from 'astro:content';
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { Image } from 'astro:assets';
+
+// Cette page ne montre QUE les réalisations réelles et datées
+// (type: realisation dans le frontmatter). Les fiches génériques
+// « Festivals & Concerts », « Régie mobile »… restent en cartes
+// sur /services : ce ne sont pas des références, ce sont des offres.
+// Ne pas remélanger les deux, c'est tout l'intérêt de la page.
+const entries = (await getCollection('projects', ({ data }) => data.type === 'realisation')).sort(
+  (a, b) => (b.data.date?.valueOf() || 0) - (a.data.date?.valueOf() || 0)
+);
+
+const realisations = await Promise.all(
+  entries.map(async (entry) => ({
+    data: entry.data,
+    Content: (await render(entry)).Content,
+  }))
+);
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Accueil', item: 'https://elkarec.fr/' },
+    { '@type': 'ListItem', position: 2, name: 'Réalisations', item: 'https://elkarec.fr/realisations' },
+  ],
+};
+---
+
+<Layout
+  title="Nos réalisations - captation et diffusion en direct - ElkaRec"
+  description="Les événements qu'ElkaRec a couverts : régie multicaméra, diffusion en direct, sonorisation. Chiffres, moyens engagés et captations à revoir."
+  schema={schema}
+>
+  <Header />
+
+  <main id="main-content">
+    <section class="container mx-auto px-6 pt-32 pb-12">
+      <div class="max-w-4xl mx-auto text-center">
+        <h1 class="text-4xl md:text-6xl font-bold text-white mb-6">Nos réalisations</h1>
+        <p class="text-lg md:text-xl text-zinc-400 leading-relaxed">
+          Les événements que nous avons couverts, avec les moyens réellement
+          engagés et les captations à revoir. Pas une liste de savoir-faire :
+          des dates, des lieux et des directs.
+        </p>
+      </div>
+    </section>
+
+    <section class="container mx-auto px-6 pb-20">
+      <div class="max-w-6xl mx-auto space-y-16">
+        {realisations.map(({ data, Content }) => (
+          <article class="bg-zinc-900 rounded-2xl border border-zinc-800 overflow-hidden">
+            {data.image && (
+              <div class="aspect-[21/9] overflow-hidden bg-gradient-to-br from-red-900/30 to-zinc-900">
+                <Image
+                  src={data.image}
+                  alt={data.title}
+                  width={1400}
+                  height={600}
+                  class="w-full h-full object-cover"
+                  loading="lazy"
+                />
+              </div>
+            )}
+
+            <div class="p-8 md:p-12">
+              <span class="text-red-500 text-xs font-semibold uppercase tracking-wider">
+                {data.category}
+              </span>
+              <h2 class="text-3xl md:text-4xl font-bold text-white mt-3 mb-4">
+                {data.title}
+              </h2>
+
+              {(data.periode || data.lieu) && (
+                <p class="text-zinc-400 mb-8">
+                  {data.periode}
+                  {data.periode && data.lieu ? ' · ' : ''}
+                  {data.lieu}
+                </p>
+              )}
+
+              <div class="grid grid-cols-1 lg:grid-cols-3 gap-10">
+                {/* Le récit, écrit dans le corps du markdown */}
+                <div class="lg:col-span-2 prose prose-invert prose-zinc max-w-none prose-p:text-zinc-300 prose-p:leading-relaxed">
+                  <Content />
+                </div>
+
+                {/* Les faits durs, sortis du récit pour être lisibles d'un coup d'oeil */}
+                <aside class="space-y-8">
+                  {data.chiffres && (
+                    <div class="space-y-3">
+                      {data.chiffres.map((c) => (
+                        <div class="bg-zinc-950 rounded-xl border border-zinc-800 p-6">
+                          <p class="text-4xl font-bold text-red-500">{c.valeur}</p>
+                          <p class="text-zinc-400 text-sm mt-1">{c.label}</p>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+
+                  {data.porteur && (
+                    <div>
+                      <h3 class="text-white font-semibold text-sm uppercase tracking-wider mb-2">
+                        Projet porté par
+                      </h3>
+                      <p class="text-zinc-400 text-sm leading-relaxed">{data.porteur}</p>
+                    </div>
+                  )}
+
+                  {data.diffuseur && (
+                    <div>
+                      <h3 class="text-white font-semibold text-sm uppercase tracking-wider mb-2">
+                        Diffusion
+                      </h3>
+                      <p class="text-zinc-400 text-sm">{data.diffuseur}</p>
+                    </div>
+                  )}
+
+                  {data.prestations && (
+                    <div>
+                      <h3 class="text-white font-semibold text-sm uppercase tracking-wider mb-3">
+                        Ce que nous avons assuré
+                      </h3>
+                      <ul class="space-y-2">
+                        {data.prestations.map((presta) => (
+                          <li class="text-zinc-400 text-sm flex gap-2">
+                            <span class="text-red-500/70 shrink-0" aria-hidden="true">›</span>
+                            <span>{presta}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+                </aside>
+              </div>
+
+              {data.liens && (
+                <div class="mt-10 pt-8 border-t border-zinc-800 flex flex-wrap gap-3">
+                  {data.liens.map((lien) => (
+                    <a
+                      href={lien.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="inline-flex items-center gap-2 bg-zinc-950 hover:bg-zinc-800 border border-zinc-800 hover:border-red-500/50 text-white text-sm font-semibold px-5 py-3 rounded-lg transition-all"
+                    >
+                      {lien.label}
+                      <span aria-hidden="true">↗</span>
+                    </a>
+                  ))}
+                </div>
+              )}
+            </div>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <section class="container mx-auto px-6 py-16 border-t border-zinc-800">
+      <div class="max-w-3xl mx-auto text-center">
+        <h2 class="text-3xl font-bold text-white mb-4">Un événement à couvrir ?</h2>
+        <p class="text-zinc-400 mb-8 leading-relaxed">
+          Nous répondons sous 48 heures, avec un chiffrage détaillé.
+          Les tarifs planchers sont publiés sur la page services.
+        </p>
+        <div class="flex flex-wrap gap-4 justify-center">
+          <a href="/contact" class="bg-red-600 hover:bg-red-500 text-white font-semibold px-8 py-4 rounded-lg transition-colors">
+            Demander un devis
+          </a>
+          <a href="/services" class="border border-zinc-700 hover:border-red-500/50 text-white font-semibold px-8 py-4 rounded-lg transition-colors">
+            Voir les services et tarifs
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</Layout>

@@ -9,7 +9,9 @@ import sonoImage from '../assets/images/sono.webp';
 
 // La page /projects a fusionné ici : la collection reste la source des
 // réalisations, seule la page qui les affichait a disparu.
-const projects = (await getCollection('projects')).sort(
+// Seules les fiches generiques restent ici. Les realisations reelles et datees
+// ont leur bloc detaille sur /realisations, avec chiffres, prestations et liens.
+const projects = (await getCollection('projects', ({ data }) => data.type === 'prestation')).sort(
   (a, b) => (b.data.date?.valueOf() || 0) - (a.data.date?.valueOf() || 0)
 );
 
@@ -26,7 +28,7 @@ const offres = [
     titre: 'Captation multicaméra et diffusion',
     detail: "Jusqu'à six caméras, ralenti, streaming en direct, régie complète.",
     prix: 'À partir de 1 200 €',
-    note: "C'est le format Farn'High.",
+    note: "C'est le format FAR'n HIGH.",
   },
   {
     titre: 'Sonorisation et lumière',
@@ -51,11 +53,11 @@ const faq = [
   },
   {
     q: 'Dans quel secteur intervenez-vous ?',
-    r: "Nous sommes installés à Antony et intervenons couramment dans les Hauts-de-Seine et en Île-de-France. Nous nous déplaçons au-delà quand le projet le justifie : nous avons travaillé pour la ville de Tournefeuille et pour le comité des fêtes de Soumoulou.",
+    r: "Nous sommes installés à Antony et intervenons couramment dans les Hauts-de-Seine et en Île-de-France. Nous nous déplaçons au-delà quand le projet le justifie : nous avons travaillé pour la ville de Tournefeuille et pour les fêtes d'Espoey, dans les Pyrénées-Atlantiques.",
   },
   {
     q: 'Travaillez-vous avec des communes et des collectivités ?',
-    r: "Oui. Nous avons capté et sonorisé des événements municipaux, notamment avec la ville de Tournefeuille et le comité des fêtes de Soumoulou. Nous travaillons aussi avec des salles, des comités des fêtes et des associations.",
+    r: "Oui. Nous avons capté des événements municipaux avec la ville de Tournefeuille, et sonorisé les fêtes d'Espoey (64) avec notre podium DJ, son et lumière. Nous travaillons aussi avec des salles, des comités des fêtes et des associations.",
   },
   {
     q: 'Sous quel délai recevons-nous un devis ?',
@@ -377,9 +379,12 @@ const schema = [
     <section class="container mx-auto px-6 py-12">
       <div class="max-w-6xl mx-auto">
         <h2 class="text-4xl font-bold text-white mb-4 text-center">Nos réalisations</h2>
-        <p class="text-lg text-zinc-400 mb-12 text-center">
-          Quelques-uns des projets que nous avons accompagnés ou réalisés
+        <p class="text-lg text-zinc-400 mb-4 text-center">
+          Les formats que nous produisons. Pour les événements réellement
+          couverts, avec les chiffres et les captations, voir
+          <a href="/realisations" class="text-red-500 hover:text-red-400 font-semibold">nos réalisations</a>.
         </p>
+        <div class="mb-12"></div>
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {projects.map((project) => (
             <article class="bg-zinc-900 rounded-xl border border-zinc-800 overflow-hidden hover:border-red-500/50 transition-all group">
