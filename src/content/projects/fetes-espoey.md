@@ -7,6 +7,7 @@ tags: ["Sonorisation", "Lumière", "Podium DJ", "Municipal"]
 date: 2020-01-25
 periode: "Samedi 25 et dimanche 26 janvier 2020"
 lieu: "Espoey (64), Pyrénées-Atlantiques"
+porteur: "Le comité des fêtes d'Espoey"
 chiffres:
   - valeur: "2"
     label: "jours d'exploitation en continu"

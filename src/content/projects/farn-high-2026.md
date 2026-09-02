@@ -7,6 +7,7 @@ tags: ["Multicaméra", "Direct", "Sport", "International"]
 date: 2026-05-07
 lieu: "Halle de skate du Val d'Orge, Villiers-sur-Orge (91)"
 periode: "7 au 10 mai 2026"
+porteur: "La Halle de Skate de Cœur d'Essonne Agglomération"
 diffuseur: "Skatepark of Tampa (Floride, États-Unis)"
 liens:
   - label: "Revoir le direct sur YouTube"
