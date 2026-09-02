@@ -83,67 +83,68 @@ const schema = {
                 </p>
               )}
 
-              <div class="grid grid-cols-1 lg:grid-cols-3 gap-10 items-start">
-                {/* Le récit, écrit dans le corps du markdown */}
-                <div class="lg:col-span-2 prose prose-invert prose-zinc max-w-none prose-p:text-zinc-300 prose-p:leading-relaxed">
-                  <Content />
-                </div>
-
-                {/* Les faits durs, sortis du récit pour être lisibles d'un coup d'oeil.
-                    Toujours dans des cartes bordées, jamais du texte flottant : sur un
-                    récit court la carte s'arrête à son propre contenu au lieu de laisser
-                    un vide, et le sticky l'ancre en haut sur un récit long. */}
-                <aside class="space-y-4 lg:sticky lg:top-24">
-                  {data.chiffres && (
-                    <div class="space-y-3">
-                      {data.chiffres.map((c) => (
-                        <div class="bg-zinc-950 rounded-xl border border-zinc-800 p-6">
-                          <p class="text-4xl font-bold text-red-500">{c.valeur}</p>
-                          <p class="text-zinc-400 text-sm mt-1">{c.label}</p>
-                        </div>
-                      ))}
-                    </div>
-                  )}
-
-                  {(data.porteur || data.diffuseur || data.prestations) && (
-                    <div class="bg-zinc-950/60 rounded-xl border border-zinc-800 p-6 space-y-6">
-                      {data.porteur && (
-                        <div>
-                          <h3 class="text-white font-semibold text-sm uppercase tracking-wider mb-2">
-                            Projet porté par
-                          </h3>
-                          <p class="text-zinc-400 text-sm leading-relaxed">{data.porteur}</p>
-                        </div>
-                      )}
-
-                      {data.diffuseur && (
-                        <div>
-                          <h3 class="text-white font-semibold text-sm uppercase tracking-wider mb-2">
-                            Diffusion
-                          </h3>
-                          <p class="text-zinc-400 text-sm">{data.diffuseur}</p>
-                        </div>
-                      )}
-
-                      {data.prestations && (
-                        <div>
-                          <h3 class="text-white font-semibold text-sm uppercase tracking-wider mb-3">
-                            Ce que nous avons assuré
-                          </h3>
-                          <ul class="space-y-2">
-                            {data.prestations.map((presta) => (
-                              <li class="text-zinc-400 text-sm flex gap-2">
-                                <span class="text-red-500/70 shrink-0" aria-hidden="true">›</span>
-                                <span>{presta}</span>
-                              </li>
-                            ))}
-                          </ul>
-                        </div>
-                      )}
-                    </div>
-                  )}
-                </aside>
+              {/* Le récit, en pleine largeur — un texte court à côté d'un
+                  panneau de faits long (ou l'inverse) créait systématiquement
+                  un vide dans la colonne la plus courte. Le récit et les
+                  faits ne sont donc plus mis en colonnes l'un contre
+                  l'autre : chacun prend la largeur qui lui convient et
+                  s'arrête à son propre contenu. */}
+              <div class="prose prose-invert prose-zinc max-w-3xl prose-p:text-zinc-300 prose-p:leading-relaxed">
+                <Content />
               </div>
+
+              {data.chiffres && (
+                <div class="flex flex-wrap gap-4 mt-10">
+                  {data.chiffres.map((c) => (
+                    <div class="flex-1 min-w-[200px] bg-zinc-950 rounded-xl border border-zinc-800 p-6">
+                      <p class="text-4xl font-bold text-red-500">{c.valeur}</p>
+                      <p class="text-zinc-400 text-sm mt-1">{c.label}</p>
+                    </div>
+                  ))}
+                </div>
+              )}
+
+              {/* Porteur et diffuseur : toujours des textes courts, donc
+                  sûrs à coller côte à côte. Jamais accolés aux prestations,
+                  une liste généralement bien plus longue qu'eux — ça
+                  recréait le même vide, en plus petit. */}
+              {(data.porteur || data.diffuseur) && (
+                <div class="flex flex-wrap gap-4 mt-6">
+                  {data.porteur && (
+                    <div class="flex-1 min-w-[220px] bg-zinc-950/60 rounded-xl border border-zinc-800 p-6">
+                      <h3 class="text-white font-semibold text-sm uppercase tracking-wider mb-2">
+                        Projet porté par
+                      </h3>
+                      <p class="text-zinc-400 text-sm leading-relaxed">{data.porteur}</p>
+                    </div>
+                  )}
+
+                  {data.diffuseur && (
+                    <div class="flex-1 min-w-[220px] bg-zinc-950/60 rounded-xl border border-zinc-800 p-6">
+                      <h3 class="text-white font-semibold text-sm uppercase tracking-wider mb-2">
+                        Diffusion
+                      </h3>
+                      <p class="text-zinc-400 text-sm">{data.diffuseur}</p>
+                    </div>
+                  )}
+                </div>
+              )}
+
+              {data.prestations && (
+                <div class="bg-zinc-950/60 rounded-xl border border-zinc-800 p-6 md:p-8 mt-6">
+                  <h3 class="text-white font-semibold text-sm uppercase tracking-wider mb-3">
+                    Ce que nous avons assuré
+                  </h3>
+                  <ul class="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-2">
+                    {data.prestations.map((presta) => (
+                      <li class="text-zinc-400 text-sm flex gap-2">
+                        <span class="text-red-500/70 shrink-0" aria-hidden="true">›</span>
+                        <span>{presta}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
 
               {data.liens && (
                 <div class="mt-10 pt-8 border-t border-zinc-800 flex flex-wrap gap-3">
