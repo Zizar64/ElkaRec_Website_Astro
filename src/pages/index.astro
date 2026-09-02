@@ -37,8 +37,7 @@ const referencesSansFiche = [
 
 <Layout
   title="Captation vidéo et sonorisation à Antony (92) - ElkaRec"
-  description="Association audiovisuelle et événementielle installée à Antony (92). Captation multicaméra, streaming et sonorisation d'événements. Devis sous 48 heures."
-  image="/concert.webp"
+  description="Association audiovisuelle à Antony (92) : captation multicaméra, streaming et sonorisation d'événements. Devis sous 48 heures."
 >
   <Header />
 
@@ -63,11 +62,11 @@ const referencesSansFiche = [
           Association audiovisuelle et événementielle, installée à Antony (92)
         </p>
         <div class="flex flex-col sm:flex-row gap-4 justify-center">
-          <a href="/contact"
+          <a href="/contact/"
              class="px-8 py-4 bg-red-500 hover:bg-red-600 text-white font-semibold rounded-lg transition-all transform hover:scale-105">
             Demander un devis
           </a>
-          <a href="/services"
+          <a href="/services/"
              class="px-8 py-4 bg-zinc-800 hover:bg-zinc-700 text-white font-semibold rounded-lg transition-all border border-zinc-700">
             Nos offres et nos tarifs
           </a>
@@ -99,7 +98,7 @@ const referencesSansFiche = [
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {realisations.map((r, index) => (
             <a
-              href={`/realisations#${r.slug}`}
+              href={`/realisations/#${r.slug}`}
               class={`group flex flex-col bg-zinc-900 rounded-xl border border-zinc-800 hover:border-red-500/50 hover:bg-zinc-900/80 transition-all p-6 ${index === 0 ? 'md:col-span-2' : ''}`}
             >
               <span class="text-red-500 text-xs font-semibold uppercase tracking-wider">
@@ -149,7 +148,7 @@ const referencesSansFiche = [
 
         <div class="text-center mt-12">
           <a
-            href="/realisations"
+            href="/realisations/"
             class="inline-flex items-center gap-2 text-red-500 hover:text-red-400 font-semibold transition-colors"
           >
             Voir le détail de nos réalisations
@@ -196,7 +195,7 @@ const referencesSansFiche = [
               Nous intervenons depuis Antony, dans les Hauts-de-Seine, et plus
               largement en Île-de-France et partout où un projet le justifie.
             </p>
-            <a href="/association"
+            <a href="/association/"
                class="inline-flex items-center gap-2 text-red-500 hover:text-red-400 font-semibold transition-colors group/link">
               En savoir plus sur l'association
               <svg class="w-4 h-4 transition-transform group-hover/link:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -319,7 +318,7 @@ const referencesSansFiche = [
       <!-- Note en bas -->
       <p class="text-center text-zinc-500 text-sm mt-6">
         Votre entreprise souhaite contribuer ?
-        <a href="/contact" class="text-red-500 hover:text-red-400 underline underline-offset-4 transition-colors">
+        <a href="/contact/" class="text-red-500 hover:text-red-400 underline underline-offset-4 transition-colors">
           Contactez-nous
         </a>
       </p>
@@ -347,11 +346,11 @@ const referencesSansFiche = [
           Aucune adhésion n'est nécessaire pour venir voir.
         </p>
         <div class="flex flex-col sm:flex-row gap-4 justify-center">
-          <a href="/local"
+          <a href="/local/"
              class="px-8 py-4 bg-zinc-800 hover:bg-zinc-700 text-white font-semibold rounded-lg transition-all border border-zinc-700">
             Découvrir le local
           </a>
-          <a href="/association"
+          <a href="/association/"
              class="px-8 py-4 bg-transparent hover:bg-zinc-800 text-zinc-300 hover:text-white font-semibold rounded-lg transition-all border border-zinc-700">
             L'association
           </a>
@@ -368,7 +367,7 @@ const referencesSansFiche = [
         <p class="text-xl text-zinc-300 mb-8">
           Dites-nous ce que vous préparez, nous vous répondons avec un devis sous 48 heures.
         </p>
-        <a href="/contact"
+        <a href="/contact/"
            class="inline-block px-8 py-4 bg-red-500 hover:bg-red-600 text-white font-semibold rounded-lg transition-all transform hover:scale-105">
           Demander un devis
         </a>

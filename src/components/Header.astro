@@ -12,13 +12,17 @@ import logo from '../assets/images/logo.webp';
 // générale extraordinaire n'a pas modifié l'article 14 des statuts.
 const navItems = [
   { name: 'Accueil', href: '/' },
-  { name: 'Services et tarifs', href: '/services' },
-  { name: 'Réalisations', href: '/realisations' },
-  { name: "L'association", href: '/association' },
-  { name: 'Le local', href: '/local' },
-  { name: 'Contact', href: '/contact' },
+  { name: 'Services et tarifs', href: '/services/' },
+  { name: 'Réalisations', href: '/realisations/' },
+  { name: "L'association", href: '/association/' },
+  { name: 'Le local', href: '/local/' },
+  { name: 'Contact', href: '/contact/' },
 ];
 
+// Le slash final n'est pas cosmétique ici : le serveur redirige /services
+// vers /services/ en 308, et Astro.url.pathname vaut donc TOUJOURS la forme
+// avec slash. Comparée à un href écrit sans slash, l'égalité était toujours
+// fausse et aucune entrée de menu ne s'allumait, sauf l'accueil.
 const currentPath = Astro.url.pathname;
 ---
 

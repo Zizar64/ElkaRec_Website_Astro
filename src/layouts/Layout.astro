@@ -22,7 +22,7 @@ interface Props {
 const {
   title,
   description = "ElkaRec - Association audiovisuelle et événementielle à Antony (92)",
-  image = '/concert.webp',
+  image = '/og-elkarec.jpg',
   noindex = false,
   schema,
 } = Astro.props;
@@ -35,6 +35,7 @@ const {
     <meta name="description" content={description} />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/png" href="/favicon.png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
 
@@ -63,8 +64,12 @@ const {
     <!-- Theme Color -->
     <meta name="theme-color" content="#ef4444" />
 
-    <!-- Preload Critical Resources -->
-    <link rel="preload" href="/logo.webp" as="image" fetchpriority="high" />
+    {/* Le logo affiché dans l'entête est une image traitée par Astro, servie
+        sous un nom haché : il est déjà en fetchpriority="high" dans Header.astro.
+        Le preload qui vivait ici visait /logo.webp, un fichier qui n'existait
+        pas dans public/ — il déclenchait un 404 en haute priorité sur chaque
+        page, et ne préchargeait rien. /logo.webp existe désormais, mais pour
+        le JSON-LD, pas pour l'affichage : ne pas remettre de preload dessus. */}
 
     {/* Schema.org LocalBusiness
 
