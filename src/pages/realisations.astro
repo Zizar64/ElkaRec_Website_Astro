@@ -83,14 +83,17 @@ const schema = {
                 </p>
               )}
 
-              <div class="grid grid-cols-1 lg:grid-cols-3 gap-10">
+              <div class="grid grid-cols-1 lg:grid-cols-3 gap-10 items-start">
                 {/* Le récit, écrit dans le corps du markdown */}
                 <div class="lg:col-span-2 prose prose-invert prose-zinc max-w-none prose-p:text-zinc-300 prose-p:leading-relaxed">
                   <Content />
                 </div>
 
-                {/* Les faits durs, sortis du récit pour être lisibles d'un coup d'oeil */}
-                <aside class="space-y-8">
+                {/* Les faits durs, sortis du récit pour être lisibles d'un coup d'oeil.
+                    Toujours dans des cartes bordées, jamais du texte flottant : sur un
+                    récit court la carte s'arrête à son propre contenu au lieu de laisser
+                    un vide, et le sticky l'ancre en haut sur un récit long. */}
+                <aside class="space-y-4 lg:sticky lg:top-24">
                   {data.chiffres && (
                     <div class="space-y-3">
                       {data.chiffres.map((c) => (
@@ -102,37 +105,41 @@ const schema = {
                     </div>
                   )}
 
-                  {data.porteur && (
-                    <div>
-                      <h3 class="text-white font-semibold text-sm uppercase tracking-wider mb-2">
-                        Projet porté par
-                      </h3>
-                      <p class="text-zinc-400 text-sm leading-relaxed">{data.porteur}</p>
-                    </div>
-                  )}
+                  {(data.porteur || data.diffuseur || data.prestations) && (
+                    <div class="bg-zinc-950/60 rounded-xl border border-zinc-800 p-6 space-y-6">
+                      {data.porteur && (
+                        <div>
+                          <h3 class="text-white font-semibold text-sm uppercase tracking-wider mb-2">
+                            Projet porté par
+                          </h3>
+                          <p class="text-zinc-400 text-sm leading-relaxed">{data.porteur}</p>
+                        </div>
+                      )}
 
-                  {data.diffuseur && (
-                    <div>
-                      <h3 class="text-white font-semibold text-sm uppercase tracking-wider mb-2">
-                        Diffusion
-                      </h3>
-                      <p class="text-zinc-400 text-sm">{data.diffuseur}</p>
-                    </div>
-                  )}
+                      {data.diffuseur && (
+                        <div>
+                          <h3 class="text-white font-semibold text-sm uppercase tracking-wider mb-2">
+                            Diffusion
+                          </h3>
+                          <p class="text-zinc-400 text-sm">{data.diffuseur}</p>
+                        </div>
+                      )}
 
-                  {data.prestations && (
-                    <div>
-                      <h3 class="text-white font-semibold text-sm uppercase tracking-wider mb-3">
-                        Ce que nous avons assuré
-                      </h3>
-                      <ul class="space-y-2">
-                        {data.prestations.map((presta) => (
-                          <li class="text-zinc-400 text-sm flex gap-2">
-                            <span class="text-red-500/70 shrink-0" aria-hidden="true">›</span>
-                            <span>{presta}</span>
-                          </li>
-                        ))}
-                      </ul>
+                      {data.prestations && (
+                        <div>
+                          <h3 class="text-white font-semibold text-sm uppercase tracking-wider mb-3">
+                            Ce que nous avons assuré
+                          </h3>
+                          <ul class="space-y-2">
+                            {data.prestations.map((presta) => (
+                              <li class="text-zinc-400 text-sm flex gap-2">
+                                <span class="text-red-500/70 shrink-0" aria-hidden="true">›</span>
+                                <span>{presta}</span>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      )}
                     </div>
                   )}
                 </aside>
