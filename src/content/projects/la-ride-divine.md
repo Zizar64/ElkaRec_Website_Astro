@@ -2,6 +2,8 @@
 title: "La Ride Divine"
 description: "Carnaval roulant et participatif dans les rues de Tournefeuille. Ateliers vidéo avec les enfants, puis captation et retransmission en direct mêlant leurs téléphones à nos caméras."
 type: realisation
+ville: "Tournefeuille (31)"
+accroche: "Carnaval roulant avec L'Usine et la ville. Ateliers vidéo avec les enfants, puis captation et retransmission en direct."
 category: "Captation participative et direct"
 tags: ["Direct", "Drone", "Ateliers", "Spectacle de rue"]
 date: 2021-06-19

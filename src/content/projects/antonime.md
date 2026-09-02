@@ -2,6 +2,8 @@
 title: "Anto'nime"
 description: "Convention manga, cosplay et culture japonaise à Antony. Deux éditions couvertes en direct, huit heures d'antenne, dix caméras, un plateau de présentation et tout l'audio d'antenne."
 type: realisation
+ville: "Antony (92)"
+accroche: "Convention manga et cosplay, deux éditions. Huit heures de direct par édition, dix caméras et un plateau de présentation."
 category: "Direct et plateau télé"
 tags: ["Convention", "Direct", "Plateau", "Antony"]
 date: 2025-09-28

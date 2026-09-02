@@ -2,6 +2,8 @@
 title: "Fêtes d'Espoey"
 description: "Podium DJ, sonorisation et éclairage sur les deux jours des fêtes du village, dans les Pyrénées-Atlantiques."
 type: realisation
+ville: "Espoey (64)"
+accroche: "Podium DJ, son et lumière sur les deux jours des fêtes du village, dans les Pyrénées-Atlantiques."
 category: "Sonorisation et éclairage"
 tags: ["Sonorisation", "Lumière", "Podium DJ", "Municipal"]
 date: 2020-01-25

@@ -2,6 +2,8 @@
 title: "Les Nouveaux Sauvages"
 description: "Deux soirées de concerts captées et retransmises en direct depuis la salle des Nouveaux Sauvages à Montreuil, avec l'association Tapages Events."
 type: realisation
+ville: "Montreuil (93)"
+accroche: "Deux soirées de concerts retransmises en direct depuis la salle de Montreuil, avec Tapages Events."
 category: "Captation et diffusion de concert"
 tags: ["Concert", "Direct", "Multicaméra", "Montreuil"]
 date: 2025-05-09

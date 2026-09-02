@@ -2,6 +2,8 @@
 title: "FAR'n HIGH 2026"
 description: "18e édition de la compétition internationale de skateboard Pro/Am. Régie complète et diffusion mondiale en direct, suivie par plus de 15 000 spectateurs."
 type: realisation
+ville: "Villiers-sur-Orge (91)"
+accroche: "18e édition, du 7 au 10 mai 2026. Régie de diffusion complète pour un direct suivi par plus de 15 000 spectateurs. Prestation facturée, et le client reconduit en 2027."
 category: "Captation et diffusion en direct"
 tags: ["Multicaméra", "Direct", "Sport", "International"]
 date: 2026-05-07

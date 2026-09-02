@@ -2,6 +2,8 @@
 title: "Fête du quartier du Cos"
 description: "Podium DJ, sonorisation et éclairage pour la fête de quartier de Saint-Mont, dans le Gers, organisée chaque fin juillet par le foyer rural."
 type: realisation
+ville: "Saint-Mont (32)"
+accroche: "Podium DJ, son et lumière pour la fête de quartier, dans le Gers, avec le foyer rural."
 category: "Sonorisation et éclairage"
 tags: ["Sonorisation", "Lumière", "Podium DJ", "Municipal"]
 date: 2019-07-27

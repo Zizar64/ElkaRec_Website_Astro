@@ -2,6 +2,8 @@
 title: "Chibertrail 2020"
 description: "Sonorisation et animation DJ de la zone d'arrivée sur les deux jours de course du trail d'Anglet, et tournage de l'aftermovie."
 type: realisation
+ville: "Anglet (64)"
+accroche: "Sonorisation et animation DJ de l'arrivée du trail sur deux jours, et tournage de l'aftermovie."
 category: "Sonorisation et aftermovie"
 tags: ["Sonorisation", "DJ", "Sport", "Aftermovie"]
 date: 2020-02-22

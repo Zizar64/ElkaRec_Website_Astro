@@ -17,6 +17,13 @@ const projects = defineCollection({
     // captation en ligne). Les entrees generiques historiques ne les ont pas,
     // d'ou l'optionnel partout : la carte n'affiche que ce qui est renseigne.
     lieu: z.string().optional(),
+    // Ville seule, pour les cartes de l'accueil : `lieu` porte l'adresse
+    // complete, bien trop longue pour une ligne de meta sur une carte.
+    ville: z.string().optional(),
+    // Accroche de l'accueil. Peut porter un argument commercial que la
+    // description SEO n'a pas a porter (« prestation facturee, reconduite »).
+    // A defaut, la carte retombe sur description.
+    accroche: z.string().optional(),
     periode: z.string().optional(),
     diffuseur: z.string().optional(),
     porteur: z.string().optional(),

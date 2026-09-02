@@ -1,4 +1,5 @@
 ---
+import { getCollection } from 'astro:content';
 import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
@@ -12,45 +13,25 @@ import logovidelio from '../assets/images/logovidelio.webp';
 import logoequipe from '../assets/images/logoequipe.webp';
 import logoixi from '../assets/images/logoixi.webp';
 
-// Références validées avec Lucas le 2026-08-13. L'ordre est imposé :
-// FAR'n HIGH en tête, c'est la seule prestation facturée, payée et reconduite.
-const references = [
-  {
-    nom: "FAR'n HIGH 2026",
-    detail: "18e édition, du 7 au 10 mai 2026 à Villiers-sur-Orge (91). Régie de diffusion complète pour un direct suivi par plus de 15 000 spectateurs. Prestation facturée, et le client reconduit en 2027.",
-  },
-  {
-    nom: 'La Ride Divine',
-    detail: "Carnaval roulant à Tournefeuille, avec L'Usine et la ville. Ateliers vidéo avec les enfants, puis captation et retransmission en direct.",
-  },
-  {
-    nom: "Fêtes d'Espoey 2020",
-    detail: "Podium DJ, son et lumière sur les deux jours des fêtes du village, dans les Pyrénées-Atlantiques (64).",
-  },
-  {
-    nom: 'Fête du quartier du Cos',
-    detail: "Podium DJ, son et lumière pour la fête de quartier de Saint-Mont, dans le Gers, avec le foyer rural.",
-  },
-  {
-    nom: 'Chibertrail 2020',
-    detail: "Sonorisation et animation DJ de l'arrivée du trail d'Anglet sur deux jours, et tournage de l'aftermovie.",
-  },
-  {
-    nom: 'La Dame de Canton',
-    detail: "Concert retransmis en direct depuis une jonque sur les quais de Paris, cinq caméras, avec Tapages Events.",
-  },
-  {
-    nom: 'Les Nouveaux Sauvages',
-    detail: "Deux soirées de concerts retransmises en direct depuis la salle de Montreuil, avec Tapages Events.",
-  },
-  {
-    nom: "Anto'nime",
-    detail: "Convention manga et cosplay à Antony, deux éditions. Huit heures de direct par édition, dix caméras et un plateau de présentation.",
-  },
-  {
-    nom: 'Téléthon Gaming',
-    detail: 'Streaming multicaméra sur une opération caritative.',
-  },
+// Les références viennent de la collection projects : une réalisation
+// est décrite à UN seul endroit, sa fiche. Le tableau codé en dur qui
+// vivait ici a dérivé deux fois de la fiche correspondante — d'où sa
+// suppression. Le champ `accroche` de la fiche porte le texte de la
+// carte, `description` reste le texte de référencement.
+//
+// L'ordre est le tri par date décroissante, ce qui met FAR'n HIGH en
+// tête : c'est la seule prestation facturée, payée et reconduite, et
+// l'ordre voulu par Lucas le 2026-08-13 est donc respecté sans avoir
+// à le forcer.
+const realisations = (await getCollection('projects', ({ data }) => data.type === 'realisation')).sort(
+  (a, b) => (b.data.date?.valueOf() || 0) - (a.data.date?.valueOf() || 0)
+);
+
+// Références réelles qui n'ont pas encore de fiche détaillée. Elles
+// restent citées, sans lien, plutôt que d'être perdues. À vider au fur
+// et à mesure que les fiches sont écrites.
+const referencesSansFiche = [
+  'Téléthon Gaming, streaming multicaméra sur une opération caritative',
 ];
 ---
 
@@ -106,15 +87,66 @@ const references = [
   <section class="py-20 bg-zinc-900/50">
     <div class="container mx-auto px-6">
       <div class="max-w-6xl mx-auto">
-        <h2 class="text-4xl font-bold text-center mb-16 text-white">Ce que nous avons fait</h2>
+        <h2 class="text-4xl font-bold text-center mb-4 text-white">Ce que nous avons fait</h2>
+        <p class="text-zinc-400 text-center mb-12 max-w-2xl mx-auto leading-relaxed">
+          Des événements réels, datés, avec les moyens engagés et les captations
+          à revoir. Chaque carte mène à la fiche détaillée.
+        </p>
+
+        {/* Chaque carte est un lien profond vers sa fiche sur /realisations.
+            Avant, l'accueil décrivait ces références sans jamais y renvoyer :
+            le maillage interne ne tenait qu'au menu et au pied de page. */}
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {references.map((ref) => (
-            <div class="bg-zinc-900 p-6 rounded-xl border border-zinc-800 hover:border-red-500/50 transition-all">
-              <h3 class="text-lg font-bold text-white mb-2">{ref.nom}</h3>
-              <p class="text-zinc-400 leading-relaxed">{ref.detail}</p>
-            </div>
+          {realisations.map((r, index) => (
+            <a
+              href={`/realisations#${r.slug}`}
+              class={`group flex flex-col bg-zinc-900 rounded-xl border border-zinc-800 hover:border-red-500/50 hover:bg-zinc-900/80 transition-all p-6 ${index === 0 ? 'md:col-span-2' : ''}`}
+            >
+              <span class="text-red-500 text-xs font-semibold uppercase tracking-wider">
+                {r.data.category}
+              </span>
+
+              <h3 class="text-lg font-bold text-white mt-2 group-hover:text-red-400 transition-colors">
+                {r.data.title}
+              </h3>
+
+              {(r.data.periode || r.data.ville) && (
+                <p class="text-zinc-500 text-xs mt-1">
+                  {r.data.date && (
+                    <time datetime={r.data.date.toISOString().slice(0, 10)}>{r.data.periode}</time>
+                  )}
+                  {r.data.periode && r.data.ville ? ' · ' : ''}
+                  {r.data.ville}
+                </p>
+              )}
+
+              <p class="text-zinc-400 leading-relaxed mt-3 flex-1">
+                {r.data.accroche || r.data.description}
+              </p>
+
+              <div class="flex items-center justify-between gap-4 mt-4 pt-4 border-t border-zinc-800">
+                {r.data.chiffres ? (
+                  <span class="text-sm">
+                    <span class="text-red-500 font-bold">{r.data.chiffres[0].valeur}</span>
+                    <span class="text-zinc-500"> {r.data.chiffres[0].label}</span>
+                  </span>
+                ) : (
+                  <span></span>
+                )}
+                <span class="text-red-500 text-sm font-semibold shrink-0 group-hover:translate-x-1 transition-transform">
+                  Voir la fiche →
+                </span>
+              </div>
+            </a>
           ))}
         </div>
+
+        {referencesSansFiche.length > 0 && (
+          <p class="text-zinc-500 text-sm text-center mt-8">
+            Également : {referencesSansFiche.join(', ')}.
+          </p>
+        )}
+
         <div class="text-center mt-12">
           <a
             href="/realisations"
