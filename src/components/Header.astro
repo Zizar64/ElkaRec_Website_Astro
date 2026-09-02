@@ -24,6 +24,12 @@ const navItems = [
 // avec slash. Comparée à un href écrit sans slash, l'égalité était toujours
 // fausse et aucune entrée de menu ne s'allumait, sauf l'accueil.
 const currentPath = Astro.url.pathname;
+
+// Une fiche de réalisation vit sous /realisations/<slug>/ : l'égalité stricte
+// n'allumerait « Réalisations » que sur la page liste. On teste donc le
+// préfixe, sauf pour l'accueil dont le chemin « / » préfixe tout le site.
+const estActif = (href) =>
+  href === '/' ? currentPath === '/' : currentPath.startsWith(href);
 ---
 
 <header class="fixed top-0 w-full z-50 bg-zinc-950/80 backdrop-blur-lg border-b border-zinc-800">
@@ -48,7 +54,7 @@ const currentPath = Astro.url.pathname;
             <a
               href={item.href}
               class={`text-sm font-medium transition-colors hover:text-red-400 ${
-                currentPath === item.href ? 'text-red-400' : 'text-zinc-300'
+                estActif(item.href) ? 'text-red-400' : 'text-zinc-300'
               }`}
             >
               {item.name}
@@ -79,7 +85,7 @@ const currentPath = Astro.url.pathname;
             <a
               href={item.href}
               class={`block text-sm font-medium transition-colors hover:text-red-400 ${
-                currentPath === item.href ? 'text-red-400' : 'text-zinc-300'
+                estActif(item.href) ? 'text-red-400' : 'text-zinc-300'
               }`}
             >
               {item.name}

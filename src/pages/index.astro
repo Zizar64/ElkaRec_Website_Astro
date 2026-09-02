@@ -92,13 +92,13 @@ const referencesSansFiche = [
           à revoir. Chaque carte mène à la fiche détaillée.
         </p>
 
-        {/* Chaque carte est un lien profond vers sa fiche sur /realisations.
-            Avant, l'accueil décrivait ces références sans jamais y renvoyer :
-            le maillage interne ne tenait qu'au menu et au pied de page. */}
+        {/* Chaque carte mène à la page de sa réalisation. Avant, l'accueil
+            décrivait ces références sans jamais y renvoyer : le maillage
+            interne ne tenait qu'au menu et au pied de page. */}
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {realisations.map((r, index) => (
             <a
-              href={`/realisations/#${r.slug}`}
+              href={`/realisations/${r.slug}/`}
               class={`group flex flex-col bg-zinc-900 rounded-xl border border-zinc-800 hover:border-red-500/50 hover:bg-zinc-900/80 transition-all p-6 ${index === 0 ? 'md:col-span-2' : ''}`}
             >
               <span class="text-red-500 text-xs font-semibold uppercase tracking-wider">

@@ -20,6 +20,10 @@ const projects = defineCollection({
     // Ville seule, pour les cartes de l'accueil : `lieu` porte l'adresse
     // complete, bien trop longue pour une ligne de meta sur une carte.
     ville: z.string().optional(),
+    // Regroupement geographique de la page liste. L'ancrage vise est
+    // Antony et l'Ile-de-France : les realisations franciliennes passent
+    // devant, les autres prouvent la portee sans diluer le signal local.
+    region: z.enum(['idf', 'france']).default('france'),
     // Accroche de l'accueil. Peut porter un argument commercial que la
     // description SEO n'a pas a porter (« prestation facturee, reconduite »).
     // A defaut, la carte retombe sur description.

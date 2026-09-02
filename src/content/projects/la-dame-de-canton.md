@@ -2,6 +2,7 @@
 title: "La Dame de Canton"
 description: "Captation et retransmission en direct d'une soirée concert sur une jonque amarrée sur la Seine, avec cinq caméras et une régie embarquée."
 type: realisation
+region: idf
 ville: "Paris 13e"
 accroche: "Concert retransmis en direct depuis une jonque sur les quais de Paris, cinq caméras, avec Tapages Events."
 category: "Captation et diffusion de concert"

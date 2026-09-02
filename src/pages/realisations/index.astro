@@ -1,0 +1,161 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+
+// Page pivot. Elle ne porte plus le récit de chaque réalisation — chacune a
+// sa propre URL depuis /realisations/<slug>/ — mais la liste qui y mène.
+// Répéter ici le contenu des fiches créerait deux pages disant la même
+// chose, et elles se concurrenceraient.
+//
+// Le regroupement par zone n'est pas décoratif : l'ancrage visé est Antony
+// et l'Île-de-France, or les réalisations du Sud-Ouest tiraient le contenu
+// dans une direction que le balisage ne déclare pas. Les franciliennes
+// passent devant, les autres prouvent la portée sans diluer le signal.
+const toutes = (await getCollection('projects', ({ data }) => data.type === 'realisation')).sort(
+  (a, b) => (b.data.date?.valueOf() || 0) - (a.data.date?.valueOf() || 0)
+);
+
+const groupes = [
+  {
+    id: 'ile-de-france',
+    titre: 'En Île-de-France',
+    intro:
+      "Nous sommes installés à Antony (92) et intervenons couramment dans les Hauts-de-Seine, l'Essonne, la Seine-Saint-Denis et Paris.",
+    items: toutes.filter((r) => r.data.region === 'idf'),
+  },
+  {
+    id: 'ailleurs-en-france',
+    titre: 'Ailleurs en France',
+    intro:
+      "Nous nous déplaçons au-delà de l'Île-de-France quand le projet le justifie, pour des communes, des comités des fêtes et des organisateurs d'événements.",
+    items: toutes.filter((r) => r.data.region !== 'idf'),
+  },
+];
+
+const schema = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Accueil', item: 'https://elkarec.fr/' },
+      { '@type': 'ListItem', position: 2, name: 'Réalisations', item: 'https://elkarec.fr/realisations/' },
+    ],
+  },
+  // Pas de VideoObject sur les captations : les vidéos sont hébergées sur
+  // YouTube et ne sont pas lues sur cette page, le baliser serait faux au
+  // sens des consignes de Google.
+  {
+    '@context': 'https://schema.org',
+    '@type': 'ItemList',
+    name: 'Réalisations ElkaRec',
+    itemListOrder: 'https://schema.org/ItemListOrderDescending',
+    numberOfItems: toutes.length,
+    itemListElement: toutes.map((r, index) => ({
+      '@type': 'ListItem',
+      position: index + 1,
+      name: r.data.title,
+      description: r.data.description,
+      url: `https://elkarec.fr/realisations/${r.slug}/`,
+    })),
+  },
+];
+---
+
+<Layout
+  title="Nos réalisations - captation et sonorisation - ElkaRec, Antony (92)"
+  description="Les événements couverts par ElkaRec depuis Antony (92) : régie multicaméra, diffusion en direct, sonorisation. Dates, lieux, moyens engagés et captations."
+  schema={schema}
+>
+  <Header />
+
+  <main id="main-content">
+    <section class="container mx-auto px-6 pt-32 pb-12">
+      <div class="max-w-4xl mx-auto text-center">
+        <h1 class="text-4xl md:text-6xl font-bold text-white mb-6">Nos réalisations</h1>
+        <p class="text-lg md:text-xl text-zinc-400 leading-relaxed">
+          Les événements que nous avons couverts, avec les moyens réellement
+          engagés et les captations à revoir. Pas une liste de savoir-faire :
+          des dates, des lieux et des directs.
+        </p>
+      </div>
+    </section>
+
+    {groupes.map((groupe) => groupe.items.length > 0 && (
+      <section class="container mx-auto px-6 pb-16">
+        <div class="max-w-6xl mx-auto">
+          <h2 id={groupe.id} class="text-3xl font-bold text-white mb-3 scroll-mt-24">
+            {groupe.titre}
+          </h2>
+          <p class="text-zinc-400 leading-relaxed mb-8 max-w-3xl">{groupe.intro}</p>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {groupe.items.map((r) => (
+              <a
+                href={`/realisations/${r.slug}/`}
+                class="group flex flex-col bg-zinc-900 rounded-xl border border-zinc-800 hover:border-red-500/50 transition-all p-6"
+              >
+                <span class="text-red-500 text-xs font-semibold uppercase tracking-wider">
+                  {r.data.category}
+                </span>
+
+                <h3 class="text-xl font-bold text-white mt-2 group-hover:text-red-400 transition-colors">
+                  {r.data.title}
+                </h3>
+
+                {(r.data.periode || r.data.ville) && (
+                  <p class="text-zinc-500 text-xs mt-1">
+                    {r.data.date && (
+                      <time datetime={r.data.date.toISOString().slice(0, 10)}>{r.data.periode}</time>
+                    )}
+                    {r.data.periode && r.data.ville ? ' · ' : ''}
+                    {r.data.ville}
+                  </p>
+                )}
+
+                <p class="text-zinc-400 text-sm leading-relaxed mt-3 flex-1">
+                  {r.data.accroche || r.data.description}
+                </p>
+
+                <div class="flex items-center justify-between gap-4 mt-4 pt-4 border-t border-zinc-800">
+                  {r.data.chiffres ? (
+                    <span class="text-sm">
+                      <span class="text-red-500 font-bold">{r.data.chiffres[0].valeur}</span>
+                      <span class="text-zinc-500"> {r.data.chiffres[0].label}</span>
+                    </span>
+                  ) : (
+                    <span></span>
+                  )}
+                  <span class="text-red-500 text-sm font-semibold shrink-0 group-hover:translate-x-1 transition-transform">
+                    Lire la fiche →
+                  </span>
+                </div>
+              </a>
+            ))}
+          </div>
+        </div>
+      </section>
+    ))}
+
+    <section class="container mx-auto px-6 py-16 border-t border-zinc-800">
+      <div class="max-w-3xl mx-auto text-center">
+        <h2 class="text-3xl font-bold text-white mb-4">Un événement à couvrir ?</h2>
+        <p class="text-zinc-400 mb-8 leading-relaxed">
+          Nous répondons sous 48 heures, avec un chiffrage détaillé.
+          Les tarifs planchers sont publiés sur la page services.
+        </p>
+        <div class="flex flex-wrap gap-4 justify-center">
+          <a href="/contact/" class="bg-red-600 hover:bg-red-500 text-white font-semibold px-8 py-4 rounded-lg transition-colors">
+            Demander un devis
+          </a>
+          <a href="/services/" class="border border-zinc-700 hover:border-red-500/50 text-white font-semibold px-8 py-4 rounded-lg transition-colors">
+            Voir les services et tarifs
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</Layout>
